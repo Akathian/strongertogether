@@ -1,1 +1,45 @@
-<p>blog works!</p>
+<div class="container mt-5">
+  <app-blog-nav></app-blog-nav>
+  <div *ngFor="let post of posts | keyvalue" class="post row my-3">
+    <div class="col-sm-12 col-md-12 col-lg-6 p-0">
+      <a [href]="post.value.href">
+        <img width="100%" [src]="post.value.cover" />
+      </a>
+    </div>
+    <div class="d-flex col-sm-12 col-md-12 col-lg-6 px-5 p-2">
+      <div class="align-self-center">
+        <small>
+          <div class="row justify-content-start">
+            <div class="col-2 p-0 rounded-circle">
+              <img [src]="post.value.authorImg" width="100%" />
+            </div>
+            <div class="d-flex flex-column p-0 ml-3 justify-content-center">
+              <div class="">
+                {{ post.value.authorName }}
+              </div>
+              <div class="text-muted">
+                <small>
+                  {{ post.value.parsedTime }}&middot;
+                  {{ post.value.parsedReadTime }}
+                </small>
+              </div>
+            </div>
+          </div>
+        </small>
+        <a [href]="post.value.href">
+          <h5>{{ post.value.title }}</h5>
+        </a>
+        <a class="blurb-link" [href]="post.value.href">
+          <p class="text-muted blurb">{{ post.value.content }}</p>
+        </a>
+        <hr class="mt-0" />
+        <small>
+          <div class="row text-muted ml-1 mb-3">
+            <div class="mr-2">0 views</div>
+            <div class="mr-2">0 comments</div>
+          </div>
+        </small>
+      </div>
+    </div>
+  </div>
+</div>

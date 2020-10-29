@@ -15,8 +15,12 @@ import { TitleComponent } from './components/home/title/title.component';
 import { SlideshowComponent } from './components/home/slideshow/slideshow.component';
 import { GlanceComponent } from './components/home/glance/glance.component';
 import { QuoteComponent } from './components/home/quote/quote.component';
+import { ProgramsComponent } from './components/programs/programs.component';
 
 import { SlickCarouselModule } from 'ngx-slick-carousel';
+import { PostComponent } from './components/blog/post/post.component';
+import { BlogNavComponent } from './components/blog/blog-nav/blog-nav.component';
+// import { EditorModule } from '@tinymce/tinymce-angular';
 
 @NgModule({
   declarations: [
@@ -33,11 +37,14 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
     SlideshowComponent,
     GlanceComponent,
     QuoteComponent,
+    ProgramsComponent,
+    PostComponent,
+    BlogNavComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    SlickCarouselModule
+    SlickCarouselModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
