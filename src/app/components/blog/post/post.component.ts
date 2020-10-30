@@ -28,4 +28,8 @@ export class PostComponent implements OnInit {
       self.post = postData.val()
     })
   }
+
+  sort(event){
+    console.log(event.target.options.selectedIndex)
+  }
 }
