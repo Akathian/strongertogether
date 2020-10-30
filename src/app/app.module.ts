@@ -21,6 +21,8 @@ import { ProgramsComponent } from './components/programs/programs.component';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { PostComponent } from './components/blog/post/post.component';
 import { BlogNavComponent } from './components/blog/blog-nav/blog-nav.component';
+import { CommentsComponent } from './components/blog/post/comments/comments.component';
+import { RepliesComponent } from './components/blog/post/replies/replies.component';
 // import { EditorModule } from '@tinymce/tinymce-angular';
 
 @NgModule({
@@ -41,6 +43,8 @@ import { BlogNavComponent } from './components/blog/blog-nav/blog-nav.component'
     ProgramsComponent,
     PostComponent,
     BlogNavComponent,
+    CommentsComponent,
+    RepliesComponent,
   ],
   imports: [
     BrowserModule,

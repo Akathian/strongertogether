@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import firebase from 'firebase/app'
 import 'firebase/database'
+import { SortService } from '../../../services/sort.service'
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
@@ -9,7 +10,7 @@ import 'firebase/database'
 })
 export class PostComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private sortService: SortService) { }
   id;
   time;
   title;
@@ -30,6 +31,8 @@ export class PostComponent implements OnInit {
   }
 
   sort(event){
-    console.log(event.target.options.selectedIndex)
+    let i = event.target.options.selectedIndex
+    let option = event.target.options[i].value
+    this.sortService.sort(option, this.post.comments)
   }
 }
