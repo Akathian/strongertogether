@@ -6,11 +6,12 @@ import { ProgramsComponent } from './components/programs/programs.component';
 import { BlogComponent } from './components/blog/blog.component';
 import { AboutComponent } from './components/about/about.component';
 import { ForumComponent } from './components/forum/forum.component';
+import { UserComponent } from './components/user/user.component';
 import { PostComponent } from './components/blog/post/post.component';
 
 import firebase from 'firebase/app'
 import 'firebase/analytics'
-// import firebase from 'firebase/analytics'
+import "firebase/auth";
 
 
 import { environment } from 'src/environments/environment';
@@ -25,7 +26,8 @@ const routes: Routes = [
   { path: 'about', component: AboutComponent },
   { path: 'forum', component: ForumComponent },
   { path: 'programs', component: ProgramsComponent },
-  { path: 'blog/:id/:time/:title', component: PostComponent }
+  { path: 'blog/:id/:time/:title', component: PostComponent },
+  { path: 'login', component: UserComponent },
 ];
 
 @NgModule({

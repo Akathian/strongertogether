@@ -25,6 +25,7 @@
     "@tinymce/tinymce-angular": "^4.2.0",
     "bootstrap": "^4.5.3",
     "firebase": "^8.0.0",
+    "firebaseui": "^4.7.0",
     "jquery": "^3.5.1",
     "ngx-slick-carousel": "^0.5.1",
     "rxjs": "~6.4.0",

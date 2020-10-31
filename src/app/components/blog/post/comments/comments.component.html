@@ -1,39 +1,41 @@
-<div class="row px-2 pt-2">
-  <div class="mr-2">
-    <img [src]="comment.authorImg" class="rounded-circle" width="32px" />
-  </div>
-  <div class="col justify-content-between">
-    <div class="row justify-content-between">
-      <div class="col-sm-8 col-md-9 col-lg-10">
-        {{ comment.authorName }}
-      </div>
-      <div class="col col-md-3 col-lg-2 pr-1">
-        {{ parsedTime }}
+<span class="commentContent">
+  <div class="row px-2 pt-2">
+    <div class="mr-2">
+      <img [src]="comment.authorImg" class="rounded-circle" width="32px" />
+    </div>
+    <div class="col justify-content-between">
+      <div class="row justify-content-between">
+        <div class="col-sm-8 col-md-9 col-lg-10">
+          {{ comment.authorName }}
+        </div>
+        <div class="col col-md-3 col-lg-2 pr-1">
+          {{ parsedTime }}
+        </div>
       </div>
     </div>
   </div>
-</div>
-<div class="row ml-5 mr-2">
-  {{ comment.content }}
-</div>
-<div class="col ml-5 px-2 my-2">
-  <div class="mb-3">
-    <div role="tab">
-      <div class="mb-0 d-flex">
-        <a
-          data-toggle="collapse"
-          [href]="href"
-          aria-expanded="false"
-          class="collapsed"
-        >
-          Show Replies
-        </a>
+  <div class="row ml-5 mr-2">
+    {{ comment.content }}
+  </div>
+  <div class="col ml-4 my-2">
+    <div class="mb-3">
+      <div role="tab">
+        <div class="mb-0 d-flex">
+          <a
+            data-toggle="collapse"
+            [href]="href"
+            aria-expanded="false"
+            class="collapsed"
+          >
+            Show Replies
+          </a>
+        </div>
       </div>
-    </div>
-    <div [id]="'id' + comment.time" class="collapse" role="tabpanel">
-      <div *ngFor="let reply of comment.replies" class="col m-3">
-        <app-replies [reply]="reply"></app-replies>
+      <div [id]="'id' + comment.time" class="collapse" role="tabpanel">
+        <div *ngFor="let reply of comment.replies" class="col m-3">
+          <app-replies [reply]="reply"></app-replies>
+        </div>
       </div>
     </div>
   </div>
-</div>
+</span>
