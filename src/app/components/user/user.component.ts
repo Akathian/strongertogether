@@ -11,7 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class UserComponent implements OnInit {
   user;
   userLoggedIn = true;
-  section;
+  section = 'profile';
   sections = [
     { name: 'Profile', id: 'profile' },
     { name: 'Bookings', id: 'bookings' },
@@ -42,6 +42,7 @@ export class UserComponent implements OnInit {
         }
         document.getElementById(this.section).style.color = '#80a0bd'
       } else {
+        this.section = 'profile'
         this.router.navigate(['/login/profile'], { relativeTo: this.route })
       }
     });
