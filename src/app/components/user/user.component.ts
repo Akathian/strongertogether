@@ -10,7 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class UserComponent implements OnInit {
   user;
-  userLoggedIn = false;
+  userLoggedIn = true;
   section;
   sections = [
     { name: 'Profile', id: 'profile' },
