@@ -9,11 +9,15 @@ import { UserService } from '../../../services/user.service'
 export class AccNavComponent implements OnInit {
   @Input() user;
   @Input() sections;
-
+  width;
   constructor(private userService: UserService) { }
 
   ngOnInit() {
-
+    let self =this
+    this.width = window.innerWidth
+    window.addEventListener('resize', () => {
+      self.width = window.innerWidth
+    })
   }
 
   signOut() {
