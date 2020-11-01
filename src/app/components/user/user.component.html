@@ -1,5 +1,11 @@
 <div id="firebaseui-auth-container"></div>
 <span *ngIf="userLoggedIn">
-  Hello {{ user.displayName }}
-  <button class="btn btn-dark" (click)="signOut()">Sign Out</button>
+  <div class="container mt-5">
+    <div class="col-lg-4 col-md-4 col-sm-12">
+      <app-acc-nav [user]="user" [sections]="sections"></app-acc-nav>
+    </div>
+    <div class="col-8">
+      
+    </div>
+  </div>
 </span>
