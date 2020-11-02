@@ -33,6 +33,9 @@ import { DraftsComponent } from './components/user/drafts/drafts.component';
 import { ForumCommentsComponent } from './components/user/forum-comments/forum-comments.component';
 import { ForumPostsComponent } from './components/user/forum-posts/forum-posts.component';
 // import { EditorModule } from '@tinymce/tinymce-angular';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { BlogEditComponent } from './components/blog/blog-edit/blog-edit.component';
+
 
 @NgModule({
   declarations: [
@@ -63,6 +66,7 @@ import { ForumPostsComponent } from './components/user/forum-posts/forum-posts.c
     DraftsComponent,
     ForumCommentsComponent,
     ForumPostsComponent,
+    BlogEditComponent,
   ],
   imports: [
     BrowserModule,
@@ -70,6 +74,7 @@ import { ForumPostsComponent } from './components/user/forum-posts/forum-posts.c
     SlickCarouselModule,
     FormsModule,
     ReactiveFormsModule,
+    CKEditorModule
   ],
   providers: [],
   bootstrap: [AppComponent]

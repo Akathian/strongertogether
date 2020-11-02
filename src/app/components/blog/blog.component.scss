@@ -1,8 +1,8 @@
 .blurb {
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
+    overflow: hidden !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 5 !important;
+    -webkit-box-orient: vertical !important;
 }
 
 .post {
@@ -19,3 +19,7 @@ a {
 .blurb-link {
     text-decoration: none;
 }
+
+// .ck-content h1, .ck-content h2, .ck-content h3, .ck-content h4, .ck-content h5, .ck-content h6 {
+//     font-size: 0px !important;
+// }

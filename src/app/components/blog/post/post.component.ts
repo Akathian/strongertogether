@@ -15,11 +15,13 @@ export class PostComponent implements OnInit {
   time;
   title;
   post;
+  editLink;
   ngOnInit() {
     this.route.paramMap.subscribe(async params => {
       this.id = +params.get('id');
       this.time = +params.get('time')
       this.title = params.get('title')
+      this.editLink = `/blog/${this.id}/${this.time}/${this.title}/edit`
       this.getPost()
     });
   }

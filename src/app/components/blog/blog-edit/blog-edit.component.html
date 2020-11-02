@@ -1,0 +1,14 @@
+<ckeditor
+  [editor]="Editor"
+  [data]="postContent"
+  (change)="onChange($event)"
+  #editor
+></ckeditor>
+<div>
+  <button
+    class="btn btn-dark disabled rounded-0"
+    id="saveBtn"
+    (click)="save()"
+    [innerHTML]="saveStatus"
+  ></button>
+</div>
