@@ -27,12 +27,10 @@ const routes: Routes = [
   { path: 'about', component: AboutComponent },
   { path: 'forum', component: ForumComponent },
   { path: 'programs', component: ProgramsComponent },
-  { path: 'blog/:id/:time/:title', component: PostComponent },
-  { path: 'blog/:id/:time/:title/edit', component: BlogEditComponent },
-  { path: 'blog/:create', component: BlogEditComponent },
+  { path: 'blog/:id/:time', component: PostComponent },
+  { path: 'blog/:type/:id/:time/edit', component: BlogEditComponent },
   { path: 'login', component: UserComponent },
   { path: 'login/:section', component: UserComponent },
-
 ];
 
 @NgModule({

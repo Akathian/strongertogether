@@ -68,9 +68,8 @@
         </div>
       </form>
     </div>
-
     <div *ngFor="let comment of post.comments" class="col border m-2 pt-3">
-      <app-comments [comment]="comment"></app-comments>
-    </div>
+        <app-comments [comment]="comment"></app-comments>
+      </div>
   </div>
 </div>

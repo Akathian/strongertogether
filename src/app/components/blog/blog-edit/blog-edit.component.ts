@@ -20,7 +20,7 @@ export class BlogEditComponent implements  AfterViewInit {
   autoSaveStarted = false
   lastSaved = 'Never'
   lastModified = 'Never'
-  saveStatus = `<small>No Changes<small>`
+  saveStatus = `<small>No Changes</small>`
   data
   queuedForSave = false
   saveTimer
@@ -31,68 +31,96 @@ export class BlogEditComponent implements  AfterViewInit {
   dbURL;
   uid;
   create;
+  type
+  ref
   public postContent = '';
   constructor(private messenger: MessengerService, private route: ActivatedRoute , private router: Router) { }
 
   ngAfterViewInit() {
     this.route.paramMap.subscribe(async params => {
-      this.id = +params.get('id');
-      this.create = params.get('create')
-      this.time = +params.get('time')
-      this.title = params.get('title')
+      this.id = params.get('id');
+      this.type = params.get('type')
       let self = this
-      console.log(this.create)
-      if(!this.create) {
-        firebase.database().ref('/blog/' + this.id).on('value', (blogData) => {
+
+      if(this.type === 'drafts') {
+        firebase.auth().onAuthStateChanged(function(user) {
+          self.ref = 'users/' + user.uid + '/drafts'
+          self.create = params.get('create') === 'create'
+          self.time = +params.get('time')
+          self.title = params.get('title')
+          firebase.database().ref(`/${self.ref}/` + self.id).once('value', (blogData) => {
+            firebase.auth().onAuthStateChanged(function(user) {
+              if(blogData.val()) {
+                if((user.uid !== blogData.val().uid))
+                {
+                  self.router.navigate([`/blog`], { relativeTo: self.route })
+                } else {
+                  self.postContent = blogData.val().content
+                  self.editorComponent.editorInstance.setData(self.postContent) 
+                }
+              } else {
+                self.router.navigate([`/blog`], { relativeTo: self.route })
+              }
+            })
+          })
+        })
+      } else if (this.type === 'post') {
+        firebase.database().ref(`/blog/` + self.id).once('value', (blogData) => {
           firebase.auth().onAuthStateChanged(function(user) {
-            if(user.uid !== blogData.val().uid)
-            {
-              self.router.navigate([`/blog/${self.id}/${self.time}/${self.title}`], { relativeTo: self.route })
+            if(blogData.val()) {
+              if((user.uid !== blogData.val().uid))
+              {
+                self.router.navigate([`/blog`], { relativeTo: self.route })
+              } else {
+                self.postContent = blogData.val().content
+                self.editorComponent.editorInstance.setData(self.postContent) 
+                console.log(self.postContent)
+              }
             } else {
-              self.postContent = blogData.val().content
-              self.editorComponent.editorInstance.setData(self.postContent) 
-              console.log(self.postContent)
+              self.router.navigate([`/blog`], { relativeTo: self.route })
             }
           })
-            }
-          )
-        }
-      })
-
+        })
+      }
+    })
   }
 
   public onChange( { editor }: ChangeEvent ) {
     const data = editor.getData();
     this.data = data
-    if(this.create) {
+    if(this.type === 'draft') {
       clearTimeout(this.saveTimer)
       this.saveTimer = setTimeout(() => {
         let d =  new Date()
         this.lastSaved = (d).toTimeString().split(' ')[0] + ' on ' + (d).toDateString()
-        this.saveStatus = `<small>Saved as Draft<small>`
+        this.saveStatus = `<small>Saved as Draft</small>`
         document.getElementById('saveBtn').classList.add('disabled')
         this.save()
       }, 10000)
-      if(!this.create) {
-        this.saveStatus = `<small>Publish<small>`
-      } else {
-        this.saveStatus = `<small>Save as Draft<small>`
-      }
-      document.getElementById('saveBtn').classList.remove('disabled')
     }
+    if(this.type === 'post') {
+      this.saveStatus = `<small>Publish</small>`
+    } else {
+      this.saveStatus = `<small>Save as Draft</small>`
+    }
+    document.getElementById('saveBtn').classList.remove('disabled')
   }
 
   save() {
-    // let updates = {}
-    // updates['/blog/' + this.id + '/content'] = this.data
-    // firebase.database().ref().update(updates)
-    if(!this.create) {
-      this.saveStatus = `<small>All Changes Published<small>`
+    let ref =''
+    if(this.type === 'post') {
+      this.saveStatus = `<small>All Changes Published</small>`
+      ref = '/blog/' + this.id + '/content'
     } else {
-      this.saveStatus = `<small>Saved as Draft<small>`
-
+      clearTimeout(this.saveTimer)
+      ref = `/${this.ref}/` + this.id + '/content'
+      this.saveStatus = `<small>Saved as Draft</small>`
     }
     document.getElementById('saveBtn').classList.add('disabled')
-    clearTimeout(this.saveTimer)
+    if(ref) {
+      let updates = {}
+      updates[ref] = this.data
+      firebase.database().ref().update(updates)
+    }
   }
 }

@@ -1,9 +1,11 @@
-<a href="/blog/create"><button class="btn btn-dark">New Post</button></a>
+<!-- <a href="/blog/create"><button class="btn btn-dark">New Post</button></a> -->
+<button class="btn btn-dark" (click)="newPost()">New Post</button>
+
 <div class="container mt-5">
   <app-blog-nav></app-blog-nav>
   <div *ngFor="let post of posts | keyvalue" class="post row my-3">
     <div class="col-sm-12 col-md-12 col-lg-6 p-0">
-      <a [href]="post.value.href">
+      <a [href]="'/blog/' + post.key + '/' + post.value.time">
         <img width="100%" [src]="post.value.cover" />
       </a>
     </div>
@@ -27,9 +29,12 @@
             </div>
           </div>
         </small>
-        <a [href]="post.value.href">
+        <a [href]="'/blog/' + post.key + '/' + post.value.time">
           <!-- <h5>{{ post.value.title }}</h5> -->
-          <a class="blurb-link" [href]="post.value.href">
+          <a
+            class="blurb-link"
+            [href]="'/blog/' + post.key + '/' + post.value.time"
+          >
             <!-- <p class="text-muted blurb ck-content">{{ post.value.content }}</p> -->
             <div
               class="ck-content blurb"
