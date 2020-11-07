@@ -40,13 +40,13 @@ export class BlogComponent implements OnInit {
             authorImg: user.photoURL,
             authorName: user.displayName,
             comments : [],
-            content : "Hello, World!",
+            content : "<h2>New Blog Post</h2><p>Content Here</p>",
             cover : "",
             parsedReadTime : "",
+            title: '',
             parsedTime: parsed,
             readTime : "",
             time : time,
-            title : "",
             uid : user.uid
           })
           window.location.href = `/blog/drafts/${postId}/${time}/edit`;

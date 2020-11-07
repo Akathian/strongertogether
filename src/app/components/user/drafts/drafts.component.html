@@ -1,2 +1,7 @@
-<p>drafts works!</p>
-
+<div class="container">
+  <div class="row" *ngFor="let draft of drafts | keyvalue">
+    <div class="col">
+      <a [href]="href + draft.key + 'edit'">{{ draft.key }}</a>
+    </div>
+  </div>
+</div>

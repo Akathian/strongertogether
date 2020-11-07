@@ -40,7 +40,9 @@ export class UserComponent implements OnInit {
         for(let i=0; i< document.getElementsByClassName('accNavElem').length; i ++){
           (<HTMLElement>document.getElementsByClassName('accNavElem')[i]).style.color = 'black'
         }
-        document.getElementById(this.section).style.color = '#80a0bd'
+        if(document.getElementById(this.section)) {
+          document.getElementById(this.section).style.color = '#80a0bd'
+        }
       } else {
         this.section = 'profile'
         this.router.navigate(['/login/profile'], { relativeTo: this.route })

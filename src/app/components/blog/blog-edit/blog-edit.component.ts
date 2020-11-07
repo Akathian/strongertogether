@@ -47,7 +47,6 @@ export class BlogEditComponent implements  AfterViewInit {
           self.ref = 'users/' + user.uid + '/drafts'
           self.create = params.get('create') === 'create'
           self.time = +params.get('time')
-          self.title = params.get('title')
           firebase.database().ref(`/${self.ref}/` + self.id).once('value', (blogData) => {
             firebase.auth().onAuthStateChanged(function(user) {
               if(blogData.val()) {
@@ -56,6 +55,7 @@ export class BlogEditComponent implements  AfterViewInit {
                   self.router.navigate([`/blog`], { relativeTo: self.route })
                 } else {
                   self.postContent = blogData.val().content
+                  self.title = blogData.val().title
                   self.editorComponent.editorInstance.setData(self.postContent) 
                 }
               } else {
@@ -73,6 +73,7 @@ export class BlogEditComponent implements  AfterViewInit {
                 self.router.navigate([`/blog`], { relativeTo: self.route })
               } else {
                 self.postContent = blogData.val().content
+                self.title = blogData.val().title
                 self.editorComponent.editorInstance.setData(self.postContent) 
                 console.log(self.postContent)
               }
@@ -88,12 +89,12 @@ export class BlogEditComponent implements  AfterViewInit {
   public onChange( { editor }: ChangeEvent ) {
     const data = editor.getData();
     this.data = data
-    if(this.type === 'draft') {
+    if(this.type === 'drafts') {
       clearTimeout(this.saveTimer)
       this.saveTimer = setTimeout(() => {
         let d =  new Date()
         this.lastSaved = (d).toTimeString().split(' ')[0] + ' on ' + (d).toDateString()
-        this.saveStatus = `<small>Saved as Draft</small>`
+        this.saveStatus = `<small>Autosaved as Draft</small>`
         document.getElementById('saveBtn').classList.add('disabled')
         this.save()
       }, 10000)
@@ -110,17 +111,39 @@ export class BlogEditComponent implements  AfterViewInit {
     let ref =''
     if(this.type === 'post') {
       this.saveStatus = `<small>All Changes Published</small>`
-      ref = '/blog/' + this.id + '/content'
+      ref = '/blog/' + this.id + '/'
     } else {
       clearTimeout(this.saveTimer)
-      ref = `/${this.ref}/` + this.id + '/content'
+      ref = `/${this.ref}/` + this.id + '/'
       this.saveStatus = `<small>Saved as Draft</small>`
     }
     document.getElementById('saveBtn').classList.add('disabled')
     if(ref) {
       let updates = {}
-      updates[ref] = this.data
+      updates[ref + 'content'] = this.data
+      updates[ref + 'title'] = this.title
+      console.log(updates)
       firebase.database().ref().update(updates)
     }
+  }
+
+  titleChange(event){
+    this.title = event
+    if(this.type === 'drafts') {
+      clearTimeout(this.saveTimer)
+      this.saveTimer = setTimeout(() => {
+        let d =  new Date()
+        this.lastSaved = (d).toTimeString().split(' ')[0] + ' on ' + (d).toDateString()
+        this.saveStatus = `<small>Autosaved as Draft</small>`
+        document.getElementById('saveBtn').classList.add('disabled')
+        this.save()
+      }, 10000)
+    }
+    if(this.type === 'post') {
+      this.saveStatus = `<small>Publish</small>`
+    } else {
+      this.saveStatus = `<small>Save as Draft</small>`
+    }
+    document.getElementById('saveBtn').classList.remove('disabled')
   }
 }

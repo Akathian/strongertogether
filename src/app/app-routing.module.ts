@@ -10,7 +10,7 @@ import { UserComponent } from './components/user/user.component';
 import { PostComponent } from './components/blog/post/post.component';
 import { BlogEditComponent } from './components/blog/blog-edit/blog-edit.component';
 
-import firebase from 'firebase/app'
+import firebase from 'firebase/app';
 import 'firebase/analytics'
 import "firebase/auth";
 
