@@ -1,1 +1,0 @@
-npm i @angular/animations@10.2.1 && npm i @angular/common@10.2.1 &&  npm i @angular/compiler@10.2.1 && npm i @angular/core@10.2.1 && npm i @angular/platform-browser@10.2.1 && npm i eslint@3.0.0 && npm i jasmine-core@3.5 && npm i zone.js@0.10.2 && npm i popper.js@1.16.1
