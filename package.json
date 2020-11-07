@@ -25,7 +25,6 @@
     "@ckeditor/ckeditor5-build-classic": "^23.1.0",
     "@ckeditor/ckeditor5-engine": "^23.1.0",
     "@firebase/app": "^0.6.12",
-    "@nguniversal/module-map-ngfactory-loader": "^8.2.6",
     "@tinymce/tinymce-angular": "^4.2.0",
     "bootstrap": "^4.5.3",
     "ckeditor5-build-classic-all-plugin": "^16.0.5",
