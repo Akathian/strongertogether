@@ -11,14 +11,14 @@ export class MessengerService {
   private subject = new Subject<any>();
 
   sendMessage(user) {
-      this.subject.next({ user });
+    this.subject.next({ user });
   }
 
   clearMessages() {
-      this.subject.next();
+    this.subject.next();
   }
 
   getMessage(): Observable<any> {
-      return this.subject.asObservable();
+    return this.subject.asObservable();
   }
 }

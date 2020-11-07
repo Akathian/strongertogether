@@ -18,12 +18,12 @@ export class DraftsComponent implements OnInit {
 
   getDrafts() {
     let self = this
-    firebase.auth().onAuthStateChanged(function(user){
-      if(user) {
-        firebase.database().ref('/users/' + user.uid + '/drafts').on('value', function(draftData){
-          if(draftData) {
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (user) {
+        firebase.database().ref('/users/' + user.uid + '/drafts').on('value', function (draftData) {
+          if (draftData) {
             self.drafts = draftData.val()
-            self.href = '/user/'+user.uid+'/drafts/'
+            self.href = '/user/' + user.uid + '/drafts/'
           }
         })
       }

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import * as firebaseui from 'firebaseui'
-import firebase from 'firebase'
+import firebase from 'firebase/app'
 import 'firebase/auth'
-import {MessengerService} from  './messenger.service'
+import { MessengerService } from './messenger.service'
 @Injectable({
   providedIn: 'root'
 })
@@ -13,7 +13,7 @@ export class UserService {
 
   renderAccInfo() {
     const self = this;
-    firebase.auth().onAuthStateChanged(function(user) {
+    firebase.auth().onAuthStateChanged(function (user) {
       const loginIMG = `<svg id='logoutImg' width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person-circle"
       fill="currentColor" xmlns="http://www.w3.org/2000/svg">
       <path
@@ -22,8 +22,8 @@ export class UserService {
       <path fill-rule="evenodd"
           d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z" />
   </svg>`;
-        self.user = user;
-        self.messenger.sendMessage(user)
+      self.user = user;
+      self.messenger.sendMessage(user)
       if (user) {
         // User is signed in.
         self.userLoggedIn = true;
@@ -50,17 +50,17 @@ export class UserService {
             window.location.assign('/privacy');
           }
         };
-        try {
-          const ui = firebaseui.auth.AuthUI.getInstance() || new firebaseui.auth.AuthUI(firebase.auth());
-          ui.start('#firebaseui-auth-container', uiConfig);
-        } catch (e) {
-        }
+        // try {
+        const ui = firebaseui.auth.AuthUI.getInstance() || new firebaseui.auth.AuthUI(firebase.auth());
+        ui.start('#firebaseui-auth-container', uiConfig);
+        // } catch (e) {
+        // }
       }
-    }, function() {
+    }, function () {
       //
     });
   }
   signOut() {
     firebase.auth().signOut();
-  } 
+  }
 }

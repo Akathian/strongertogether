@@ -36,7 +36,7 @@ export class PostComponent implements OnInit {
     })
   }
 
-  sort(event){
+  sort(event) {
     let i = event.target.options.selectedIndex
     let option = event.target.options[i].value
     this.sortService.sort(option, this.post.comments)

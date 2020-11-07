@@ -13,8 +13,8 @@ import { MessengerService } from '../../../services/messenger.service'
   templateUrl: './blog-edit.component.html',
   styleUrls: ['./blog-edit.component.scss']
 })
-export class BlogEditComponent implements  AfterViewInit {
-  @ViewChild('editor', {static : false}) editorComponent: CKEditorComponent;
+export class BlogEditComponent implements AfterViewInit {
+  @ViewChild('editor', { static: false }) editorComponent: CKEditorComponent;
   public Editor = ClassicEditor;
   autoSaveReady = true
   autoSaveStarted = false
@@ -34,7 +34,7 @@ export class BlogEditComponent implements  AfterViewInit {
   type
   ref
   public postContent = '';
-  constructor(private messenger: MessengerService, private route: ActivatedRoute , private router: Router) { }
+  constructor(private messenger: MessengerService, private route: ActivatedRoute, private router: Router) { }
 
   ngAfterViewInit() {
     this.route.paramMap.subscribe(async params => {
@@ -42,21 +42,20 @@ export class BlogEditComponent implements  AfterViewInit {
       this.type = params.get('type')
       let self = this
 
-      if(this.type === 'drafts') {
-        firebase.auth().onAuthStateChanged(function(user) {
+      if (this.type === 'drafts') {
+        firebase.auth().onAuthStateChanged(function (user) {
           self.ref = 'users/' + user.uid + '/drafts'
           self.create = params.get('create') === 'create'
           self.time = +params.get('time')
           firebase.database().ref(`/${self.ref}/` + self.id).once('value', (blogData) => {
-            firebase.auth().onAuthStateChanged(function(user) {
-              if(blogData.val()) {
-                if((user.uid !== blogData.val().uid))
-                {
+            firebase.auth().onAuthStateChanged(function (user) {
+              if (blogData.val()) {
+                if ((user.uid !== blogData.val().uid)) {
                   self.router.navigate([`/blog`], { relativeTo: self.route })
                 } else {
                   self.postContent = blogData.val().content
                   self.title = blogData.val().title
-                  self.editorComponent.editorInstance.setData(self.postContent) 
+                  self.editorComponent.editorInstance.setData(self.postContent)
                 }
               } else {
                 self.router.navigate([`/blog`], { relativeTo: self.route })
@@ -66,15 +65,14 @@ export class BlogEditComponent implements  AfterViewInit {
         })
       } else if (this.type === 'post') {
         firebase.database().ref(`/blog/` + self.id).once('value', (blogData) => {
-          firebase.auth().onAuthStateChanged(function(user) {
-            if(blogData.val()) {
-              if((user.uid !== blogData.val().uid))
-              {
+          firebase.auth().onAuthStateChanged(function (user) {
+            if (blogData.val()) {
+              if ((user.uid !== blogData.val().uid)) {
                 self.router.navigate([`/blog`], { relativeTo: self.route })
               } else {
                 self.postContent = blogData.val().content
                 self.title = blogData.val().title
-                self.editorComponent.editorInstance.setData(self.postContent) 
+                self.editorComponent.editorInstance.setData(self.postContent)
                 console.log(self.postContent)
               }
             } else {
@@ -86,20 +84,20 @@ export class BlogEditComponent implements  AfterViewInit {
     })
   }
 
-  public onChange( { editor }: ChangeEvent ) {
+  public onChange({ editor }: ChangeEvent) {
     const data = editor.getData();
     this.data = data
-    if(this.type === 'drafts') {
+    if (this.type === 'drafts') {
       clearTimeout(this.saveTimer)
       this.saveTimer = setTimeout(() => {
-        let d =  new Date()
+        let d = new Date()
         this.lastSaved = (d).toTimeString().split(' ')[0] + ' on ' + (d).toDateString()
         this.saveStatus = `<small>Autosaved as Draft</small>`
         document.getElementById('saveBtn').classList.add('disabled')
         this.save()
       }, 10000)
     }
-    if(this.type === 'post') {
+    if (this.type === 'post') {
       this.saveStatus = `<small>Publish</small>`
     } else {
       this.saveStatus = `<small>Save as Draft</small>`
@@ -108,8 +106,8 @@ export class BlogEditComponent implements  AfterViewInit {
   }
 
   save() {
-    let ref =''
-    if(this.type === 'post') {
+    let ref = ''
+    if (this.type === 'post') {
       this.saveStatus = `<small>All Changes Published</small>`
       ref = '/blog/' + this.id + '/'
     } else {
@@ -118,7 +116,7 @@ export class BlogEditComponent implements  AfterViewInit {
       this.saveStatus = `<small>Saved as Draft</small>`
     }
     document.getElementById('saveBtn').classList.add('disabled')
-    if(ref) {
+    if (ref) {
       let updates = {}
       updates[ref + 'content'] = this.data
       updates[ref + 'title'] = this.title
@@ -127,19 +125,19 @@ export class BlogEditComponent implements  AfterViewInit {
     }
   }
 
-  titleChange(event){
+  titleChange(event) {
     this.title = event
-    if(this.type === 'drafts') {
+    if (this.type === 'drafts') {
       clearTimeout(this.saveTimer)
       this.saveTimer = setTimeout(() => {
-        let d =  new Date()
+        let d = new Date()
         this.lastSaved = (d).toTimeString().split(' ')[0] + ' on ' + (d).toDateString()
         this.saveStatus = `<small>Autosaved as Draft</small>`
         document.getElementById('saveBtn').classList.add('disabled')
         this.save()
       }, 10000)
     }
-    if(this.type === 'post') {
+    if (this.type === 'post') {
       this.saveStatus = `<small>Publish</small>`
     } else {
       this.saveStatus = `<small>Save as Draft</small>`

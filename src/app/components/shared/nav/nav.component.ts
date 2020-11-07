@@ -11,7 +11,7 @@ export class NavComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    let self =this
+    let self = this
     this.width = window.innerWidth
     window.addEventListener('resize', () => {
       self.width = window.innerWidth

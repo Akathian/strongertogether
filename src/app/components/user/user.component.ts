@@ -27,7 +27,7 @@ export class UserComponent implements OnInit {
     let self = this
     this.userService.renderAccInfo();
     this.messenger.getMessage().subscribe(message => {
-      if(message.user) {
+      if (message.user) {
         self.userLoggedIn = true
       } else {
         self.userLoggedIn = false
@@ -36,11 +36,11 @@ export class UserComponent implements OnInit {
     })
     this.route.paramMap.subscribe(async params => {
       this.section = params.get('section');
-      if(this.section && this.validateSection(this.section)) {
-        for(let i=0; i< document.getElementsByClassName('accNavElem').length; i ++){
+      if (this.section && this.validateSection(this.section)) {
+        for (let i = 0; i < document.getElementsByClassName('accNavElem').length; i++) {
           (<HTMLElement>document.getElementsByClassName('accNavElem')[i]).style.color = 'black'
         }
-        if(document.getElementById(this.section)) {
+        if (document.getElementById(this.section)) {
           document.getElementById(this.section).style.color = '#80a0bd'
         }
       } else {
@@ -50,9 +50,9 @@ export class UserComponent implements OnInit {
     });
   }
 
-  validateSection(section){
+  validateSection(section) {
     for (let page of this.sections) {
-      if(section === page.id){
+      if (section === page.id) {
         return true
       }
     }

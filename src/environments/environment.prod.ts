@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  firebaseConfig : {
+  firebaseConfig: {
     apiKey: "AIzaSyA7wUZ7VR2LYB1Fai_zsy8DkYV23UTuhHA",
     authDomain: "strongertogether-blog.firebaseapp.com",
     databaseURL: "https://strongertogether-blog.firebaseio.com",

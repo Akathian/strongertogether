@@ -10,7 +10,7 @@ import { UserComponent } from './components/user/user.component';
 import { PostComponent } from './components/blog/post/post.component';
 import { BlogEditComponent } from './components/blog/blog-edit/blog-edit.component';
 
-import firebase from 'firebase/app';
+import * as firebase from 'firebase';
 import 'firebase/analytics'
 import "firebase/auth";
 
@@ -18,7 +18,7 @@ import "firebase/auth";
 import { environment } from 'src/environments/environment';
 
 firebase.initializeApp(environment.firebaseConfig);
-firebase.analytics();
+// firebase.analytics();
 
 const routes: Routes = [
   { path: '', component: HomeComponent },

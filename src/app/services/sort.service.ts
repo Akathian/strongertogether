@@ -9,7 +9,7 @@ export class SortService {
 
   sort(option, arr) {
     let sortFn;
-    switch(option) {
+    switch (option) {
       case 'newest': {
         sortFn = (a, b) => {
           const c = +(b.time) - +(a.time);

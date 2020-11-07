@@ -1,4 +1,4 @@
-import {  Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { UserService } from '../../../services/user.service'
 
 @Component({
@@ -13,7 +13,7 @@ export class AccNavComponent implements OnInit {
   constructor(private userService: UserService) { }
 
   ngOnInit() {
-    let self =this
+    let self = this
     this.width = window.innerWidth
     window.addEventListener('resize', () => {
       self.width = window.innerWidth
@@ -21,6 +21,6 @@ export class AccNavComponent implements OnInit {
   }
 
   signOut() {
-   this.userService.signOut() 
+    this.userService.signOut()
   }
 }
