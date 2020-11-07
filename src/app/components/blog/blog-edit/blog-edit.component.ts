@@ -118,9 +118,12 @@ export class BlogEditComponent implements AfterViewInit {
     document.getElementById('saveBtn').classList.add('disabled')
     if (ref) {
       let updates = {}
+      const coverImg = this.getCover(this.data)
+      if (coverImg) {
+        updates[ref + 'cover'] = coverImg
+      }
       updates[ref + 'content'] = this.data
       updates[ref + 'title'] = this.title
-      console.log(updates)
       firebase.database().ref().update(updates)
     }
   }
@@ -143,5 +146,26 @@ export class BlogEditComponent implements AfterViewInit {
       this.saveStatus = `<small>Save as Draft</small>`
     }
     document.getElementById('saveBtn').classList.remove('disabled')
+  }
+
+  getCover(content) {
+    let imgTag = content.match(/<img([\w\W]+?)>/g)
+    if (imgTag) {
+      imgTag = imgTag[0]
+    }
+    return imgTag
+  }
+
+  pub() {
+    let self = this
+    this.save()
+    firebase.auth().onAuthStateChanged(function (user) {
+      firebase.database().ref('users/' + user.uid + '/drafts/' + self.id).on('value', (draftData) => {
+        let updates = {}
+        updates['blog/' + self.id] = draftData.val()
+        updates['users/' + user.uid + '/blog-posts/' + self.id] = 'blog/' + self.id
+        firebase.database().ref().update(updates)
+      })
+    })
   }
 }

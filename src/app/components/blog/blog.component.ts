@@ -17,10 +17,21 @@ export class BlogComponent implements OnInit {
     let self = this
     firebase.database().ref('/blog/').on('value', function (blogData) {
       self.posts = blogData.val()
-      for (let post of self.posts) {
+      let a = []
+      a = Object.values(self.posts)
+      for (let post of a) {
         let total = 0
-        for (let comment of post.comments) {
-          total += comment.replies.length + 1
+        post.cover = post.cover.replace('src=', "width='100%' src=")
+        console.log(post.cover)
+        try {
+          post.cover.replaceAll('\\', '')
+        } catch (e) { }
+        let b = []
+        if (post.comments) {
+          b = Object.values(post.comments)
+          for (let comment of b) {
+            total += comment.replies.length + 1
+          }
         }
         post.numComments = total
       }
@@ -40,10 +51,10 @@ export class BlogComponent implements OnInit {
           authorImg: user.photoURL,
           authorName: user.displayName,
           comments: [],
-          content: "<h2>New Blog Post</h2><p>Content Here</p>",
-          cover: "",
+          content: "<p>Set the title in the text input above. The first image attached in this post will be set as the cover. Main content of your blog post goes here </p>",
+          cover: "<img src='../../../assets/STNEWCOVER2.png'>",
           parsedReadTime: "",
-          title: '',
+          title: 'New Blog Post Title',
           parsedTime: parsed,
           readTime: "",
           time: time,

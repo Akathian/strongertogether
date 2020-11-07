@@ -1,7 +1,9 @@
 <div class="container">
   <div class="row" *ngFor="let draft of drafts | keyvalue">
     <div class="col">
-      <a [href]="href + draft.key + 'edit'">{{ draft.key }}</a>
+      <a [href]="href + draft.key + '/' + draft.time + '/edit'"
+        >{{ draft.value.title }} created {{ draft.value.parsedTime }}</a
+      >
     </div>
   </div>
 </div>

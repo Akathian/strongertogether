@@ -17,14 +17,18 @@
       [data]="postContent"
       (change)="onChange($event)"
       #editor
+      width="100%"
     ></ckeditor>
     <div>
       <button
-        class="btn btn-dark disabled rounded-0 mt-3"
+        class="btn btn-dark disabled rounded-0 m-2"
         id="saveBtn"
         (click)="save()"
         [innerHTML]="saveStatus"
       ></button>
+      <button class="m-2 btn btn-primary rounded-0" id="pubBtn" (click)="pub()">
+        <small> Publish </small>
+      </button>
     </div>
   </div>
 </div>

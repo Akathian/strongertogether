@@ -1,12 +1,14 @@
 <div class="container mt-5">
-  <a [href]="editLink"><button class="btn btn-dark">Edit</button></a>
   <app-blog-nav></app-blog-nav>
+  <a [href]="editLink"
+    ><button class="btn btn-dark rounded-0 mt-2"><small>Edit</small></button></a
+  >
   <div class="post col mt-3 border p-5">
     <div class="p-3">
       <small>
         <div class="d-flex row text-muted">
-          <div class="mr-2">
-            <img [src]="post.authorImg" width="32px" />
+          <div class="mr-2 ml-3">
+            <img [src]="post.authorImg" width="32px" class="rounded-circle" />
           </div>
           <div class="align-self-center">
             {{ post.authorName }} &middot; {{ post.parsedTime }} &middot;

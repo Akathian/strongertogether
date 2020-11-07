@@ -1,55 +1,64 @@
 <!-- <a href="/blog/create"><button class="btn btn-dark">New Post</button></a> -->
-<button class="btn btn-dark" (click)="newPost()">New Post</button>
 
 <div class="container mt-5">
   <app-blog-nav></app-blog-nav>
-  <div *ngFor="let post of posts | keyvalue" class="post row my-3">
-    <div class="col-sm-12 col-md-12 col-lg-6 p-0">
-      <a [href]="'/blog/' + post.key + '/' + post.value.time">
-        <img width="100%" [src]="post.value.cover" />
-      </a>
-    </div>
-    <div class="d-flex col-sm-12 col-md-12 col-lg-6 px-5 p-2">
-      <div class="align-self-center">
-        <small>
-          <div class="row justify-content-start">
-            <div class="col-2 p-0 rounded-circle">
-              <img [src]="post.value.authorImg" width="100%" />
-            </div>
-            <div class="d-flex flex-column p-0 ml-3 justify-content-center">
-              <div class="">
-                {{ post.value.authorName }}
-              </div>
-              <div class="text-muted">
-                <small>
-                  {{ post.value.parsedTime }}&middot;
-                  {{ post.value.parsedReadTime }}
-                </small>
-              </div>
-            </div>
-          </div>
-        </small>
-        <a [href]="'/blog/' + post.key + '/' + post.value.time">
-          <h5>{{ post.value.title }}</h5>
-          <a
-            class="blurb-link"
-            [href]="'/blog/' + post.key + '/' + post.value.time"
-          >
-            <!-- <p class="text-muted blurb ck-content">{{ post.value.content }}</p> -->
-            <div
-              class="ck-content blurb"
-              [innerHTML]="post.value.content"
-            ></div>
-          </a>
-        </a>
+  <button class="btn btn-dark rounded-0 mt-2" (click)="newPost()">
+    <small>New Post</small>
+  </button>
 
-        <hr class="mt-0" />
-        <small>
-          <div class="row text-muted ml-1 mb-3">
-            <div class="mr-2">0 views</div>
-            <div class="mr-2">{{ post.value.numComments }} comments</div>
-          </div>
-        </small>
+  <div *ngFor="let post of posts | keyvalue" class="post row my-3">
+    <div class="row">
+      <div class="col-sm-12 col-md-12 col-lg-6 p-0 mr-0">
+        <a [href]="'/blog/' + post.key + '/' + post.value.time">
+          <div class="px-3" [innerHTML]="post.value.cover"></div>
+        </a>
+      </div>
+      <div class="d-flex col-sm-12 col-md-12 col-lg-6 px-5 p-2">
+        <div class="align-self-center">
+          <small>
+            <div class="row justify-content-start">
+              <div class="col-2 p-0 ml-3">
+                <img
+                  class="rounded-circle"
+                  [src]="post.value.authorImg"
+                  width="100%"
+                />
+              </div>
+              <div class="d-flex flex-column p-0 ml-3 justify-content-center">
+                <div class="">
+                  {{ post.value.authorName }}
+                </div>
+                <div class="text-muted">
+                  <small>
+                    {{ post.value.parsedTime }}&middot;
+                    {{ post.value.parsedReadTime }}
+                  </small>
+                </div>
+              </div>
+            </div>
+          </small>
+          <a [href]="'/blog/' + post.key + '/' + post.value.time">
+            <h5>{{ post.value.title }}</h5>
+            <a
+              class="blurb-link"
+              [href]="'/blog/' + post.key + '/' + post.value.time"
+            >
+              <!-- <p class="text-muted blurb ck-content">{{ post.value.content }}</p> -->
+              <div
+                class="ck-content blurb"
+                [innerHTML]="post.value.content"
+              ></div>
+            </a>
+          </a>
+
+          <hr class="mt-0" />
+          <small>
+            <div class="row text-muted ml-1 mb-3">
+              <div class="mr-2">0 views</div>
+              <div class="mr-2">{{ post.value.numComments }} comments</div>
+            </div>
+          </small>
+        </div>
       </div>
     </div>
   </div>

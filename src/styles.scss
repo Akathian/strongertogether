@@ -1,8 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 body {
-    font-family: brandon-grotesque, sans-serif;
+    font-family: brandon-grot-w01-lighte, sans-serif !important;
     font-style: normal;
-    font-weight: 100;
+    font-weight: 100 !important;
     
 }
 
@@ -12,4 +12,24 @@ html,body
     margin: 0px;
     padding: 0px;
     overflow-x: hidden; 
+}
+h1 {
+    font-family: brandon-grot-w01-light, sans-serif;
+    font-weight: 200;
+    font-size: min(72px, 4vmax);
+}
+
+h2 {
+    font-family: brandon-grot-w01-light, sans-serif;
+    font-weight: 200;
+}
+
+h3 {
+    font-family: brandon-grot-w01-light, sans-serif;
+    font-weight: 200;
+}
+
+h4 {
+    font-family: brandon-grot-w01-light, sans-serif;
+    font-weight: 200;
 }

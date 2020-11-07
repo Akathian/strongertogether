@@ -23,7 +23,7 @@ export class DraftsComponent implements OnInit {
         firebase.database().ref('/users/' + user.uid + '/drafts').on('value', function (draftData) {
           if (draftData) {
             self.drafts = draftData.val()
-            self.href = '/user/' + user.uid + '/drafts/'
+            self.href = '/blog/drafts/'
           }
         })
       }
