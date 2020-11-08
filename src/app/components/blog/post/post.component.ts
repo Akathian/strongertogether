@@ -26,6 +26,7 @@ export class PostComponent implements OnInit {
       this.editLink = `/blog/post/${this.id}/${this.time}/edit`
       this.getPost()
       this.parsedTime = this.dateService.parser(this.post.time)
+      
     });
   }
   getPost() {

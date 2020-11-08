@@ -159,13 +159,26 @@ export class BlogEditComponent implements AfterViewInit {
   pub() {
     let self = this
     this.save()
-    firebase.auth().onAuthStateChanged(function (user) {
-      firebase.database().ref('users/' + user.uid + '/drafts/' + self.id).on('value', (draftData) => {
-        let updates = {}
-        updates['blog/' + self.id] = draftData.val()
-        updates['users/' + user.uid + '/blog-posts/' + self.id] = 'blog/' + self.id
-        firebase.database().ref().update(updates)
-      })
+    firebase.auth().onAuthStateChanged(async function (user) {
+      let draft = await firebase.database().ref('users/' + user.uid + '/drafts/' + self.id).once('value')
+      console.log(self.post)
+      if (draft.val()) {
+        await firebase.database().ref('blog/' + self.id).set(draft.val())
+        let time = draft.val().time
+        await firebase.database().ref('users/' + user.uid + '/drafts/' + self.id).set(null)
+        await firebase.database().ref('users/' + user.uid + '/blog-posts/' + self.id).set('blog/' + self.id)
+        window.location.href = `/blog/post/${self.id}/${time}/edit`;
+      }
+
+      // firebase.database().ref('users/' + user.uid + '/drafts/' + self.id).once('value', (draftData) => {
+      //   let updates = {}
+      //   firebase.database().ref('blog/' + self.id).set(draftData.val())
+      //   updates['blog/' + self.id] = draftData.val()
+      //   updates['users/' + user.uid + '/blog-posts/' + self.id] = 'blog/' + self.id
+      //   firebase.database().ref().update(updates)
+      // })
+      // firebase.database().ref('users/' + user.uid + '/drafts/' + self.id).remove()
     })
+
   }
 }

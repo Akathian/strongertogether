@@ -48,7 +48,16 @@
         </div>
         <div class="row align-self-center">Akathian Santhakumar</div>
       </div>
-      <div class="row mt-3 text-muted">Write a comment...</div>
+      <!-- <div class="row mt-3 text-muted"> -->
+      <div class="form-group row mt-3">
+        <textarea
+          class="form-control"
+          placeholder="Write a Comment..."
+          id="exampleFormControlTextarea1"
+          rows="2"
+        ></textarea>
+      </div>
+      <!-- </div> -->
       <button class="btn btn-dark float-right disabled px-4 rounded-0">
         <small>Post</small>
       </button>
@@ -66,8 +75,8 @@
             (ngModelChange)="sort($event)"
             (change)="sort($event)"
           >
-            <option value="newest">Newest</option>
             <option value="oldest">Oldest</option>
+            <option value="newest">Newest</option>
           </select>
         </div>
       </form>

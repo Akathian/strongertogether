@@ -1,5 +1,17 @@
 {
-  "blog" : {
+  "blog" : {   
+    "-ML_O7UgMByUBwKMbDsW" : {
+      "authorImg" : "https://lh3.googleusercontent.com/a-/AOh14Gh_FTUnyS89IGGjW9A6H-yLqQH5Zv6nxtlpfOB88es=s96-c",
+      "authorName" : "Akathian Santhakumar",
+      "content" : "<p>Set the title in the text input above. The first image attached in this post will be set as the cover. Main content of your blog post goes here</p>",
+      "cover" : "<img src='../../../assets/STNEWCOVER2.png'>",
+      "parsedReadTime" : "",
+      "parsedTime" : "Nov 07, 2020",
+      "readTime" : "",
+      "time" : "1604797630579",
+      "title" : "New Blog Post Title",
+      "uid" : "VSwG9UJnafOdblIS1VhQLPoUAjR2"
+    },
     "helloworld" : {
       "authorImg" : "https://static.wixstatic.com/media/63e843_616a218a868d4fa7b80d1c4c4f71dd71~mv2.png/v1/fill/w_80,h_80,al_c,q_85,usm_0.66_1.00_0.01/STLOGO.webp",
       "authorName" : "Stronger Together",
@@ -44,8 +56,8 @@
         "time" : "1604072237589",
         "uid" : ""
       } ],
-      "content" : "<h3>Finding support and help: how your community can make a difference</h3><p>This is your blog post. Blogs are a great way to connect with your audience and keep them coming back. They can also be a great way to position yourself as an authority in your field. To edit your content, click Manage Blog. From the Dashboard, you can edit posts and also add brand new posts with ease.</p><p><span style=\"color:rgb(33,37,41);background-color:rgb(255,255,255);\">Want to help visitors explore more content? Create categories.When you write a post, you can add it to up to 3 categories.These categories appear in your blog’s navigation menu, so choose categories that cover the main topics of your blog, e.g., Food, Fashion, Travel, etc. For easy navigation, it’s best to keep your category names short – 1 to 2 word titles.For a clean look on your blog’s navigation menu, we recommend 7 categories max.</span><br>&nbsp;</p><p>Hello world!</p><figure class=\"image\"><img src=\"https://static.wixstatic.com/media/5cd76cd6f94a4adb993bf4d1ad7dcca2.jpg/v1/fit/w_1554,h_1036,al_c,q_80/file.webp\"></figure>",
-      "cover" : "https://static.wixstatic.com/media/5cd76cd6f94a4adb993bf4d1ad7dcca2.jpg/v1/fit/w_1554,h_1036,al_c,q_80/file.webp",
+      "content" : "<p>This is your blog post. Blogs are a great way to connect with your audience and keep them coming back. They can also be a great way to position yourself as an authority in your field. To edit your content, click Manage Blog. From the Dashboard, you can edit posts and also add brand new posts with ease.</p><p><span style=\"color:rgb(33,37,41);background-color:rgb(255,255,255);\">Want to help visitors explore more content? Create categories.When you write a post, you can add it to up to 3 categories.These categories appear in your blog’s navigation menu, so choose categories that cover the main topics of your blog, e.g., Food, Fashion, Travel, etc. For easy navigation, it’s best to keep your category names short – 1 to 2 word titles.For a clean look on your blog’s navigation menu, we recommend 7 categories max.</span><br>&nbsp;</p><p>Hello world!</p><figure class=\"image\"><img src=\"https://static.wixstatic.com/media/5cd76cd6f94a4adb993bf4d1ad7dcca2.jpg/v1/fit/w_1554,h_1036,al_c,q_80/file.webp\"></figure>",
+      "cover" : "<img src=\"https://static.wixstatic.com/media/5cd76cd6f94a4adb993bf4d1ad7dcca2.jpg/v1/fit/w_1554,h_1036,al_c,q_80/file.webp\">",
       "href" : "/blog/1/1603988837769/finding-support-and-help-how-your-community-can-make-a-difference",
       "parsedReadTime" : "1 min",
       "parsedTime" : "Oct 29,2020",
@@ -53,19 +65,14 @@
       "time" : "1603988837769",
       "title" : "Finding support and help: how your community can make a difference",
       "uid" : "VSwG9UJnafOdblIS1VhQLPoUAjR2"
-    },
-    "-MLBkB8Z2PbUcmEJBJh1" : {
-      "authorImg" : "https://lh3.googleusercontent.com/a-/AOh14Gh_FTUnyS89IGGjW9A6H-yLqQH5Zv6nxtlpfOB88es=s96-c",
-      "authorName" : "Akathian Santhakumar",
-      "comments" : "",
-      "content" : "Hello, World!",
-      "cover" : "",
-      "parsedReadTime" : "",
-      "parsedTime" : "Nov 03, 2020",
-      "readTime" : "",
-      "time" : "1604384244355",
-      "title" : "",
-      "uid" : "VSwG9UJnafOdblIS1VhQLPoUAjR2"
+    }
+  },
+  "users" : {
+    "VSwG9UJnafOdblIS1VhQLPoUAjR2" : {
+      "blog-posts" : {
+        "-ML_O7UgMByUBwKMbDsW" : "blog/-ML_O7UgMByUBwKMbDsW",
+        "ewfwfwefrgergf" : "blog/helloworld"
+      }
     }
   }
 }
