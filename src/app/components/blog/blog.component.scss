@@ -3,6 +3,8 @@
     display: -webkit-box !important;
     -webkit-line-clamp: 3 !important;
     -webkit-box-orient: vertical !important;
+    visibility: visible !important;
+    word-wrap:break-word !important;
 }
 
 .post {
