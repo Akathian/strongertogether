@@ -36,6 +36,7 @@ import { ForumPostsComponent } from './components/user/forum-posts/forum-posts.c
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { BlogEditComponent } from './components/blog/blog-edit/blog-edit.component';
 import { SanitizeHtmlPipe } from './pipes/sanitize-html.pipe';
+import { NgxTextOverflowClampModule } from "ngx-text-overflow-clamp";
 
 
 
@@ -77,7 +78,8 @@ import { SanitizeHtmlPipe } from './pipes/sanitize-html.pipe';
     SlickCarouselModule,
     FormsModule,
     ReactiveFormsModule,
-    CKEditorModule
+    CKEditorModule,
+    NgxTextOverflowClampModule
   ],
   providers: [],
   bootstrap: [AppComponent]

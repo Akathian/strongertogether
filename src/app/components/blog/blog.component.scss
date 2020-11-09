@@ -3,6 +3,7 @@
     text-overflow: ellipsis !important;
     display: -webkit-box !important;
     -webkit-line-clamp: 3 !important;
+    line-clamp: 3 !important;
     /* autoprefixer: ignore next */
     -webkit-box-orient: vertical !important;
 }
