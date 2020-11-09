@@ -1,10 +1,10 @@
 .ck-content {
     overflow: hidden !important;
+    text-overflow: ellipsis !important;
     display: -webkit-box !important;
     -webkit-line-clamp: 3 !important;
+    /* autoprefixer: ignore next */
     -webkit-box-orient: vertical !important;
-    visibility: visible !important;
-    word-wrap:break-word !important;
 }
 
 .post {
