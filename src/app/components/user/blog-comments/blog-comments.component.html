@@ -11,7 +11,7 @@
     </div>
     <div class="col" *ngIf="!showLoading">
       <h6>Public Comments</h6>
-      <span *ngIf="lenOfPub">
+      <div *ngIf="lenOfPub" class="commentList border p-1">
         <div class="row mb-3" *ngFor="let pubCom of pubData | keyvalue">
           <div class="col">
             <a [href]="'/blog/' + pubCom.value.postId + '#' + pubCom.value.id">
@@ -25,14 +25,15 @@
                 </span>
               </div>
             </a>
+            <hr class="mb-0" />
           </div>
         </div>
-      </span>
+      </div>
       <span *ngIf="!lenOfPub"> No Public Comments Yet </span>
     </div>
     <div class="col" *ngIf="!showLoading">
       <h6>Anonymous Comments</h6>
-      <span *ngIf="lenOfPriv">
+      <div *ngIf="lenOfPriv" class="commentList border p-1">
         <div class="row mb-3" *ngFor="let privCom of privData | keyvalue">
           <div class="col">
             <a
@@ -50,7 +51,7 @@
             </a>
           </div>
         </div>
-      </span>
+      </div>
       <span *ngIf="!lenOfPriv"> No Anonymous Comments Yet </span>
     </div>
   </div>

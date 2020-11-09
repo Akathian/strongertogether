@@ -36,11 +36,14 @@ export class BlogCommentsComponent implements OnInit {
           privRefs = Object.values(self.privateComments)
           self.lenOfPriv = privRefs.length
           await self.getFullCommentData(privRefs, self.privData, self)
+          self.privData = Object.values(self.privData).reverse()
+
         }
         if (self.publicComments) {
           pubRefs = Object.values(self.publicComments)
           self.lenOfPub = pubRefs.length
           await self.getFullCommentData(pubRefs, self.pubData, self)
+          self.pubData = Object.values(self.pubData).reverse()
         }
         self.showLoading = false
       })
@@ -51,14 +54,13 @@ export class BlogCommentsComponent implements OnInit {
     for (let commentRef of commentRefs) {
       let fullComment = await firebase.database().ref(commentRef).once('value')
       commentRef = commentRef.replace('blog/', '')
-      data[commentRef] = fullComment.val()
-      data[commentRef].time = self.dateService.parser(+(data[commentRef].time))
-      let postId = data[commentRef].parentId.split('/')[0] || data[commentRef].parentId
-      data[commentRef].postId = postId
-      console.log(postId)
+      data[fullComment.val().id] = fullComment.val()
+      data[fullComment.val().id].time = self.dateService.parser(+(data[fullComment.val().id].time))
+      let postId = data[fullComment.val().id].parentId.split('/')[0] || data[fullComment.val().id].parentId
+      data[fullComment.val().id].postId = postId
       let title = await (await firebase.database().ref('blog/' + postId + '/title').once('value')).val()
-      console.log(title)
-      data[commentRef].title = title
+
+      data[fullComment.val().id].title = title
     }
   }
 }

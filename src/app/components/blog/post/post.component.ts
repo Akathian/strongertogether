@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import firebase from 'firebase/app'
 import 'firebase/database'
 import { ActivatedRoute, Router } from '@angular/router';
@@ -9,7 +9,7 @@ import { DateService } from '../../../services/date.service'
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.scss']
 })
-export class PostComponent implements OnInit {
+export class PostComponent implements OnInit, AfterViewInit {
 
   constructor(private route: ActivatedRoute, private sortService: SortService, private dateService: DateService, private router: Router) { }
   id;
@@ -18,7 +18,9 @@ export class PostComponent implements OnInit {
   post;
   editLink;
   parsedTime
-  comment
+  comment;
+  iframe;
+  @ViewChild('iframeContent', { static: true }) iframeBox: ElementRef;
   ngOnInit() {
     this.route.paramMap.subscribe(async params => {
       this.id = params.get('id');
@@ -26,16 +28,31 @@ export class PostComponent implements OnInit {
       this.title = params.get('title')
       this.editLink = `/blog/post/${this.id}/edit`
       this.getPost()
-      this.parsedTime = this.dateService.parser(this.post.time)
-
+      if (this.post) {
+        this.parsedTime = this.dateService.parser(this.post.time)
+      }
     });
   }
+
+  ngAfterViewInit() {
+    console.log(this.iframeBox.nativeElement.innerHTML);
+    this.getPost()
+  }
+
   getPost() {
     let self = this
     firebase.database().ref(`/blog/${this.id}`).on('value', (postData) => {
       self.post = postData.val()
-      self.post.comments = Object.values(self.post.comments).reverse()
-      console.log(Object.values(self.post.comments))
+      if (self.post) {
+        self.post.comments = Object.values(self.post.comments).reverse()
+        self.iframe = self.post.content.match(/&lt;iframe(?:.*?)&lt;\/iframe&gt;/g)
+        if (self.iframe) {
+          const parsedIframe = self.iframe[0].replace('&lt;', "<").replace('&lt;', "<").replace('&gt;', '>').replace('&gt;', '>')
+          self.post.content = self.post.content.replace(self.iframe, parsedIframe)
+          console.log(self.post.content)
+          // self.iframeBox.nativeElement.innerHTML = self.iframe
+        }
+      }
     })
   }
 

@@ -35,6 +35,8 @@ import { ForumPostsComponent } from './components/user/forum-posts/forum-posts.c
 // import { EditorModule } from '@tinymce/tinymce-angular';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { BlogEditComponent } from './components/blog/blog-edit/blog-edit.component';
+import { SanitizeHtmlPipe } from './pipes/sanitize-html.pipe';
+
 
 
 @NgModule({
@@ -67,6 +69,7 @@ import { BlogEditComponent } from './components/blog/blog-edit/blog-edit.compone
     ForumCommentsComponent,
     ForumPostsComponent,
     BlogEditComponent,
+    SanitizeHtmlPipe,
   ],
   imports: [
     BrowserModule,

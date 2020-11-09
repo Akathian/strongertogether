@@ -30,7 +30,8 @@ export class BlogComponent implements OnInit {
         if (post.comments) {
           b = Object.values(post.comments)
           for (let comment of b) {
-            total += comment.replies.length + 1
+            let c = Object.values(comment.replies)
+            total += c.length + 1
           }
         }
         post.numComments = total
@@ -40,7 +41,7 @@ export class BlogComponent implements OnInit {
 
   newPost() {
     let d = (new Date()).getTime()
-    let parsed = this.dateService.parser(d)
+    // let parsed = this.dateService.parser(d)
     let time = `${d}`
     let self = this
     firebase.auth().onAuthStateChanged(function (user) {
@@ -55,7 +56,6 @@ export class BlogComponent implements OnInit {
           cover: "<img src='../../../assets/STNEWCOVER2.png'>",
           parsedReadTime: "",
           title: 'New Blog Post Title',
-          parsedTime: parsed,
           readTime: "",
           time: time,
           uid: user.uid

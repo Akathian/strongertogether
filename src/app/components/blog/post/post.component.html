@@ -1,4 +1,4 @@
-<div class="container mt-5">
+<div class="container mt-5" *ngIf="post">
   <app-blog-nav></app-blog-nav>
   <a [href]="editLink"
     ><button class="btn btn-dark rounded-0 mt-2"><small>Edit</small></button></a
@@ -19,7 +19,9 @@
       <div>
         <h3>{{ post.title }}</h3>
       </div>
-      <div [innerHTML]="post.content" class="ck-content"></div>
+      <div class="ck-content">
+        <div [innerHTML]="post.content | sanitizeHtml"></div>
+      </div>
     </div>
     <hr />
     <div class="row px-3 py-1">
@@ -85,7 +87,7 @@
         </div>
       </form>
     </div>
-    <div *ngFor="let comment of this.post.comments" class="col border m-2 pt-3">
+    <div *ngFor="let comment of post.comments" class="col border m-2 pt-3">
       <app-comments [comment]="comment"></app-comments>
     </div>
   </div>

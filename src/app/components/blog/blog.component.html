@@ -39,15 +39,9 @@
           </small>
           <a [href]="'/blog/' + post.key">
             <h5>{{ post.value.title }}</h5>
-            <a
-              class="blurb-link"
-              [href]="'/blog/' + post.key"
-            >
+            <a class="blurb-link" [href]="'/blog/' + post.key">
               <!-- <p class="text-muted blurb ck-content">{{ post.value.content }}</p> -->
-              <div
-                class="ck-content blurb"
-                [innerHTML]="post.value.content"
-              ></div>
+              <div class="ck-content" [innerHTML]="post.value.content"></div>
             </a>
           </a>
 
