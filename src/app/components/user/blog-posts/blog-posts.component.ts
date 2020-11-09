@@ -11,6 +11,8 @@ import 'firebase/auth'
 export class BlogPostsComponent implements OnInit {
   posts
   postsData;
+  showLoading = true
+  lenOfData = 0;
   constructor() { }
 
   ngOnInit() {
@@ -24,13 +26,14 @@ export class BlogPostsComponent implements OnInit {
         self.posts = postData.val()
         let postRefs = []
         postRefs = Object.values(self.posts)
+        self.lenOfData = postRefs.length
         self.postsData = []
         for (let post of postRefs) {
           let fullPost = await firebase.database().ref(post).once('value')
           post = post.replace('blog/', '')
-          console.log(post)
           self.postsData[post] = fullPost.val()
         }
+        self.showLoading = false
       })
     })
   }

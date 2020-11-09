@@ -5,11 +5,21 @@
       <hr />
     </div>
   </div>
-  <div class="row" *ngFor="let draft of drafts | keyvalue">
-    <div class="col">
-      <a [href]="href + draft.key + '/' + draft.time + '/edit'"
-        >{{ draft.value.title }} created {{ draft.value.parsedTime }}</a
-      >
+  <div class="row">
+    <div class="col" *ngIf="!showLoading && lenOfData">
+      <div class="row" *ngFor="let draft of drafts | keyvalue">
+        <div class="col">
+          <a [href]="href + draft.key + '/edit'"
+            >{{ draft.value.title }} created {{ draft.value.parsedTime }}</a
+          >
+        </div>
+      </div>
+    </div>
+    <div class="col text-center" *ngIf="!showLoading && !lenOfData">
+      No Drafts Yet
+    </div>
+    <div class="col text-center" *ngIf="showLoading">
+      <img src="../../../../assets/loading.gif" />
     </div>
   </div>
 </div>

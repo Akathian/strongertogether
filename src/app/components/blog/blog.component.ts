@@ -60,7 +60,7 @@ export class BlogComponent implements OnInit {
           time: time,
           uid: user.uid
         })
-        window.location.href = `/blog/drafts/${postId}/${time}/edit`;
+        window.location.href = `/blog/drafts/${postId}/edit`;
       }
     })
   }

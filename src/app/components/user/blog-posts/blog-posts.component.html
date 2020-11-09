@@ -2,15 +2,27 @@
   <div class="row mt-2">
     <div class="col">
       <h5>Blog Posts</h5>
-      <hr />
+      <hr class="mb-3" />
     </div>
   </div>
-  <div class="row mt-3" *ngFor="let post of postsData | keyvalue">
-    <div class="col">
-      <a [href]="'/blog/' + post.key + '/' + post.value.time">
-        {{ post.value.title }} on {{ post.value.parsedTime }}
-      </a>
+  <div class="row">
+    <div class="col align-self-center text-center" *ngIf="showLoading">
+      <img src="../../../../assets/loading.gif" />
+    </div>
+    <div class="col" *ngIf="!showLoading && lenOfData">
+      <div class="row mb-3" *ngFor="let post of postsData | keyvalue">
+        <div class="col">
+          <a [href]="'/blog/' + post.key">
+            <small class="text-muted mr-3"
+              ><i>{{ post.value.parsedTime }}</i></small
+            >
+            {{ post.value.title }}
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="col text-center" *ngIf="!showLoading && !lenOfData">
+      No Posts Yet
     </div>
   </div>
 </div>
-

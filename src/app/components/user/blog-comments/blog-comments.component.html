@@ -2,7 +2,56 @@
   <div class="row mt-2">
     <div class="col">
       <h5>Blog Comments</h5>
-      <hr />
+      <hr class="mb-3" />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col align-self-center text-center" *ngIf="showLoading">
+      <img src="../../../../assets/loading.gif" />
+    </div>
+    <div class="col" *ngIf="!showLoading">
+      <h6>Public Comments</h6>
+      <span *ngIf="lenOfPub">
+        <div class="row mb-3" *ngFor="let pubCom of pubData | keyvalue">
+          <div class="col">
+            <a [href]="'/blog/' + pubCom.value.postId + '#' + pubCom.value.id">
+              <div class="">
+                <span class="contentData">{{ pubCom.value.title }}</span>
+                <span class="contentData">
+                  <small class="text-muted mr-3"
+                    ><i>{{ pubCom.value.time }}</i></small
+                  >
+                  <b> "{{ pubCom.value.content }}"</b>
+                </span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </span>
+      <span *ngIf="!lenOfPub"> No Public Comments Yet </span>
+    </div>
+    <div class="col" *ngIf="!showLoading">
+      <h6>Anonymous Comments</h6>
+      <span *ngIf="lenOfPriv">
+        <div class="row mb-3" *ngFor="let privCom of privData | keyvalue">
+          <div class="col">
+            <a
+              [href]="'/blog/' + privCom.value.postId + '#' + privCom.value.id"
+            >
+              <div class="">
+                <span class="contentData">{{ privCom.value.title }}</span>
+                <span class="contentData">
+                  <small class="text-muted mr-3"
+                    ><i>{{ privCom.value.time }}</i></small
+                  >
+                  <b> "{{ privCom.value.content }}"</b>
+                </span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </span>
+      <span *ngIf="!lenOfPriv"> No Anonymous Comments Yet </span>
     </div>
   </div>
 </div>

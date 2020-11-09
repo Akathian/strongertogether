@@ -1,0 +1,10 @@
+a {
+    color: inherit
+}
+
+.contentData {
+    overflow: hidden !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 1 !important;
+    -webkit-box-orient: vertical !important;
+}

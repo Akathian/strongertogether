@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import firebase from 'firebase/app'
 import 'firebase/database'
 import 'firebase/auth'
+import { DateService } from 'src/app/services/date.service';
 @Component({
   selector: 'app-drafts',
   templateUrl: './drafts.component.html',
@@ -10,7 +11,9 @@ import 'firebase/auth'
 export class DraftsComponent implements OnInit {
   drafts;
   href;
-  constructor() { }
+  lenOfData
+  showLoading = true
+  constructor(private dateService: DateService) { }
 
   ngOnInit() {
     this.getDrafts()
@@ -23,9 +26,15 @@ export class DraftsComponent implements OnInit {
         firebase.database().ref('/users/' + user.uid + '/drafts').on('value', function (draftData) {
           if (draftData) {
             self.drafts = draftData.val()
+            self.lenOfData = Object.values(self.drafts)
             self.href = '/blog/drafts/'
+            for (let draft of self.drafts) {
+              console.log(draft.time)
+              draft.parsedTime = self.dateService.parser(draft.time)
+            }
           }
         })
+        self.showLoading = false
       }
     })
   }
