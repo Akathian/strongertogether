@@ -1,5 +1,5 @@
 .ck-content {
-    overflow: hidden !important;
+    overflow-y: hidden !important;
     text-overflow: ellipsis !important;
     display: -webkit-box !important;
     -webkit-line-clamp: 3 !important;
@@ -12,6 +12,7 @@
     display: flex;
     justify-content: center;
     border: 1px solid rgb(222, 226, 230);
+    max-height: 600px;
 }
 
 a {
