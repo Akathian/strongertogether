@@ -86,7 +86,6 @@ export class BlogCommentsComponent implements OnInit {
           let priv = await firebase.database().ref('users/' + user.uid + '/blog-comments/private/' + comRef)
           if (pub) {
             await pub.remove()
-            console.log(self.lenOfPub)
           } else if (priv) {
             await priv.remove()
           }
@@ -111,7 +110,6 @@ export class BlogCommentsComponent implements OnInit {
   }
 
   del(ref, comment) {
-    console.log(comment)
     firebase.database().ref('users/' + comment.uid + '/blog-comments/public/' + comment.id).remove()
     firebase.database().ref('users/' + comment.uid + '/blog-comments/private/' + comment.id).remove()
     firebase.database().ref(ref).remove()

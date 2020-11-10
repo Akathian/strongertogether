@@ -67,7 +67,7 @@ export class BlogFooterComponent implements OnInit {
     firebase.auth().onAuthStateChanged(function (user) {
       let updates = {}
       updates['blog/' + key + '/likes/' + user.uid] = 1
-      updates['users/' + user.uid + '/blog-likes/' + key] = key + '/likes/' + user.uid
+      updates['users/' + user.uid + '/blog-likes/' + key] = "blog/" + key
       firebase.database().ref().update(updates)
     })
   }

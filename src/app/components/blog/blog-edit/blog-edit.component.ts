@@ -73,7 +73,6 @@ export class BlogEditComponent implements AfterViewInit {
                 self.postContent = blogData.val().content
                 self.title = blogData.val().title
                 self.editorComponent.editorInstance.setData(self.postContent)
-                console.log(self.postContent)
               }
             } else {
               self.router.navigate([`/blog`], { relativeTo: self.route })
@@ -163,7 +162,6 @@ export class BlogEditComponent implements AfterViewInit {
     this.save()
     firebase.auth().onAuthStateChanged(async function (user) {
       let draft = await firebase.database().ref('users/' + user.uid + '/drafts/' + self.id).once('value')
-      console.log(self.post)
       if (draft.val()) {
         await firebase.database().ref('blog/' + self.id).set(draft.val())
         let time = draft.val().time

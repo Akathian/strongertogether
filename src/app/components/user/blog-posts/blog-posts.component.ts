@@ -10,7 +10,7 @@ import 'firebase/auth'
 })
 export class BlogPostsComponent implements OnInit {
   posts
-  postsData;
+  postsData = {};
   showLoading = true
   lenOfData = 0;
   constructor() { }
@@ -30,8 +30,12 @@ export class BlogPostsComponent implements OnInit {
         self.postsData = []
         for (let post of postRefs) {
           let fullPost = await firebase.database().ref(post).once('value')
-          post = post.replace('blog/', '')
-          self.postsData[post] = fullPost.val()
+          if (fullPost.val()) {
+            post = post.replace('blog/', '')
+            self.postsData[post] = fullPost.val()
+          } else {
+            firebase.database().ref("users/" + user.uid + '/' + post.replace('blog', 'blog-posts')).remove()
+          }
         }
         self.showLoading = false
       })
