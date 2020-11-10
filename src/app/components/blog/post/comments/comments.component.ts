@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { DateService } from '../../../../services/date.service'
+
 import firebase from 'firebase/app'
 import 'firebase/database'
 import 'firebase/auth'
@@ -15,7 +15,7 @@ export class CommentsComponent implements OnInit {
   href
   gearData = { id: '', editLink: '', dbLink: '', type: 'comment', editors: [] }
 
-  constructor(private dateService: DateService) { }
+  constructor() { }
 
   ngOnInit() {
     this.href = '#id' + this.comment.id

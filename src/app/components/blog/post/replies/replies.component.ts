@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { DateService } from '../../../../services/date.service'
 
 @Component({
   selector: 'app-replies',
@@ -10,7 +9,7 @@ export class RepliesComponent implements OnInit {
   @Input() reply;
   gearData = { id: '', editLink: '', dbLink: '', type: 'reply', editors: [] }
 
-  constructor(private dateService: DateService) { }
+  constructor() { }
 
   ngOnInit() {
     this.gearData.editors.push(this.reply.uid)

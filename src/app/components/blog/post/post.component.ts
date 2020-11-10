@@ -3,7 +3,6 @@ import firebase from 'firebase/app'
 import 'firebase/database'
 import { ActivatedRoute, Router } from '@angular/router';
 import { SortService } from '../../../services/sort.service'
-import { DateService } from '../../../services/date.service'
 import { IpService } from 'src/app/services/ip.service';
 
 @Component({
@@ -13,7 +12,7 @@ import { IpService } from 'src/app/services/ip.service';
 })
 export class PostComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, private sortService: SortService, private dateService: DateService, private router: Router, private ipService: IpService) { }
+  constructor(private route: ActivatedRoute, private sortService: SortService, private router: Router, private ipService: IpService) { }
   id;
   time;
   title;

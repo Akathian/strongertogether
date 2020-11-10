@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import firebase from 'firebase/app'
 import 'firebase/database'
 import 'firebase/auth'
-import { DateService } from 'src/app/services/date.service';
 @Component({
   selector: 'app-drafts',
   templateUrl: './drafts.component.html',
@@ -13,7 +12,7 @@ export class DraftsComponent implements OnInit {
   href;
   lenOfData
   showLoading = true
-  constructor(private dateService: DateService) { }
+  constructor() { }
 
   ngOnInit() {
     this.getDrafts()

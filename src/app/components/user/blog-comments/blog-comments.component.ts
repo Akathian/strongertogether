@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import firebase from 'firebase/app'
 import 'firebase/database'
 import 'firebase/auth'
-import { DateService } from '../../../services/date.service'
 import { ModalDirective } from 'angular-bootstrap-md';
 
 @Component({
@@ -21,7 +20,7 @@ export class BlogCommentsComponent implements OnInit {
   lenOfPub = 0
   lenOfPriv = 0
   currCom = { content: '', time: '', title: '', ref: '' };
-  constructor(private dateService: DateService) { }
+  constructor() { }
 
   ngOnInit() {
     this.getComments()
