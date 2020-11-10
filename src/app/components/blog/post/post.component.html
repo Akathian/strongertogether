@@ -1,8 +1,5 @@
 <div class="container mt-5" *ngIf="post">
   <app-blog-nav></app-blog-nav>
-  <a [href]="editLink"
-    ><button class="btn btn-dark rounded-0 mt-2"><small>Edit</small></button></a
-  >
   <div class="post col mt-3 border p-5">
     <div class="p-3">
       <small>
@@ -11,14 +8,18 @@
             <img [src]="post.authorImg" width="32px" class="rounded-circle" />
           </div>
           <div class="align-self-center">
-            {{ post.authorName }} &middot; {{ post.parsedTime }} &middot;
-            {{ post.parsedReadTime }} read
+            {{ post.authorName }} &middot; {{ post.time | timeParse }} &middot;
+            {{ post.readTime | readParse }}
+          </div>
+          <div class="align-self-center ml-auto text-big gear">
+            <app-gear [data]="gearData"></app-gear>
           </div>
         </div>
       </small>
-      <div>
+      <div class="d-flex">
         <h3>{{ post.title }}</h3>
       </div>
+
       <div class="ck-content">
         <div [innerHTML]="post.content | sanitizeHtml"></div>
       </div>
@@ -30,28 +31,25 @@
       <i class="fa fa-linkedin-square mr-5" style="font-size: 1.2em"></i>
       <i class="fa fa-link mr-5" style="font-size: 1.2em"></i>
     </div>
-    <hr />
+    <!-- <hr />
     <small>
-      <div class="row text-muted ml-1 mb-3">
-        <div class="mr-2">0 views</div>
-        <div class="mr-2">0 comments</div>
-      </div>
-    </small>
+    <app-blog-footer [post]="footerData"></app-blog-footer>
   </div>
   <div class="col mt-3 border p-5">
     <div class="rounded-circle">
       <div class="row">
         <div class="mr-4">
-          <img
-            src="https://lh3.googleusercontent.com/ogw/ADGmqu_QveKBLCrVpsf1EBYs18E3ievi-G0K2znuMW5Vuec=s64-c-mo"
-            class="rounded-circle"
-            width="48px"
-          />
+          <img [src]="user.photoURL" class="rounded-circle" width="48px" />
         </div>
-        <div class="row align-self-center">Akathian Santhakumar</div>
+        <div class="row align-self-center">
+          {{ user.displayName }}
+        </div>
       </div>
       <!-- <div class="row mt-3 text-muted"> -->
-      <div class="form-group row mt-3">
+      <div
+        class="form-group row mt-3"
+        *ngIf="user.displayName != 'Sign in to comment'"
+      >
         <textarea
           class="form-control"
           placeholder="Write a Comment..."
@@ -62,6 +60,7 @@
       </div>
       <!-- </div> -->
       <button
+        *ngIf="user.displayName != 'Sign in to comment'"
         class="btn btn-dark float-right px-4 rounded-0"
         (click)="postComment()"
       >

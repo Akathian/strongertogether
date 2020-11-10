@@ -9,7 +9,15 @@
           {{ comment.authorName }}
         </div>
         <div class="col col-md-3 col-lg-2 pr-1">
-          {{ parsedTime }}
+          <div class="d-flex">
+            <div class="align-self-center">
+              {{ comment.time | timeParse }}
+            </div>
+            <app-gear
+              class="mr-2 align-self-center"
+              [data]="gearData"
+            ></app-gear>
+          </div>
         </div>
       </div>
     </div>
@@ -32,7 +40,7 @@
           </a>
         </div>
       </div>
-      <div [id]="'id' + comment.time" class="collapse" role="tabpanel">
+      <div [id]="'id' + comment.id" class="collapse" role="tabpanel">
         <div *ngFor="let reply of comment.replies | keyvalue" class="col m-3">
           <app-replies [reply]="reply.value"></app-replies>
         </div>
@@ -69,9 +77,7 @@
                     <div class="col-sm-7 col-md-8 col-lg-9">
                       {{ comment.authorName }}
                     </div>
-                    <div class="col col-md-4 col-lg-3">
-                      <!-- {{ parsedTime }} -->
-                    </div>
+                    <div class="col col-md-4 col-lg-3"></div>
                   </div>
                 </small>
               </div>

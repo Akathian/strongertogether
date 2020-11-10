@@ -118,12 +118,14 @@ export class BlogEditComponent implements AfterViewInit {
     document.getElementById('saveBtn').classList.add('disabled')
     if (ref) {
       let updates = {}
-      const coverImg = this.getCover(this.data)
+      let coverImg = this.getCover(this.data)
       if (coverImg) {
+        coverImg = coverImg.replace('src=', "width='100%' src=")
         updates[ref + 'cover'] = coverImg
       }
       updates[ref + 'content'] = this.data
       updates[ref + 'title'] = this.title
+      updates[ref + 'readTime'] = this.data.split(' ').length / 200
       firebase.database().ref().update(updates)
     }
   }
@@ -167,7 +169,7 @@ export class BlogEditComponent implements AfterViewInit {
         let time = draft.val().time
         await firebase.database().ref('users/' + user.uid + '/drafts/' + self.id).set(null)
         await firebase.database().ref('users/' + user.uid + '/blog-posts/' + self.id).set('blog/' + self.id)
-        window.location.href = `/blog/post/${self.id}/${time}/edit`;
+        window.location.href = `/blog/post/${self.id}`;
       }
 
       // firebase.database().ref('users/' + user.uid + '/drafts/' + self.id).once('value', (draftData) => {

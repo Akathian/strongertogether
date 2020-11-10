@@ -11,37 +11,18 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class BlogComponent implements OnInit {
   posts;
+  userLiked
   constructor(private dateService: DateService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
     let self = this
     firebase.database().ref('/blog/').on('value', function (blogData) {
       self.posts = blogData.val()
-      let a = []
-      a = Object.values(self.posts)
-      for (let post of a) {
-        let total = 0
-        post.cover = post.cover.replace('src=', "width='100%' src=")
-        console.log(post.cover)
-        try {
-          post.cover.replaceAll('\\', '')
-        } catch (e) { }
-        let b = []
-        if (post.comments) {
-          b = Object.values(post.comments)
-          for (let comment of b) {
-            let c = Object.values(comment.replies)
-            total += c.length + 1
-          }
-        }
-        post.numComments = total
-      }
     })
   }
 
   newPost() {
     let d = (new Date()).getTime()
-    // let parsed = this.dateService.parser(d)
     let time = `${d}`
     let self = this
     firebase.auth().onAuthStateChanged(function (user) {
@@ -53,10 +34,9 @@ export class BlogComponent implements OnInit {
           authorName: user.displayName,
           comments: [],
           content: "<p>Set the title in the text input above. The first image attached in this post will be set as the cover. Main content of your blog post goes here </p>",
-          cover: "<img src='../../../assets/STNEWCOVER2.png'>",
-          parsedReadTime: "",
+          cover: "<img width='100%' src='../../../assets/STNEWCOVER2.png'>",
           title: 'New Blog Post Title',
-          readTime: "",
+          readTime: "0",
           time: time,
           uid: user.uid
         })
@@ -64,4 +44,5 @@ export class BlogComponent implements OnInit {
       }
     })
   }
+
 }

@@ -8,11 +8,15 @@ import { DateService } from '../../../../services/date.service'
 })
 export class RepliesComponent implements OnInit {
   @Input() reply;
-  parsedTime;
+  gearData = { id: '', editLink: '', dbLink: '', type: 'reply', editors: [] }
+
   constructor(private dateService: DateService) { }
 
   ngOnInit() {
-    this.parsedTime = this.dateService.parser(this.reply.time)
+    this.gearData.editors.push(this.reply.uid)
+    this.gearData.editors.push(this.reply.parentUid)
+    this.gearData.dbLink = 'blog/' + this.reply.parentId + '/replies/' + this.reply.id
+    this.gearData.id = this.reply.id
   }
 
 }

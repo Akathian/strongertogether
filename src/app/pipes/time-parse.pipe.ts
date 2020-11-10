@@ -1,13 +1,12 @@
-import { Injectable } from '@angular/core';
+import { Pipe, PipeTransform } from '@angular/core';
 
-@Injectable({
-  providedIn: 'root'
+@Pipe({
+  name: 'timeParse'
 })
-export class DateService {
+export class TimeParsePipe implements PipeTransform {
 
-  constructor() { }
-
-  parser(time) {
+  transform(value: string): string {
+    let time = +(value)
     let now = (new Date()).getTime()
     let diff = now - time
     if (diff < 30000) {
@@ -15,21 +14,21 @@ export class DateService {
     } else if (diff / 60000 < 60) {
       let num = Math.round(diff / 60000)
       if (num === 1) {
-        return `${num} min ago`
+        return `${num}m ago`
       }
-      return `${num} mins ago`
+      return `${num}m ago`
     } else if ((diff / 60000) / 60 < 24) {
       let num = Math.round((diff / 60000) / 60)
       if (num === 1) {
-        return `${num} hr ago`
+        return `${num}h ago`
       }
-      return `${num} hrs ago`
+      return `${num}h ago`
     } else if (((diff / 60000) / 60) / 24 < 7) {
       let num = Math.round(((diff / 60000) / 60) / 24)
       if (num === 1) {
-        return `${num} day ago`
+        return `${num}d ago`
       }
-      return `${num} days ago`
+      return `${num}d ago`
     } else {
       let d = new Date()
       d.setTime(time)
@@ -39,4 +38,5 @@ export class DateService {
       return dateString
     }
   }
+
 }

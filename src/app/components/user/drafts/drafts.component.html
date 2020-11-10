@@ -10,7 +10,8 @@
       <div class="row" *ngFor="let draft of drafts | keyvalue">
         <div class="col">
           <a [href]="href + draft.key + '/edit'"
-            >{{ draft.value.title }} created {{ draft.value.parsedTime }}</a
+            >{{ draft.value.title }} created
+            {{ draft.value.time | timeParse }}</a
           >
         </div>
       </div>

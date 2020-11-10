@@ -30,8 +30,8 @@
                 </div>
                 <div class="text-muted">
                   <small>
-                    {{ post.value.parsedTime }}&middot;
-                    {{ post.value.parsedReadTime }}
+                    {{ post.value.time | timeParse }} &middot;
+                    {{ post.value.readTime | readParse }}
                   </small>
                 </div>
               </div>
@@ -44,14 +44,7 @@
               <div class="ck-content" [innerHTML]="post.value.content"></div>
             </a>
           </a>
-
-          <hr class="mt-0" />
-          <small>
-            <div class="row text-muted ml-1 mb-3">
-              <div class="mr-2">0 views</div>
-              <div class="mr-2">{{ post.value.numComments }} comments</div>
-            </div>
-          </small>
+          <app-blog-footer [post]="post"></app-blog-footer>
         </div>
       </div>
     </div>

@@ -28,10 +28,6 @@ export class DraftsComponent implements OnInit {
             self.drafts = draftData.val()
             self.lenOfData = Object.values(self.drafts)
             self.href = '/blog/drafts/'
-            for (let draft of self.drafts) {
-              console.log(draft.time)
-              draft.parsedTime = self.dateService.parser(draft.time)
-            }
           }
         })
         self.showLoading = false

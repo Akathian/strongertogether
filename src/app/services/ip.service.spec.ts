@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { DateService } from './date.service';
+import { IpService } from './ip.service';
 
-describe('DateService', () => {
+describe('IpService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: DateService = TestBed.get(DateService);
+    const service: IpService = TestBed.get(IpService);
     expect(service).toBeTruthy();
   });
 });

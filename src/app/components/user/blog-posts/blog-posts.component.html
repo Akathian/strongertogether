@@ -14,7 +14,7 @@
         <div class="col">
           <a [href]="'/blog/' + post.key">
             <small class="text-muted mr-3"
-              ><i>{{ post.value.parsedTime }}</i></small
+              ><i>{{ post.value.time | timeParse }}</i></small
             >
             {{ post.value.title }}
           </a>

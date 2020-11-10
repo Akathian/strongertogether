@@ -37,8 +37,13 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { BlogEditComponent } from './components/blog/blog-edit/blog-edit.component';
 import { SanitizeHtmlPipe } from './pipes/sanitize-html.pipe';
 import { NgxTextOverflowClampModule } from "ngx-text-overflow-clamp";
+import { GearComponent } from './components/shared/gear/gear.component';
+import { HttpClientModule } from "@angular/common/http";
 
-
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { BlogFooterComponent } from './components/blog/blog-footer/blog-footer.component';
+import { TimeParsePipe } from './pipes/time-parse.pipe';
+import { ReadParsePipe } from './pipes/read-parse.pipe';
 
 @NgModule({
   declarations: [
@@ -71,6 +76,10 @@ import { NgxTextOverflowClampModule } from "ngx-text-overflow-clamp";
     ForumPostsComponent,
     BlogEditComponent,
     SanitizeHtmlPipe,
+    GearComponent,
+    BlogFooterComponent,
+    TimeParsePipe,
+    ReadParsePipe,
   ],
   imports: [
     BrowserModule,
@@ -79,7 +88,9 @@ import { NgxTextOverflowClampModule } from "ngx-text-overflow-clamp";
     FormsModule,
     ReactiveFormsModule,
     CKEditorModule,
-    NgxTextOverflowClampModule
+    NgxTextOverflowClampModule,
+    MDBBootstrapModule.forRoot(),
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

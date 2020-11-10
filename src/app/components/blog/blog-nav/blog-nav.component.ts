@@ -6,10 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./blog-nav.component.scss']
 })
 export class BlogNavComponent implements OnInit {
-
   constructor() { }
 
   ngOnInit() {
   }
+
 
 }

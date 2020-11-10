@@ -13,12 +13,17 @@ export class CommentsComponent implements OnInit {
   @Input() comment
   reply
   href
-  parsedTime;
+  gearData = { id: '', editLink: '', dbLink: '', type: 'comment', editors: [] }
+
   constructor(private dateService: DateService) { }
 
   ngOnInit() {
-    this.href = '#id' + this.comment.time
-    this.parsedTime = this.dateService.parser(this.comment.time)
+    this.href = '#id' + this.comment.id
+    this.gearData.editors.push(this.comment.uid)
+    this.gearData.editors.push(this.comment.parentUid)
+    this.gearData.dbLink = 'blog/' + this.comment.parentId + '/comments/' + this.comment.id
+    this.gearData.id = this.comment.id
+
   }
 
   replyChange(reply) {
@@ -37,6 +42,7 @@ export class CommentsComponent implements OnInit {
           authorName: user.displayName,
           content: self.reply,
           time: d.getTime(),
+          parentUid: self.comment.parentUid,
           uid: user.uid,
           id: replyId,
           parentId: `${self.comment.parentId}/comments/${self.comment.id}`

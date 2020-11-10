@@ -11,7 +11,7 @@ a {
 .commentList {
     overflow-y: auto;
     overflow-x: hidden;
-    height: 508px;
+    max-height: 508px;
 }
 ::-webkit-scrollbar {
     -webkit-appearance: none;
