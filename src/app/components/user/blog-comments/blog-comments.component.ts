@@ -72,7 +72,7 @@ export class BlogCommentsComponent implements OnInit {
         }
         commentRef = commentRef.replace('blog/', '')
 
-        data[fullComment.val().id].time = self.dateService.parser(+(data[fullComment.val().id].time))
+
         let postId = data[fullComment.val().id].parentId.split('/')[0] || data[fullComment.val().id].parentId
         data[fullComment.val().id].postId = postId
         let title = await (await firebase.database().ref('blog/' + postId + '/title').once('value')).val()

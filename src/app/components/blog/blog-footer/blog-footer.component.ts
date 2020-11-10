@@ -67,6 +67,7 @@ export class BlogFooterComponent implements OnInit {
     firebase.auth().onAuthStateChanged(function (user) {
       let updates = {}
       updates['blog/' + key + '/likes/' + user.uid] = 1
+      updates['users/' + user.uid + '/blog-likes/' + key] = key + '/likes/' + user.uid
       firebase.database().ref().update(updates)
     })
   }
@@ -74,6 +75,7 @@ export class BlogFooterComponent implements OnInit {
   unlike(key) {
     firebase.auth().onAuthStateChanged(function (user) {
       firebase.database().ref('blog/' + key + '/likes/' + user.uid).remove()
+      firebase.database().ref('users/' + user.uid + '/blog-likes/' + key).remove()
     })
   }
 }

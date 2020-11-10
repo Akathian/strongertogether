@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import firebase from 'firebase/app'
 import 'firebase/database'
-import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-blog',
@@ -11,7 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class BlogComponent implements OnInit {
   posts;
   userLiked
-  constructor(private router: Router, private route: ActivatedRoute) { }
+  constructor() { }
 
   ngOnInit() {
     let self = this
