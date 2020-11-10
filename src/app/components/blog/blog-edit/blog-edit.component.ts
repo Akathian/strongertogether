@@ -167,7 +167,7 @@ export class BlogEditComponent implements AfterViewInit {
         let time = draft.val().time
         await firebase.database().ref('users/' + user.uid + '/drafts/' + self.id).set(null)
         await firebase.database().ref('users/' + user.uid + '/blog-posts/' + self.id).set('blog/' + self.id)
-        window.location.href = `/blog/post/${self.id}`;
+        window.location.href = `/blog/${self.id}`;
       }
 
       // firebase.database().ref('users/' + user.uid + '/drafts/' + self.id).once('value', (draftData) => {

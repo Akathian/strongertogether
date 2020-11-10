@@ -29,7 +29,11 @@ export class BlogLikesComponent implements OnInit {
           self.lenOfData = likeRefs.length
           for (let like of likeRefs) {
             let title = await (await firebase.database().ref(like + '/title').once('value')).val()
-            self.likesData[like] = { title, href: '/' + likeRefs }
+            if (title) {
+              self.likesData[like] = { title, href: '/' + likeRefs }
+            } else {
+              firebase.database().ref('users/' + user.uid + '/blog-likes/' + like.split('/')[1]).remove()
+            }
           }
         }
         self.showLoading = false

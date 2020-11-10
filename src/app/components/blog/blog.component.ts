@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+
 import firebase from 'firebase/app'
 import 'firebase/database'
 
@@ -15,7 +16,8 @@ export class BlogComponent implements OnInit {
   ngOnInit() {
     let self = this
     firebase.database().ref('/blog/').on('value', function (blogData) {
-      self.posts = blogData.val()
+      self.posts = Object.values(blogData.val()).reverse()
+      // Object.values(self.posts).reverse()
     })
   }
 
@@ -36,7 +38,8 @@ export class BlogComponent implements OnInit {
           title: 'New Blog Post Title',
           readTime: "0",
           time: time,
-          uid: user.uid
+          uid: user.uid,
+          id: postId
         })
         window.location.href = `/blog/drafts/${postId}/edit`;
       }

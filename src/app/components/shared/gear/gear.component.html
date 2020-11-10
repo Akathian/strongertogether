@@ -57,6 +57,45 @@
   </button>
   <div [id]="id" class="dropdown-content gearBtn">
     <a class="gearBtn" *ngIf="editLink" [href]="editLink">Edit</a>
-    <a class="gearBtn">Delete</a>
+    <a class="gearBtn" (click)="confirmModal.show()">Delete</a>
+  </div>
+</div>
+
+<div
+  mdbModal
+  #confirmModal="mdbModal"
+  class="modal fade"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myBasicModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button
+          type="button"
+          class="close pull-right"
+          aria-label="Close"
+          (click)="confirmModal.hide()"
+        >
+          <span (click)="confirmModal.hide()" aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title w-100" id="myModalLabel">Confirm Delete</h4>
+      </div>
+      <div class="modal-body">You will be deleting this {{ type }}</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-md btn-dark" (click)="del()">
+          Yes
+        </button>
+        <button
+          type="button"
+          class="btn btn-md btn-info"
+          (click)="confirmModal.hide()"
+        >
+          No
+        </button>
+      </div>
+    </div>
   </div>
 </div>

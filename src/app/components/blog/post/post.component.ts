@@ -21,18 +21,25 @@ export class PostComponent implements OnInit {
   comment;
   iframe;
   gearData = { id: '', editLink: '', dbLink: '', type: 'post', editors: [] }
-  footerData = { value: '', key: '' };
+  footerData = {};
   user = { displayName: 'Sign in to comment', photoURL: '' }
   @ViewChild('iframeContent', { static: true }) iframeBox: ElementRef;
   ngOnInit() {
+    let self = this
     this.route.paramMap.subscribe(async params => {
       this.id = params.get('id');
       this.time = +params.get('time')
       this.title = params.get('title')
-      this.editLink = `/blog/post/${this.id}/edit`
-      this.getPost()
-      this.getUser()
-      this.updateViews()
+      firebase.database().ref('blog/' + this.id).on('value', function (postData) {
+        if (postData.val()) {
+          self.editLink = `/blog/post/${self.id}/edit`
+          self.getPost()
+          self.getUser()
+          self.updateViews()
+        } else {
+          window.location.href = '/blog'
+        }
+      })
     });
   }
 
@@ -66,8 +73,7 @@ export class PostComponent implements OnInit {
       self.gearData.editLink = self.editLink
       self.gearData.dbLink = `/blog/${this.id}`
       self.post = postData.val()
-      self.footerData.value = self.post
-      self.footerData.key = self.id
+      self.footerData = self.post
       if (self.post) {
         if (self.post.comments) {
           self.post.comments = Object.values(self.post.comments).reverse()

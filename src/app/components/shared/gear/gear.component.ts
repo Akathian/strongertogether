@@ -1,7 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import firebase from 'firebase/app'
 import 'firebase/database'
 import 'firebase/auth'
+import { ModalDirective } from 'angular-bootstrap-md';
 
 @Component({
   selector: 'app-gear',
@@ -10,6 +11,7 @@ import 'firebase/auth'
 })
 export class GearComponent implements OnInit {
   @Input() data;
+  @ViewChild('confirmModal', { static: false }) confirmModal: ModalDirective;
   dbLink; // id of elem
   editLink;
   type; // blog, comment, reply
@@ -49,4 +51,8 @@ export class GearComponent implements OnInit {
     document.getElementById(this.id).classList.toggle("show");
   }
 
+  del() {
+    firebase.database().ref(this.dbLink).remove()
+    window.location.href = '/blog'
+  }
 }

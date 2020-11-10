@@ -1,20 +1,18 @@
 <hr class="mt-0" />
 <small>
   <div class="row text-muted ml-1 mb-3">
-    <div class="mr-3">{{ post.value.numViews }}<i class="fas fa-eye"></i></div>
-    <div class="mr-3">
-      {{ post.value.numComments }} <i class="fas fa-comments"></i>
-    </div>
+    <div class="mr-3">{{ numViews }}<i class="fas fa-eye"></i></div>
+    <div class="mr-3">{{ numComments }} <i class="fas fa-comments"></i></div>
     <div class="ml-auto mr-3">
-      {{ post.value.numLikes }}
+      {{ numLikes }}
       <i
-        *ngIf="post.value.liked"
-        (click)="unlike(post.key)"
+        *ngIf="liked"
+        (click)="unlike(post.id)"
         class="fas fa-heart text-danger"
       ></i>
       <i
-        *ngIf="!post.value.liked"
-        (click)="like(post.key)"
+        *ngIf="!liked"
+        (click)="like(post.id)"
         class="far fa-heart text-danger"
       ></i>
     </div>

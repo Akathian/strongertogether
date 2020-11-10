@@ -10,13 +10,17 @@ import 'firebase/auth'
 })
 export class BlogFooterComponent implements OnInit {
   @Input() post;
+  numViews;
+  numComments;
+  numLikes;
+  liked = false
   constructor() { }
 
   ngOnInit() {
     let self = this
-    firebase.database().ref('blog/' + this.post.key).on('value', function (postData) {
+    firebase.database().ref('blog/' + this.post.id).on('value', function (postData) {
       if (postData.val()) {
-        self.post.value = postData.val()
+        self.post = postData.val()
         self.countComments()
         self.countViews()
         self.countLikes()
@@ -27,8 +31,8 @@ export class BlogFooterComponent implements OnInit {
   countComments() {
     let total = 0
     let b = []
-    if (this.post.value.comments) {
-      b = Object.values(this.post.value.comments)
+    if (this.post.comments) {
+      b = Object.values(this.post.comments)
       for (let comment of b) {
         if (comment.replies) {
           let c = Object.values(comment.replies)
@@ -37,29 +41,28 @@ export class BlogFooterComponent implements OnInit {
         total += 1
       }
     }
-    this.post.value.numComments = total
+    this.numComments = total
   }
 
   countViews() {
-    if (this.post.value.views) {
-      this.post.value.numViews = 0
-      if (this.post.value.views) {
-        let views = Object.keys(this.post.value.views)
-        this.post.value.numViews = views.length
-      }
+    this.numViews = 0
+    if (this.post.views) {
+      let views = Object.keys(this.post.views)
+      this.numViews = views.length
     }
   }
 
   countLikes() {
     let self = this
-    this.post.value.numLikes = 0
-    if (this.post.value.likes) {
-      let likes = Object.keys(this.post.value.likes)
+    this.numLikes = 0
+    if (this.post.likes) {
+      let likes = Object.keys(this.post.likes)
       firebase.auth().onAuthStateChanged(function (user) {
-        self.post.value.liked = likes.indexOf(user.uid) >= 0
-
+        self.liked = likes.indexOf(user.uid) >= 0
       })
-      this.post.value.numLikes = likes.length
+      this.numLikes = likes.length
+    } else {
+      this.liked = false
     }
   }
 
