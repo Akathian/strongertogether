@@ -32,6 +32,7 @@
     "@tinymce/tinymce-angular": "^4.2.0",
     "@types/chart.js": "^2.9.24",
     "angular-bootstrap-md": "^8.2.0",
+    "angular-webstorage-service": "^1.0.2",
     "angularfire2": "^5.4.2",
     "animate.css": "^4.1.0",
     "bootstrap": "^4.0.0-beta",

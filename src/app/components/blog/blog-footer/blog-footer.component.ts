@@ -18,7 +18,7 @@ export class BlogFooterComponent implements OnInit {
 
   ngOnInit() {
     let self = this
-    firebase.database().ref('blog/' + this.post.id).on('value', function (postData) {
+    firebase.database().ref('blog/general/' + this.post.id).on('value', function (postData) {
       if (postData.val()) {
         self.post = postData.val()
         self.countComments()
@@ -69,15 +69,15 @@ export class BlogFooterComponent implements OnInit {
   like(key) {
     firebase.auth().onAuthStateChanged(function (user) {
       let updates = {}
-      updates['blog/' + key + '/likes/' + user.uid] = 1
-      updates['users/' + user.uid + '/blog-likes/' + key] = "blog/" + key
+      updates['blog/general/' + key + '/likes/' + user.uid] = 1
+      updates['users/' + user.uid + '/blog-likes/' + key] = "blog/general/" + key
       firebase.database().ref().update(updates)
     })
   }
 
   unlike(key) {
     firebase.auth().onAuthStateChanged(function (user) {
-      firebase.database().ref('blog/' + key + '/likes/' + user.uid).remove()
+      firebase.database().ref('blog/general/' + key + '/likes/' + user.uid).remove()
       firebase.database().ref('users/' + user.uid + '/blog-likes/' + key).remove()
     })
   }

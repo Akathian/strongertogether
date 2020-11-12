@@ -53,6 +53,8 @@ export class GearComponent implements OnInit {
 
   del() {
     firebase.database().ref(this.dbLink).remove()
-    window.location.href = '/blog'
+    firebase.database().ref('blog/events/' + this.data.id).remove()
+    firebase.database().ref('blog/podcasts/' + this.data.id).remove()
+    // window.location.href = '/blog'
   }
 }

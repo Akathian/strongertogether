@@ -23,18 +23,21 @@ export class BlogPostsComponent implements OnInit {
     let self = this
     firebase.auth().onAuthStateChanged(function (user) {
       firebase.database().ref('users/' + user.uid + '/blog-posts').on('value', async function (postData) {
-        self.posts = postData.val()
-        let postRefs = []
-        postRefs = Object.values(self.posts)
-        self.lenOfData = postRefs.length
-        self.postsData = []
-        for (let post of postRefs) {
-          let fullPost = await firebase.database().ref(post).once('value')
-          if (fullPost.val()) {
-            post = post.replace('blog/', '')
-            self.postsData[post] = fullPost.val()
-          } else {
-            firebase.database().ref("users/" + user.uid + '/' + post.replace('blog', 'blog-posts')).remove()
+        if (postData.val()) {
+          self.posts = postData.val()
+          let postRefs = []
+          postRefs = Object.values(self.posts)
+          self.lenOfData = postRefs.length
+          self.postsData = []
+          for (let post of postRefs) {
+            let fullPost = await firebase.database().ref(post).once('value')
+            if (fullPost.val()) {
+              post = post.replace('blog/', '')
+              self.postsData[post] = fullPost.val()
+            } else {
+              firebase.database().ref("users/" + user.uid + '/' + post.replace('blog/general/', 'blog-posts/')).remove()
+              console.log("users/" + user.uid + '/' + post.replace('blog/general/', 'blog-posts/'))
+            }
           }
         }
         self.showLoading = false

@@ -32,7 +32,8 @@ export class BlogLikesComponent implements OnInit {
             if (title) {
               self.likesData[like] = { title, href: '/' + likeRefs }
             } else {
-              firebase.database().ref('users/' + user.uid + '/blog-likes/' + like.split('/')[1]).remove()
+              console.log('users/' + user.uid + '/blog-likes/' + like.split('/')[2])
+              firebase.database().ref('users/' + user.uid + '/blog-likes/' + like.split('/')[2]).remove()
             }
           }
         }

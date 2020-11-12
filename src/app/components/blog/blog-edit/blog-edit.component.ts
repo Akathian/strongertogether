@@ -7,7 +7,7 @@ import firebase from 'firebase/app'
 import 'firebase/database'
 import 'firebase/auth'
 import { MessengerService } from '../../../services/messenger.service'
-
+import * as $ from 'jquery'
 @Component({
   selector: 'app-blog-edit',
   templateUrl: './blog-edit.component.html',
@@ -32,7 +32,9 @@ export class BlogEditComponent implements AfterViewInit {
   uid;
   create;
   type
-  ref
+  ref;
+  category;
+  catDirty = false;
   public postContent = '';
   constructor(private messenger: MessengerService, private route: ActivatedRoute, private router: Router) { }
 
@@ -54,6 +56,9 @@ export class BlogEditComponent implements AfterViewInit {
                   self.router.navigate([`/blog`], { relativeTo: self.route })
                 } else {
                   self.postContent = blogData.val().content
+                  self.category = blogData.val().category
+                  $('#catChoose').val(self.category)
+                  console.log($('#catChoose'))
                   self.title = blogData.val().title
                   self.editorComponent.editorInstance.setData(self.postContent)
                 }
@@ -64,7 +69,7 @@ export class BlogEditComponent implements AfterViewInit {
           })
         })
       } else if (this.type === 'post') {
-        firebase.database().ref(`/blog/` + self.id).once('value', (blogData) => {
+        firebase.database().ref(`/blog/general/` + self.id).once('value', (blogData) => {
           firebase.auth().onAuthStateChanged(function (user) {
             if (blogData.val()) {
               if ((user.uid !== blogData.val().uid)) {
@@ -72,6 +77,9 @@ export class BlogEditComponent implements AfterViewInit {
               } else {
                 self.postContent = blogData.val().content
                 self.title = blogData.val().title
+                self.category = blogData.val().category
+                $('#catChoose').val(self.category)
+                console.log($('#catChoose'))
                 self.editorComponent.editorInstance.setData(self.postContent)
               }
             } else {
@@ -108,7 +116,7 @@ export class BlogEditComponent implements AfterViewInit {
     let ref = ''
     if (this.type === 'post') {
       this.saveStatus = `<small>All Changes Published</small>`
-      ref = '/blog/' + this.id + '/'
+      ref = '/blog/general/' + this.id + '/'
     } else {
       clearTimeout(this.saveTimer)
       ref = `/${this.ref}/` + this.id + '/'
@@ -125,6 +133,14 @@ export class BlogEditComponent implements AfterViewInit {
       updates[ref + 'content'] = this.data
       updates[ref + 'title'] = this.title
       updates[ref + 'readTime'] = this.data.split(' ').length / 200
+      updates[ref + 'category'] = this.category
+      if (this.catDirty && this.type === 'post') {
+        firebase.database().ref('blog/events/' + this.id).remove()
+        firebase.database().ref('blog/podcasts/' + this.id).remove()
+        if (this.category !== 'general') {
+          firebase.database().ref('blog/' + this.category + '/' + this.id).set('blog/general/' + this.id)
+        }
+      }
       firebase.database().ref().update(updates)
     }
   }
@@ -163,22 +179,27 @@ export class BlogEditComponent implements AfterViewInit {
     firebase.auth().onAuthStateChanged(async function (user) {
       let draft = await firebase.database().ref('users/' + user.uid + '/drafts/' + self.id).once('value')
       if (draft.val()) {
-        await firebase.database().ref('blog/' + self.id).set(draft.val())
-        let time = draft.val().time
+        if (self.category !== 'general') {
+          await firebase.database().ref('blog/' + self.category + '/' + self.id).set('blog/general/' + self.id)
+        }
+        await firebase.database().ref('blog/general/' + self.id).set(draft.val())
         await firebase.database().ref('users/' + user.uid + '/drafts/' + self.id).set(null)
-        await firebase.database().ref('users/' + user.uid + '/blog-posts/' + self.id).set('blog/' + self.id)
+        await firebase.database().ref('users/' + user.uid + '/blog-posts/' + self.id).set('blog/general/' + self.id)
         window.location.href = `/blog/${self.id}`;
       }
-
-      // firebase.database().ref('users/' + user.uid + '/drafts/' + self.id).once('value', (draftData) => {
-      //   let updates = {}
-      //   firebase.database().ref('blog/' + self.id).set(draftData.val())
-      //   updates['blog/' + self.id] = draftData.val()
-      //   updates['users/' + user.uid + '/blog-posts/' + self.id] = 'blog/' + self.id
-      //   firebase.database().ref().update(updates)
-      // })
-      // firebase.database().ref('users/' + user.uid + '/drafts/' + self.id).remove()
     })
+  }
 
+  catChange(event) {
+    let i = event.target.options.selectedIndex
+    let option = event.target.options[i].value
+    this.category = option
+    this.catDirty = true
+    if (this.type === 'post') {
+      this.saveStatus = `<small>Publish</small>`
+    } else {
+      this.saveStatus = `<small>Save as Draft</small>`
+    }
+    document.getElementById('saveBtn').classList.remove('disabled')
   }
 }

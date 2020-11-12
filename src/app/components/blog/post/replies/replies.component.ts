@@ -14,7 +14,7 @@ export class RepliesComponent implements OnInit {
   ngOnInit() {
     this.gearData.editors.push(this.reply.uid)
     this.gearData.editors.push(this.reply.parentUid)
-    this.gearData.dbLink = 'blog/' + this.reply.parentId + '/replies/' + this.reply.id
+    this.gearData.dbLink = 'blog/general/' + this.reply.parentId + '/replies/' + this.reply.id
     this.gearData.id = this.reply.id
   }
 

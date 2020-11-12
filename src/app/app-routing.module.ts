@@ -18,12 +18,14 @@ import "firebase/auth";
 import { environment } from 'src/environments/environment';
 
 firebase.initializeApp(environment.firebaseConfig);
-// firebase.analytics();
+firebase.analytics();
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'resources', component: ResourcesComponent },
   { path: 'blog', component: BlogComponent },
+  { path: 'blog-events', component: BlogComponent },
+  { path: 'blog-podcasts', component: BlogComponent },
   { path: 'about', component: AboutComponent },
   { path: 'forum', component: ForumComponent },
   { path: 'programs', component: ProgramsComponent },

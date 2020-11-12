@@ -30,7 +30,7 @@ export class PostComponent implements OnInit {
       this.id = params.get('id');
       this.time = +params.get('time')
       this.title = params.get('title')
-      firebase.database().ref('blog/' + this.id).on('value', function (postData) {
+      firebase.database().ref('blog/general/' + this.id).on('value', function (postData) {
         if (postData.val()) {
           self.editLink = `/blog/post/${self.id}/edit`
           self.getPost()
@@ -51,7 +51,7 @@ export class PostComponent implements OnInit {
         ip = ip.replace('.', '-')
       }
       let updates = {}
-      updates['blog/' + self.id + '/views/' + ip] = 1
+      updates['blog/general/' + self.id + '/views/' + ip] = 1
       firebase.database().ref().update(updates)
     })
   }
@@ -67,11 +67,11 @@ export class PostComponent implements OnInit {
 
   getPost() {
     let self = this
-    firebase.database().ref(`/blog/${this.id}`).on('value', (postData) => {
+    firebase.database().ref(`/blog/general/${this.id}`).on('value', (postData) => {
       self.gearData.id = self.id
       self.gearData.editors.push(postData.val().uid)
       self.gearData.editLink = self.editLink
-      self.gearData.dbLink = `/blog/${this.id}`
+      self.gearData.dbLink = `/blog/general/${this.id}`
       self.post = postData.val()
       self.footerData = self.post
       if (self.post) {
@@ -102,8 +102,7 @@ export class PostComponent implements OnInit {
       let self = this
       let d = new Date()
       firebase.auth().onAuthStateChanged(function (user) {
-
-        let newCommentRef = firebase.database().ref('blog/' + self.id + '/comments').push()
+        let newCommentRef = firebase.database().ref('blog/general/' + self.id + '/comments').push()
         let commentId = newCommentRef.key
         let commentData = {
           authorImg: user.photoURL,
@@ -119,7 +118,7 @@ export class PostComponent implements OnInit {
         newCommentRef.set(commentData);
         (<HTMLTextAreaElement>document.getElementById('commentFormArea')).value = '';
         let updates = {}
-        updates['users/' + user.uid + '/blog-comments/public/' + commentId] = 'blog/' + self.id + '/comments/' + commentId
+        updates['users/' + user.uid + '/blog-comments/public/' + commentId] = 'blog/general/' + self.id + '/comments/' + commentId
         firebase.database().ref().update(updates)
       })
     }

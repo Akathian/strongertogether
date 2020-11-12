@@ -75,12 +75,14 @@ export class BlogCommentsComponent implements OnInit {
 
         let postId = data[fullComment.val().id].parentId.split('/')[0] || data[fullComment.val().id].parentId
         data[fullComment.val().id].postId = postId
-        let title = await (await firebase.database().ref('blog/' + postId + '/title').once('value')).val()
+        let title = await (await firebase.database().ref('blog/general/' + postId + '/title').once('value')).val()
         data[fullComment.val().id].title = title
       } else {
-        // await firebase.database().ref(commentRef).remove()
-        let comRef = commentRef.split('/')[3]
-        let repRef = commentRef.split('/')[5]
+        await firebase.database().ref(commentRef).remove()
+        let comRef = commentRef.split('/')[4]
+        let repRef = commentRef.split('/')[6]
+        console.log(commentRef, commentRef.split('/'))
+
         if (comRef && !repRef) {
           let pub = await firebase.database().ref('users/' + user.uid + '/blog-comments/public/' + comRef)
           let priv = await firebase.database().ref('users/' + user.uid + '/blog-comments/private/' + comRef)

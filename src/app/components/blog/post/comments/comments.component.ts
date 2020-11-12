@@ -35,7 +35,7 @@ export class CommentsComponent implements OnInit {
       let self = this
       let d = new Date()
       firebase.auth().onAuthStateChanged(function (user) {
-        let newReplyRef = firebase.database().ref('blog/' + self.comment.parentId + '/comments/' + self.comment.id + '/replies').push()
+        let newReplyRef = firebase.database().ref('blog/general/' + self.comment.parentId + '/comments/' + self.comment.id + '/replies').push()
         let replyId = newReplyRef.key
         let replyData = {
           authorImg: user.photoURL,
@@ -50,7 +50,7 @@ export class CommentsComponent implements OnInit {
         newReplyRef.set(replyData);
         (<HTMLTextAreaElement>document.getElementById('replyFormArea')).value = '';
         let updates = {}
-        updates['users/' + user.uid + '/blog-comments/public/' + replyId] = 'blog/' + self.comment.parentId + '/comments/' + self.comment.id + '/replies/' + replyId
+        updates['users/' + user.uid + '/blog-comments/public/' + replyId] = 'blog/general/' + self.comment.parentId + '/comments/' + self.comment.id + '/replies/' + replyId
         firebase.database().ref().update(updates)
       })
     }
