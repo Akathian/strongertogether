@@ -8,18 +8,18 @@ admin.initializeApp(functions.config().firebase);
 exports.countGeneralBlogs = functions.database.ref(`/blog/general`).onWrite((change, context) => {
     const data = change.after.val();
     const count = Object.keys(data).length;
-    return change.after.ref('/blog/num-general').set(count);
+    return change.after.ref.parent.child('num-general').set(count);
 });
 
 exports.countEventBlogs = functions.database.ref(`/blog/events`).onWrite((change, context) => {
     const data = change.after.val();
     const count = Object.keys(data).length;
-    return change.after.ref('/blog/num-events').set(count);
+    return change.after.ref.parent.child('num-events').set(count);
 });
 
 
 exports.countPodcastBlogs = functions.database.ref(`/blog/podcasts`).onWrite((change, context) => {
     const data = change.after.val();
     const count = Object.keys(data).length;
-    return change.after.ref('/blog/num-podcasts').set(count);
+    return change.after.ref.parent.child('num-podcasts').set(count);
 });

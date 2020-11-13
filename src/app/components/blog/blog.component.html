@@ -53,17 +53,17 @@
     <!-- <div class="col" *ngFor="let page of numPages">
       {{ page + 1 }}
     </div> -->
-    <div class="col"><button class="btn" (click)="goToPage(0)"><<</button></div>
+    <div class="col"><button class="btn" (click)="goToPage(1)"><<</button></div>
     <div class="col">
       <button class="btn" (click)="goToPage(page - 1)"><</button>
     </div>
 
-    <div class="col">{{ page + 1 }} of {{ paginated.length }}</div>
+    <div class="col">{{ page }} of {{ numPages }}</div>
     <div class="col">
       <button class="btn" (click)="goToPage(page + 1)">></button>
     </div>
     <div class="col">
-      <button class="btn" (click)="goToPage(paginated.length - 1)">>></button>
+      <button class="btn" (click)="goToPage(numPages)">>></button>
     </div>
   </div>
 </div>
