@@ -10,19 +10,36 @@
       <img src="../../../../assets/loading.gif" />
     </div>
     <div class="col" *ngIf="!showLoading && lenOfData">
-      <div class="row mb-3" *ngFor="let post of postsData | keyvalue">
+      <div class="row mb-3" *ngFor="let post of postsData">
         <div class="col">
-          <a [href]="'/blog/' + post.value.id">
+          <a [href]="'/blog/' + post.id">
             <small class="text-muted mr-3"
-              ><i>{{ post.value.time | timeParse }}</i></small
+              ><i>{{ post.time | timeParse }}</i></small
             >
-            {{ post.value.title }}
+            {{ post.title }}
           </a>
         </div>
       </div>
     </div>
     <div class="col text-center" *ngIf="!showLoading && !lenOfData">
       No Posts Yet
+    </div>
+  </div>
+  <div class="d-flex justify-content-center">
+    <!-- <div class="col" *ngFor="let page of numPages">
+      {{ page + 1 }}
+    </div> -->
+    <div class="col"><button class="btn" (click)="goToPage(1)"><<</button></div>
+    <div class="col">
+      <button class="btn" (click)="goToPage(page - 1)"><</button>
+    </div>
+
+    <div class="col">{{ page }} of</div>
+    <div class="col">
+      <button class="btn" (click)="goToPage(page + 1)">></button>
+    </div>
+    <div class="col">
+      <!-- <button class="btn" (click)="goToPage()">>></button> -->
     </div>
   </div>
 </div>

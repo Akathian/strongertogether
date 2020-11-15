@@ -11,7 +11,6 @@ const OFFSET = 5
 })
 export class BlogComponent implements OnInit {
   posts = [];
-  paginated = []
   userLiked;
   path;
   showLoading = true
@@ -38,7 +37,6 @@ export class BlogComponent implements OnInit {
     let self = this
     console.log('num-' + this.path)
     firebase.database().ref('num-' + this.path).on('value', function (numData) {
-      console.log(numData.val())
       self.nums[self.path] = numData.val()
       self.numPages = Math.ceil(self.nums[self.path] / OFFSET)
     })
