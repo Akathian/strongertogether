@@ -1,0 +1,44 @@
+#site {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.side {
+    min-height: 100vh;
+}
+
+@media only screen and (max-width:991px){
+    .side {
+        min-height: 90vh;
+    }
+}
+
+.count {
+    background: url('../../../assets/bg.jpg_large') no-repeat center center fixed;
+    background-size: cover;
+    color: #fff;
+    text-align: center;;
+}
+
+.coming-soon {
+    letter-spacing: 0.25em;
+    font-weight: 100;
+}
+
+.tag {
+    letter-spacing: 0.15em;
+}
+
+.timer {
+    letter-spacing: 0.15em;
+}
+
+a {
+    color: inherit;
+}
+
+.links {
+    letter-spacing: 0.1em;
+}
