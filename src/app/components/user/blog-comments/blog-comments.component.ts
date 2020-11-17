@@ -3,7 +3,8 @@ import firebase from 'firebase/app'
 import 'firebase/database'
 import 'firebase/auth'
 import { ModalDirective } from 'angular-bootstrap-md';
-
+const PUB_OFFSET = 5
+const PRIV_OFFSET = 5
 @Component({
   selector: 'app-blog-comments',
   templateUrl: './blog-comments.component.html',
@@ -14,43 +15,87 @@ export class BlogCommentsComponent implements OnInit {
 
   privateComments;
   publicComments;
-  privData;
-  pubData;
+  privDataVals;
+  privData = [];
+  pubDataVals;
+  pubData = [];
   showLoading = true
   lenOfPub = 0
   lenOfPriv = 0
   currCom = { content: '', time: '', title: '', ref: '' };
+  pubPUB_OFFSET = 1
+  user
+  pubNextKey;
+  privNextKey;
   constructor() { }
 
   ngOnInit() {
-    this.getComments()
+    this.authAndGetComments()
   }
-  getComments() {
-    let self = this
-    firebase.auth().onAuthStateChanged(function (user) {
-      firebase.database().ref('users/' + user.uid + '/blog-comments').on('value', async function (commentsData) {
-        if (commentsData.val()) {
-          self.privateComments = commentsData.val().private
-          self.publicComments = commentsData.val().public
-          let privRefs, pubRefs = []
-          self.privData, self.pubData = []
-          let admins = Object.keys(await (await firebase.database().ref('admins/').once('value')).val())
-          if (self.privateComments) {
-            privRefs = Object.values(self.privateComments)
-            self.lenOfPriv = privRefs.length
-            await self.getFullCommentData(privRefs, self.privData, self, user, admins)
-            self.privData = Object.values(self.privData).reverse()
 
-          }
-          if (self.publicComments) {
-            pubRefs = Object.values(self.publicComments)
-            self.lenOfPub = pubRefs.length
-            await self.getFullCommentData(pubRefs, self.pubData, self, user, admins)
-            self.pubData = Object.values(self.pubData).reverse()
-          }
-        }
-        self.showLoading = false
+  authAndGetComments() {
+    let self = this
+    if (this.user) {
+      this.getPubComments(this.user, self)
+      this.getPrivComments(this.user, self)
+    } else {
+      firebase.auth().onAuthStateChanged(function (user) {
+        self.user = user
+        self.getPubComments(user, self)
+        self.getPrivComments(user, self)
+
       })
+    }
+  }
+  getPubComments(user, self) {
+    let ref
+    if (self.pubNextKey) {
+      ref = firebase.database().ref('users/' + user.uid + '/blog-comments/public').orderByKey().endAt(self.pubNextKey).limitToLast(PUB_OFFSET + 1)
+    } else {
+      ref = firebase.database().ref('users/' + user.uid + '/blog-comments/public').orderByKey().limitToLast(PUB_OFFSET + 1)
+    }
+    ref.on('value', async function (commentsData) {
+      if (commentsData.val()) {
+        self.publicComments = commentsData.val()
+        let pubRefs = []
+        let admins = Object.keys(await (await firebase.database().ref('admins/').once('value')).val())
+
+        pubRefs = Object.values(self.publicComments)
+        if (pubRefs.length > PUB_OFFSET) {
+          self.pubNextKey = (<string>pubRefs.shift()).split('/').pop()
+        }
+        self.lenOfPub = pubRefs.length
+        await self.getFullCommentData(pubRefs, self.pubData, self, user, admins)
+        self.pubData = self.pubData.reverse()
+        self.pubDataVals = Object.keys(self.pubData).sort().reverse()
+
+      }
+      self.showLoading = false
+    })
+  }
+
+  getPrivComments(user, self) {
+    let ref
+    if (self.privNextKey) {
+      ref = firebase.database().ref('users/' + user.uid + '/blog-comments/private').orderByKey().endAt(self.privNextKey).limitToLast(PRIV_OFFSET + 1)
+    } else {
+      ref = firebase.database().ref('users/' + user.uid + '/blog-comments/private').orderByKey().limitToLast(PRIV_OFFSET + 1)
+    }
+    ref.on('value', async function (commentsData) {
+      if (commentsData.val()) {
+        self.privateComments = commentsData.val()
+        let privRefs = []
+        let admins = Object.keys(await (await firebase.database().ref('admins/').once('value')).val())
+
+        privRefs = Object.values(self.privateComments)
+        if (privRefs.length > PRIV_OFFSET) {
+          self.privNextKey = (<string>privRefs.shift()).split('/').pop()
+        }
+        self.lenOfPriv = privRefs.length
+        await self.getFullCommentData(privRefs, self.privData, self, user, admins)
+        self.privDataVals = Object.keys(self.privData).sort().reverse()
+      }
+      self.showLoading = false
     })
   }
 
@@ -66,40 +111,30 @@ export class BlogCommentsComponent implements OnInit {
           type: 'post',
           editors: [fullComment.val().uid, fullComment.val().parentUid].concat(admins)
         }
-
         if (data[fullComment.val().id].gearData.editors.indexOf(user.uid) >= 0) {
           data[fullComment.val().id].showTrash = true
         }
         commentRef = commentRef.replace('blog/', '')
 
-
         let postId = data[fullComment.val().id].parentId.split('/')[0] || data[fullComment.val().id].parentId
         data[fullComment.val().id].postId = postId
         let title = await (await firebase.database().ref('blog/general/' + postId + '/title').once('value')).val()
         data[fullComment.val().id].title = title
+
+
       } else {
         await firebase.database().ref(commentRef).remove()
-        let comRef = commentRef.split('/')[4]
-        let repRef = commentRef.split('/')[6]
-        console.log(commentRef, commentRef.split('/'))
+        let comSplit = commentRef.split('/')
+        let comRef = comSplit[4]
+        let repRef = comSplit[6]
 
         if (comRef && !repRef) {
-          let pub = await firebase.database().ref('users/' + user.uid + '/blog-comments/public/' + comRef)
-          let priv = await firebase.database().ref('users/' + user.uid + '/blog-comments/private/' + comRef)
-          if (pub) {
-            await pub.remove()
-          } else if (priv) {
-            await priv.remove()
-          }
+          await firebase.database().ref('users/' + user.uid + '/blog-comments/public/' + comRef).remove()
+          await firebase.database().ref('users/' + user.uid + '/blog-comments/private/' + comRef).remove()
         }
         if (repRef) {
-          let pub = await firebase.database().ref('users/' + user.uid + '/blog-comments/public/' + repRef)
-          let priv = await firebase.database().ref('users/' + user.uid + '/blog-comments/private/' + repRef)
-          if (pub) {
-            await pub.remove()
-          } else if (priv) {
-            await priv.remove()
-          }
+          await firebase.database().ref('users/' + user.uid + '/blog-comments/public/' + repRef).remove()
+          await firebase.database().ref('users/' + user.uid + '/blog-comments/private/' + repRef).remove()
         }
       }
     }
@@ -117,5 +152,9 @@ export class BlogCommentsComponent implements OnInit {
     firebase.database().ref(ref).remove()
     this.confirmModal.hide()
     window.location.href = '/login/blog-comments'
+  }
+
+  loadMore(type) {
+    type === 'pub' ? this.getPubComments(this.user, this) : this.getPrivComments(this.user, this)
   }
 }

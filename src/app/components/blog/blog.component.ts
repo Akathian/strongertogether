@@ -35,8 +35,7 @@ export class BlogComponent implements OnInit {
 
   getNumPosts() {
     let self = this
-    console.log('num-' + this.path)
-    firebase.database().ref('num-' + this.path).on('value', function (numData) {
+    firebase.database().ref('blog/num-' + this.path).on('value', function (numData) {
       self.nums[self.path] = numData.val()
       self.numPages = Math.ceil(self.nums[self.path] / OFFSET)
     })

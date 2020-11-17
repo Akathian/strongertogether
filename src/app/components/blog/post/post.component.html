@@ -25,19 +25,12 @@
       </div>
     </div>
     <hr />
-    <div class="row px-3 py-1">
+    <div class="row px-3 py-1 mb-2">
       <i class="fa fa-facebook-official mr-5" style="font-size: 1.2em"></i>
       <i class="fa fa-twitter mr-5" style="font-size: 1.2em"></i>
       <i class="fa fa-linkedin-square mr-5" style="font-size: 1.2em"></i>
       <i class="fa fa-link mr-5" style="font-size: 1.2em"></i>
     </div>
-    <!-- <hr />
-    <small>
-      <div class="row text-muted ml-1 mb-3">
-        <div class="mr-2">0 views</div>
-        <div class="mr-2">0 comments</div>
-      </div>
-    </small> -->
     <app-blog-footer [post]="footerData"></app-blog-footer>
   </div>
   <div class="col mt-3 border p-5">
@@ -67,9 +60,16 @@
       <button
         *ngIf="user.displayName != 'Sign in to comment'"
         class="btn btn-dark float-right px-4 rounded-0"
-        (click)="postComment()"
+        (click)="postComment('')"
       >
         <small>Post</small>
+      </button>
+      <button
+        *ngIf="user.displayName != 'Sign in to comment'"
+        class="btn btn-outline-dark float-right px-4 rounded-0 mx-1"
+        (click)="postComment('anon')"
+      >
+        <small>Post Anonymously</small>
       </button>
     </div>
   </div>

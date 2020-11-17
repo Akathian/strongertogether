@@ -34,12 +34,12 @@
       <button class="btn" (click)="goToPage(page - 1)"><</button>
     </div>
 
-    <div class="col">{{ page }} of</div>
+    <div class="col">{{ page }} of {{ numPages }}</div>
     <div class="col">
       <button class="btn" (click)="goToPage(page + 1)">></button>
     </div>
     <div class="col">
-      <!-- <button class="btn" (click)="goToPage()">>></button> -->
+      <button class="btn" (click)="goToPage(numPages)">>></button>
     </div>
   </div>
 </div>

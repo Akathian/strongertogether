@@ -4,7 +4,7 @@ import 'firebase/database'
 import { ActivatedRoute, Router } from '@angular/router';
 import { SortService } from '../../../services/sort.service'
 import { IpService } from 'src/app/services/ip.service';
-
+const ANON = 'anon'
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
@@ -97,16 +97,18 @@ export class PostComponent implements OnInit {
     this.comment = comment
   }
 
-  postComment() {
+  postComment(vis) {
     if (this.comment) {
       let self = this
       let d = new Date()
       firebase.auth().onAuthStateChanged(function (user) {
         let newCommentRef = firebase.database().ref('blog/general/' + self.id + '/comments').push()
         let commentId = newCommentRef.key
+        let img = vis === 'anon' ? "assets/anon.png" : user.photoURL
+        let name = vis === 'anon' ? 'Anonymous' : user.displayName
         let commentData = {
-          authorImg: user.photoURL,
-          authorName: user.displayName,
+          authorImg: img,
+          authorName: name,
           content: self.comment,
           time: d.getTime(),
           uid: user.uid,
@@ -118,7 +120,8 @@ export class PostComponent implements OnInit {
         newCommentRef.set(commentData);
         (<HTMLTextAreaElement>document.getElementById('commentFormArea')).value = '';
         let updates = {}
-        updates['users/' + user.uid + '/blog-comments/public/' + commentId] = 'blog/general/' + self.id + '/comments/' + commentId
+        let loc = vis === 'anon' ? 'private' : 'public'
+        updates['users/' + user.uid + '/blog-comments/' + loc + '/' + commentId] = 'blog/general/' + self.id + '/comments/' + commentId
         firebase.database().ref().update(updates)
       })
     }

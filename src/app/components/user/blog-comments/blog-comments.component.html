@@ -12,16 +12,17 @@
     <div class="col" *ngIf="!showLoading">
       <h6>Public Comments</h6>
       <div *ngIf="lenOfPub" class="commentList border p-1">
-        <div class="row mb-3" *ngFor="let pubCom of pubData | keyvalue">
+        <div class="row mb-3" *ngFor="let pubCom of pubDataVals">
           <div class="col">
             <div class="">
               <span class="contentData">
-                {{ pubCom.value.title }}
+                {{ pubData[pubCom].title }}
               </span>
               <span class="contentData">
                 <button
+                  *ngIf="pubData[pubCom].showTrash"
                   (click)="
-                    confirmDel(pubCom.value.gearData.dbLink, pubCom.value)
+                    confirmDel(pubData[pubCom].gearData.dbLink, pubData[pubCom])
                   "
                   class="btn p-0 m-0"
                 >
@@ -29,13 +30,13 @@
                 </button>
                 <a
                   [href]="
-                    '/blog/' + pubCom.value.postId + '#' + pubCom.value.id
+                    '/blog/' + pubData[pubCom].postId + '#' + pubData[pubCom].id
                   "
                 >
                   <small class="text-muted mr-3 ml-1">
-                    <i>{{ pubCom.value.time | timeParse }} </i>
+                    <i>{{ pubData[pubCom].time | timeParse }} </i>
                   </small>
-                  <b>"{{ pubCom.value.content }}"</b>
+                  <b>"{{ pubData[pubCom].content }}"</b>
                 </a>
               </span>
             </div>
@@ -43,21 +44,40 @@
             <hr class="mb-0" />
           </div>
         </div>
+        <div class="row mb-3">
+          <button
+            class="mx-auto btn btn-dark rounded-0"
+            (click)="loadMore('pub')"
+          >
+            Load More Comments
+          </button>
+        </div>
       </div>
       <span *ngIf="!lenOfPub"> No Public Comments Yet </span>
     </div>
+
+    <!-- Split here -->
+    <!-- Split here -->
+    <!-- Split here -->
+    <!-- Split here -->
+    <!-- Split here -->
+    <!-- Split here -->
+
     <div class="col" *ngIf="!showLoading">
       <h6>Anonymous Comments</h6>
       <div *ngIf="lenOfPriv" class="commentList border p-1">
-        <div class="row mb-3" *ngFor="let privCom of privData | keyvalue">
+        <div class="row mb-3" *ngFor="let privCom of privDataVals">
           <div class="col">
             <div class="">
-              <span class="contentData">{{ privCom.value.title }}</span>
+              <span class="contentData">{{ privData[privCom].title }}</span>
               <span class="contentData">
                 <button
-                  *ngIf="privCom.showTrash"
+                  *ngIf="privData[privCom].showTrash"
                   (click)="
-                    confirmDel(privCom.value.gearData.dbLink, privCom.value)
+                    confirmDel(
+                      privData[privCom].gearData.dbLink,
+                      privData[privCom]
+                    )
                   "
                   class="btn p-0 m-0"
                 >
@@ -65,17 +85,29 @@
                 </button>
                 <a
                   [href]="
-                    '/blog/' + privCom.value.postId + '#' + privCom.value.id
+                    '/blog/' +
+                    privData[privCom].postId +
+                    '#' +
+                    privData[privCom].id
                   "
                 >
                   <small class="text-muted mr-3"
-                    ><i>{{ privCom.value.time }}</i></small
+                    ><i>{{ privData[privCom].time | timeParse }}</i></small
                   >
-                  <b> "{{ privCom.value.content }}"</b>
+                  <b> "{{ privData[privCom].content }}"</b>
                 </a>
               </span>
+              <hr class="mb-0" />
             </div>
           </div>
+        </div>
+        <div class="row mb-3">
+          <button
+            class="mx-auto btn btn-dark rounded-0"
+            (click)="loadMore('priv')"
+          >
+            Load More Comments
+          </button>
         </div>
       </div>
       <span *ngIf="!lenOfPriv"> No Anonymous Comments Yet </span>

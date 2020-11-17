@@ -14,23 +14,28 @@ export class CommentsComponent implements OnInit {
   reply
   href
   gearData = { id: '', editLink: '', dbLink: '', type: 'comment', editors: [] }
-
+  user
   constructor() { }
 
   ngOnInit() {
     this.href = '#id' + this.comment.id
     this.gearData.editors.push(this.comment.uid)
     this.gearData.editors.push(this.comment.parentUid)
-    this.gearData.dbLink = 'blog/' + this.comment.parentId + '/comments/' + this.comment.id
+    this.gearData.dbLink = 'blog/general/' + this.comment.parentId + '/comments/' + this.comment.id
     this.gearData.id = this.comment.id
-
+    let self = this
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (user) {
+        self.user = user
+      }
+    })
   }
 
   replyChange(reply) {
     this.reply = reply
   }
 
-  postReply() {
+  postReply(vis) {
     if (this.reply) {
       let self = this
       let d = new Date()
@@ -38,8 +43,8 @@ export class CommentsComponent implements OnInit {
         let newReplyRef = firebase.database().ref('blog/general/' + self.comment.parentId + '/comments/' + self.comment.id + '/replies').push()
         let replyId = newReplyRef.key
         let replyData = {
-          authorImg: user.photoURL,
-          authorName: user.displayName,
+          authorImg: vis === 'anon' ? 'assets/anon.png' : user.photoURL,
+          authorName: vis === 'anon' ? 'Anonymous' : user.displayName,
           content: self.reply,
           time: d.getTime(),
           parentUid: self.comment.parentUid,
@@ -50,7 +55,8 @@ export class CommentsComponent implements OnInit {
         newReplyRef.set(replyData);
         (<HTMLTextAreaElement>document.getElementById('replyFormArea')).value = '';
         let updates = {}
-        updates['users/' + user.uid + '/blog-comments/public/' + replyId] = 'blog/general/' + self.comment.parentId + '/comments/' + self.comment.id + '/replies/' + replyId
+        let loc = vis === 'anon' ? 'private' : 'public'
+        updates['users/' + user.uid + '/blog-comments/' + loc + '/' + replyId] = 'blog/general/' + self.comment.parentId + '/comments/' + self.comment.id + '/replies/' + replyId
         firebase.database().ref().update(updates)
       })
     }

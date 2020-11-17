@@ -9,13 +9,18 @@
     <div class="col align-self-center text-center" *ngIf="showLoading">
       <img src="../../../../assets/loading.gif" />
     </div>
-    <div class="col" *ngIf="!showLoading && lenOfData">
-      <div class="row mb-3" *ngFor="let like of likesData | keyvalue">
+    <div class="col likeList border" *ngIf="!showLoading && lenOfData">
+      <div class="row mb-3" *ngFor="let like of likesDataVals">
         <div class="col">
-          <a [href]="like.value.href">
-            Liked <b>"{{ like.value.title }}"</b>
+          <a [href]="likesData[like].href">
+            Liked <b>"{{ likesData[like].title }}"</b>
           </a>
         </div>
+      </div>
+      <div class="row mb-3">
+        <button class="mx-auto btn btn-dark rounded-0" (click)="loadMore()">
+          Load More Comments
+        </button>
       </div>
     </div>
     <div class="col text-center" *ngIf="!showLoading && !lenOfData">

@@ -1,4 +1,4 @@
-<div class="dropdown gearBtn">
+<div class="dropdown gearBtn" *ngIf="canEdit">
   <button (click)="myFunction()" class="btn dropbtn gearBtn">
     <svg
       *ngIf="type === 'reply'"

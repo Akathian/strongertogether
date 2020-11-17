@@ -3,7 +3,7 @@ import firebase from 'firebase/app'
 import 'firebase/database'
 import 'firebase/auth'
 
-const OFFSET = 5;
+const OFFSET = 15;
 @Component({
   selector: 'app-blog-posts',
   templateUrl: './blog-posts.component.html',
@@ -18,10 +18,17 @@ export class BlogPostsComponent implements OnInit {
   pageKeys = {}
   page = 1
   user
+  numPages
   constructor() { }
 
   ngOnInit() {
     this.authAndGetPosts()
+  }
+
+  getNumPosts(self) {
+    firebase.database().ref('users/' + self.user.uid + '/num-blog-posts').on('value', function (numData) {
+      self.numPages = Math.ceil(numData.val() / OFFSET)
+    })
   }
 
   authAndGetPosts() {
@@ -29,9 +36,11 @@ export class BlogPostsComponent implements OnInit {
     if (!this.user) {
       firebase.auth().onAuthStateChanged(function (user) {
         self.user = user
+        self.getNumPosts(self);
         self.getPosts(self)
       })
     } else {
+      this.getNumPosts(self);
       this.getPosts(self)
     }
   }
@@ -49,7 +58,7 @@ export class BlogPostsComponent implements OnInit {
         let postRefs = []
         postRefs = Object.values(self.posts)
         self.lenOfData = postRefs.length
-        if (self.lenOfData > OFFSET) {
+        if (self.page !== self.numPages) {
           if (!self.pageKeys[self.page + 1]) {
             self.nextKey = (<string>postRefs.shift()).split('/')[2]
             self.pageKeys[self.page + 1] = self.nextKey
@@ -64,13 +73,11 @@ export class BlogPostsComponent implements OnInit {
           if (fullPost.val()) {
             post = post.replace('blog/', '')
             self.postsData.push(fullPost.val())
-          } else {
-            firebase.database().ref("users/" + self.user.uid + '/' + post.replace('blog/general/', 'blog-posts/')).remove()
           }
         }
-
       }
       self.showLoading = false
+
     })
   }
 
@@ -78,11 +85,9 @@ export class BlogPostsComponent implements OnInit {
     this.showLoading = true
     if (page < 1) {
       page = 1
-      return
     }
-    if (this.lenOfData < OFFSET) {
-      // page -= 1
-      // return
+    if (page > this.numPages) {
+      page = this.numPages
     }
     this.page = page
     if (this.pageKeys[this.page]) {

@@ -113,6 +113,7 @@ export class BlogEditComponent implements AfterViewInit {
   }
 
   save() {
+    let updates = {}
     let ref = ''
     if (this.type === 'post') {
       this.saveStatus = `<small>All Changes Published</small>`
@@ -121,10 +122,10 @@ export class BlogEditComponent implements AfterViewInit {
       clearTimeout(this.saveTimer)
       ref = `/${this.ref}/` + this.id + '/'
       this.saveStatus = `<small>Saved as Draft</small>`
+      updates[ref + 'time'] = (new Date()).getTime()
     }
     document.getElementById('saveBtn').classList.add('disabled')
     if (ref) {
-      let updates = {}
       let coverImg = this.getCover(this.data)
       if (coverImg) {
         coverImg = coverImg.replace('src=', "width='100%' src=")
@@ -185,6 +186,9 @@ export class BlogEditComponent implements AfterViewInit {
         await firebase.database().ref('blog/general/' + self.id).set(draft.val())
         await firebase.database().ref('users/' + user.uid + '/drafts/' + self.id).set(null)
         await firebase.database().ref('users/' + user.uid + '/blog-posts/' + self.id).set('blog/general/' + self.id)
+        // await firebase.database().ref('users/' + user.uid + '/num-blog-posts/').transaction(function (count) {
+        //   return count + 1
+        // })
         window.location.href = `/blog/${self.id}`;
       }
     })

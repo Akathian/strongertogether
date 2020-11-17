@@ -3,30 +3,21 @@
     <div class="mr-2">
       <img [src]="comment.authorImg" class="rounded-circle" width="32px" />
     </div>
-    <div class="col justify-content-between">
-      <div class="row justify-content-between">
-        <div class="col-sm-8 col-md-9 col-lg-10">
-          {{ comment.authorName }}
-        </div>
-        <div class="col col-md-3 col-lg-2 pr-1">
-          <div class="d-flex">
-            <div class="align-self-center">
-              {{ comment.time | timeParse }}
-            </div>
-            <app-gear
-              class="mr-2 align-self-center"
-              [data]="gearData"
-            ></app-gear>
-          </div>
-        </div>
-      </div>
+    <div class="">
+      {{ comment.authorName }} <br />
+      <small
+        ><small class="text-muted">{{ comment.time | timeParse }}</small></small
+      >
+    </div>
+    <div class="ml-auto">
+      <app-gear class="align-self-center" [data]="gearData"></app-gear>
     </div>
   </div>
   <div class="row ml-5 mr-2 mb-2">
     {{ comment.content }}
   </div>
 
-  <div class="col ml-4 my-2">
+  <div class="col ml-4 my-2" *ngIf="comment.replies || user">
     <div class="mb-3">
       <div role="tab">
         <div class="mb-0 d-flex">
@@ -36,7 +27,8 @@
             aria-expanded="false"
             class="collapsed"
           >
-            Show Replies
+            <span class="mr-1" *ngIf="comment.replies">Show Replies</span>
+            <span class="mr-1" *ngIf="!comment.replies">Write a Reply</span>
           </a>
         </div>
       </div>
@@ -44,7 +36,7 @@
         <div *ngFor="let reply of comment.replies | keyvalue" class="col m-3">
           <app-replies [reply]="reply.value"></app-replies>
         </div>
-        <div class="col m-3">
+        <div class="col m-3" *ngIf="user">
           <hr class="mr-5" />
           <span class="replyContent">
             <div class="row">
@@ -64,7 +56,7 @@
                     />
                   </svg>
                   <img
-                    [src]="comment.authorImg"
+                    [src]="user.photoURL"
                     class="rounded-circle"
                     width="24px"
                     height="100%"
@@ -75,7 +67,7 @@
                 <small>
                   <div class="row justify-content-between">
                     <div class="col-sm-7 col-md-8 col-lg-9">
-                      {{ comment.authorName }}
+                      {{ user.displayName }}
                     </div>
                     <div class="col col-md-4 col-lg-3"></div>
                   </div>
@@ -98,9 +90,15 @@
               <div class="">
                 <button
                   class="btn btn-dark px-2 py-0 rounded-0 my-1"
-                  (click)="postReply()"
+                  (click)="postReply('')"
                 >
                   <small>Post</small>
+                </button>
+                <button
+                  class="btn btn-outline-dark px-2 py-0 rounded-0 m-1"
+                  (click)="postReply('anon')"
+                >
+                  <small>Post Anonymously</small>
                 </button>
               </div>
             </div>
