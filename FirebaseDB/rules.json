@@ -1,0 +1,70 @@
+{
+    "rules": {
+        "admins": {
+            ".read": "true",
+            ".write": "false",
+        },
+        "blog": {
+            ".read": "true",
+            ".write": "root.child('admins').hasChild(auth.uid)",
+            "$blog_type": {
+                "$blog_id": {
+                    "authorImg": {
+                        ".write": "root.child('admins').hasChild(auth.uid)"
+                    },
+                    "authorName": {
+                        ".write": "root.child('admins').hasChild(auth.uid)"
+                    },
+                    "category": {
+                        ".write": "root.child('admins').hasChild(auth.uid)"
+                    },
+                    "content": {
+                        ".write": "root.child('admins').hasChild(auth.uid)"
+                    },
+                    "cover": {
+                        ".write": "root.child('admins').hasChild(auth.uid)"
+                    },
+                    "id": {
+                        ".write": "root.child('admins').hasChild(auth.uid)"
+                    },
+                    "readTime": {
+                        ".write": "root.child('admins').hasChild(auth.uid)"
+                    },
+                    "time": {
+                        ".write": "root.child('admins').hasChild(auth.uid)"
+                    },
+                    "title": {
+                        ".write": "root.child('admins').hasChild(auth.uid)"
+                    },
+                    "uid": {
+                        ".write": "root.child('admins').hasChild(auth.uid)"
+                    },
+                    "comments": {
+                        "$comment_id": {
+                            ".write": "(data.exists() && data.child('uid').val() === auth.uid) || (!data.exists() && auth !== null) || root.child('admins').hasChild(auth.uid)",
+                            "replies": {
+                                "$reply_id": {
+                                    ".write": "(data.exists() && data.child('uid').val() === auth.uid) || (!data.exists() && auth !== null) || root.child('admins').hasChild(auth.uid)",
+                                }
+                            }
+                        }
+                    },
+                    "views": {
+                        ".write": "true",
+                    },
+                    "likes": {
+                        "$uid": {
+                            ".write": "$uid === auth.uid || root.child('admins').hasChild(auth.uid)"
+                        },
+                    },
+                },
+            }
+        },
+        "users": {
+            "$uid": {
+                ".read": "auth.uid === $uid || root.child('admin').hasChild(auth.uid)",
+                ".write": "auth.uid === $uid || root.child('admin').hasChild(auth.uid)"
+            }
+        }
+    }
+}

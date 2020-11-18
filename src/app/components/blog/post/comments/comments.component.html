@@ -19,20 +19,7 @@
 
   <div class="col ml-4 my-2" *ngIf="comment.replies || user">
     <div class="mb-3">
-      <div role="tab">
-        <div class="mb-0 d-flex">
-          <a
-            data-toggle="collapse"
-            [href]="href"
-            aria-expanded="false"
-            class="collapsed"
-          >
-            <span class="mr-1" *ngIf="comment.replies">Show Replies</span>
-            <span class="mr-1" *ngIf="!comment.replies">Write a Reply</span>
-          </a>
-        </div>
-      </div>
-      <div [id]="'id' + comment.id" class="collapse" role="tabpanel">
+      <div [id]="'id' + comment.id" role="tabpanel">
         <div *ngFor="let reply of comment.replies | keyvalue" class="col m-3">
           <app-replies [reply]="reply.value"></app-replies>
         </div>
