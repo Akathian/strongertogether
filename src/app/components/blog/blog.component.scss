@@ -9,13 +9,20 @@
 }
 
 .blurb {
-    overflow-y: hidden !important;
-    text-overflow: ellipsis !important;
-    display: -webkit-box !important;
-    -webkit-line-clamp: 3 !important;
-    line-clamp: 3 !important;
-    /* autoprefixer: ignore next */
-    -webkit-box-orient: vertical !important;
+    // overflow-y: hidden !important;
+    // text-overflow: ellipsis !important;
+    // display: -webkit-box !important;
+    // -webkit-line-clamp: 3 !important;
+    // line-clamp: 3 !important;
+    // /* autoprefixer: ignore next */
+    // -webkit-box-orient: vertical !important;
+    word-wrap: break-word;
+    overflow: hidden;
+    text-overflow: clip!important;
+    display: -webkit-box!important;
+    line-clamp: 3!important;
+    -webkit-line-clamp: 3!important;
+    -webkit-box-orient: vertical!important;
 }
 
 .blurb > p {
