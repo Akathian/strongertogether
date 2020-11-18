@@ -20,9 +20,11 @@
     </div>
     <div class="">
       {{ reply.authorName }} <br />
-      <small
-        ><small class="text-muted">{{ reply.time | timeParse }}</small></small
-      >
+      <small>
+        <small class="text-muted">
+          {{ reply.time | timeParse }}
+        </small>
+      </small>
     </div>
     <div class="ml-auto">
       <app-gear class="align-self-center" [data]="gearData"></app-gear>
