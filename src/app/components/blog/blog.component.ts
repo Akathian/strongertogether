@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 
 import firebase from 'firebase/app'
 import 'firebase/database'
@@ -9,7 +9,7 @@ const OFFSET = 5
   templateUrl: './blog.component.html',
   styleUrls: ['./blog.component.scss']
 })
-export class BlogComponent implements OnInit {
+export class BlogComponent implements OnInit, AfterViewInit {
   posts = [];
   userLiked;
   path;
@@ -31,6 +31,13 @@ export class BlogComponent implements OnInit {
     this.path = window.location.pathname.replace('/blog', '').replace('-', '') || 'general'
     this.getNumPosts();
     this.getPosts()
+  }
+  ngAfterViewInit() {
+
+  }
+
+  clamp() {
+    console.log('Set the title in the text input above. The first image attached in this post will be set as the cover. Main content of your blog post goes here Set the title in the text input above. The first image attached'.length)
   }
 
   getNumPosts() {
@@ -83,6 +90,7 @@ export class BlogComponent implements OnInit {
           }
           self.posts = toValues.reverse()
           self.lenOfData = self.posts.length
+          // self.clamp()
         }
       }
     })

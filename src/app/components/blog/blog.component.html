@@ -41,7 +41,7 @@
             <h5>{{ post.title }}</h5>
             <a class="blurb-link" [href]="'/blog/' + post.id">
               <!-- <p class="text-muted blurb ck-content">{{ post.content }}</p> -->
-              <div class="blurb" [innerHTML]="post.content"></div>
+              <div class="blurb" height="100px" [innerHTML]="post.content"></div>
             </a>
           </a>
           <app-blog-footer [post]="post"></app-blog-footer>

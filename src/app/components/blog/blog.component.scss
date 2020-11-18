@@ -18,6 +18,10 @@
     -webkit-box-orient: vertical !important;
 }
 
+.blurb > p {
+    margin: 0;
+}
+
 .post {
     display: flex;
     justify-content: center;
