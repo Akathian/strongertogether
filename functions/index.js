@@ -10,18 +10,18 @@ const AFTER = 'after'
 // // https://firebase.google.com/docs/functions/write-firebase-functions
 //
 exports.countGeneralBlogs = functions.database.ref(`/blog/general`).onWrite(async (change, context) => {
-    const count = updateNum(change, 'blog-posts')
+    const count = updateNum(change, 'blog-posts', 'general')
     return change.after.ref.parent.child('num-general').set(count);
 });
 
 exports.countEventBlogs = functions.database.ref(`/blog/events`).onWrite((change, context) => {
-    const count = updateNum(change, 'blog-posts')
+    const count = updateNum(change, 'blog-posts', 'events')
     return change.after.ref.parent.child('num-events').set(count);
 });
 
 
 exports.countPodcastBlogs = functions.database.ref(`/blog/podcasts`).onWrite((change, context) => {
-    const count = updateNum(change, 'blog-posts')
+    const count = updateNum(change, 'blog-posts', 'podcasts')
     return change.after.ref.parent.child('num-podcasts').set(count);
 });
 
@@ -54,7 +54,7 @@ function diff(first, second, type) {
     return [difference, loc]
 }
 
-function updateNum(change, type) {
+function updateNum(change, type, cat) {
     const dataBefore = change.before.val()
     const dataAfter = change.after.val();
 
@@ -76,7 +76,11 @@ function updateNum(change, type) {
                 }
             })
             if(loc === BEFORE) {
-                change.after.ref.root.child('users/' + uid + '/' + type + '/' + id).set(null)
+                if(uid) {
+                    change.after.ref.root.child('users/' + uid + '/' + type + '/' + id).set(null)
+                }
+                
+                change.after.ref.root.child('blog/' + cat  + '/' + id).set(null)
             }
 
         }

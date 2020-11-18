@@ -9,7 +9,7 @@ const OFFSET = 5
   templateUrl: './blog.component.html',
   styleUrls: ['./blog.component.scss']
 })
-export class BlogComponent implements OnInit, AfterViewInit {
+export class BlogComponent implements OnInit {
   posts = [];
   userLiked;
   path;
@@ -31,13 +31,6 @@ export class BlogComponent implements OnInit, AfterViewInit {
     this.path = window.location.pathname.replace('/blog', '').replace('-', '') || 'general'
     this.getNumPosts();
     this.getPosts()
-  }
-  ngAfterViewInit() {
-
-  }
-
-  clamp() {
-    console.log('Set the title in the text input above. The first image attached in this post will be set as the cover. Main content of your blog post goes here Set the title in the text input above. The first image attached'.length)
   }
 
   getNumPosts() {
@@ -109,7 +102,21 @@ export class BlogComponent implements OnInit, AfterViewInit {
           authorImg: user.photoURL,
           authorName: user.displayName,
           comments: [],
-          content: "<p>Set the title in the text input above. The first image attached in this post will be set as the cover. Main content of your blog post goes here </p>",
+          content: `<p>
+          Set the title in the text input above. The first image attached in this post
+          will be set as the cover. Set the category of the post using the dropdown menu.
+          Main content of your blog post goes here. Paste multiple pictures, but it's best to paste smaller resolution images to save space on the server. 
+          <p>To link a spotify podcast:</p>
+          <ol>
+            <li>Open Spotify Desktop/Web</li>
+            <li>Find the podcast you would like to share</li>
+            <li>Once found, hover over the podcast and click the 3 dots &middot;&middot;&middot;</li>
+            <li>Click Share > Copy Embed Code</li>
+            <li>Paste it here</li>
+            <li>The player should appear once you publish the post!</li>
+          </ol>
+        </p>`
+          ,
           cover: "<img width='100%' src='../../../assets/STNEWCOVER2.png'>",
           title: 'New Blog Post Title',
           readTime: "0",

@@ -51,9 +51,9 @@ export class GearComponent implements OnInit {
     document.getElementById(this.id).classList.toggle("show");
   }
 
-  del() {
-    firebase.database().ref(this.dbLink).remove()
-    firebase.database().ref('blog/events/' + this.data.id).remove()
-    firebase.database().ref('blog/podcasts/' + this.data.id).remove()
+  async del() {
+    await firebase.database().ref('blog/events/' + this.data.id).set(null)
+    await firebase.database().ref('blog/podcasts/' + this.data.id).set(null)
+    await firebase.database().ref(this.dbLink).remove()
   }
 }

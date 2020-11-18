@@ -50,22 +50,21 @@ export class BlogEditComponent implements AfterViewInit {
           self.create = params.get('create') === 'create'
           self.time = +params.get('time')
           firebase.database().ref(`/${self.ref}/` + self.id).once('value', (blogData) => {
-            firebase.auth().onAuthStateChanged(function (user) {
-              if (blogData.val()) {
-                if ((user.uid !== blogData.val().uid)) {
-                  self.router.navigate([`/blog`], { relativeTo: self.route })
-                } else {
-                  self.postContent = blogData.val().content
-                  self.category = blogData.val().category
-                  $('#catChoose').val(self.category)
-                  console.log($('#catChoose'))
-                  self.title = blogData.val().title
-                  self.editorComponent.editorInstance.setData(self.postContent)
-                }
-              } else {
+
+            if (blogData.val()) {
+              if ((user.uid !== blogData.val().uid)) {
                 self.router.navigate([`/blog`], { relativeTo: self.route })
+              } else {
+                self.postContent = blogData.val().content
+                self.category = blogData.val().category
+                $('#catChoose').val(self.category)
+                self.title = blogData.val().title
+                self.editorComponent.editorInstance.setData(self.postContent)
               }
-            })
+            } else {
+              self.router.navigate([`/blog`], { relativeTo: self.route })
+            }
+
           })
         })
       } else if (this.type === 'post') {
@@ -79,7 +78,6 @@ export class BlogEditComponent implements AfterViewInit {
                 self.title = blogData.val().title
                 self.category = blogData.val().category
                 $('#catChoose').val(self.category)
-                console.log($('#catChoose'))
                 self.editorComponent.editorInstance.setData(self.postContent)
               }
             } else {
