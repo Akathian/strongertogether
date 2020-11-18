@@ -1,41 +1,54 @@
 .dropbtn {
-    border: none;
-    cursor: pointer;
-  }
-  
-  .dropbtn:hover, .dropbtn:focus {
-    background-color: #f1f1f1;
-  }
-  
-  .dropdown {
-    float: right;
-    position: relative;
-    display: inline-block;
-  }
-  
-  .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f1f1f1;
-    min-width: 160px;
-    overflow: auto;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    right: 0;
-    z-index: 2;
-  }
-  
-  .dropdown-content a {
-    overflow-y: visible !important;
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-    font-size: small;
-  }
-  
-  .dropdown a:hover {
-    background-color: #ddd;
-    cursor: pointer;
-   }
-  
-  .show {display: block;}
+  border: none;
+  cursor: pointer;
+}
+
+.dropbtn:hover,
+.dropbtn:focus {
+  background-color: #f1f1f1;
+}
+
+.dropdown {
+  float: right;
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  right: 0;
+  z-index: 2;
+}
+
+.dropdown-content a {
+  overflow-y: visible !important;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  font-size: small;
+}
+
+.dropdown a:hover {
+  background-color: #ddd;
+  cursor: pointer;
+}
+
+.show {
+  display: block;
+}
+
+.replyGear {
+  width: min(0.65em, 1.5vmin);
+  height: min(0.65em, 1.5vmin);
+}
+
+.commentGear {
+  width: min(0.75em, 2.5vmin);
+  height: min(0.75em, 2.5vmin);
+}

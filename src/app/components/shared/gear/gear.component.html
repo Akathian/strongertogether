@@ -2,10 +2,8 @@
   <button (click)="myFunction()" class="btn dropbtn gearBtn">
     <svg
       *ngIf="type === 'reply'"
-      width="0.65em"
-      height="0.65em"
       viewBox="0 0 16 16"
-      class="bi bi-gear dropbtn gearBtn"
+      class="bi bi-gear dropbtn gearBtn replyGear"
       fill="currentColor"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -20,10 +18,8 @@
     </svg>
     <svg
       *ngIf="type === 'comment'"
-      width="0.75em"
-      height="0.75em"
       viewBox="0 0 16 16"
-      class="bi bi-gear dropbtn gearBtn"
+      class="bi bi-gear dropbtn gearBtn commentGear"
       fill="currentColor"
       xmlns="http://www.w3.org/2000/svg"
     >
