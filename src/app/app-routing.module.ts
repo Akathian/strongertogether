@@ -32,7 +32,7 @@ const routes: Routes = [
   { path: 'blog/:id', component: PostComponent },
   { path: 'blog/:type/:id/edit', component: BlogEditComponent },
   { path: 'login', component: UserComponent },
-  { path: 'login/:section', component: UserComponent },
+  { path: 'user/:uid/:section', component: UserComponent },
 ];
 
 @NgModule({

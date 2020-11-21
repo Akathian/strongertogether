@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service'
 import { MessengerService } from '../../services/messenger.service'
 import { ActivatedRoute, Router } from '@angular/router';
-
+import firebase from 'firebase/app'
+import 'firebase/database'
+import 'firebase/auth'
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
@@ -22,20 +24,18 @@ export class UserComponent implements OnInit {
     { name: 'Forum Posts', id: 'forum-posts' },
     { name: 'Forum Comments', id: 'forum-comments' },
   ]
+  paramUid;
   constructor(private userService: UserService, private messenger: MessengerService, private route: ActivatedRoute, private router: Router) { }
   ngOnInit() {
     let self = this
     this.userService.renderAccInfo();
-    this.messenger.getMessage().subscribe(message => {
-      if (message.user) {
-        self.userLoggedIn = true
-      } else {
-        self.userLoggedIn = false
-      }
-      self.user = message.user
+    firebase.auth().onAuthStateChanged(function (user) {
+      self.userLoggedIn = user ? true : false
+      self.user = user
     })
     this.route.paramMap.subscribe(async params => {
       this.section = params.get('section');
+      this.paramUid = params.get('uid')
       if (this.section && this.validateSection(this.section)) {
         for (let i = 0; i < document.getElementsByClassName('accNavElem').length; i++) {
           (<HTMLElement>document.getElementsByClassName('accNavElem')[i]).style.color = 'black'
@@ -45,7 +45,7 @@ export class UserComponent implements OnInit {
         }
       } else {
         this.section = 'profile'
-        this.router.navigate(['/login/profile'], { relativeTo: this.route })
+        this.router.navigate(['/user/' + this.paramUid + '/profile'], { relativeTo: this.route })
       }
     });
   }

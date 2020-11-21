@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { UserService } from '../../../services/user.service'
-
+import firebase from 'firebase/app'
+import 'firebase/database'
+import 'firebase/auth'
 @Component({
   selector: 'app-acc-nav',
   templateUrl: './acc-nav.component.html',
@@ -18,6 +20,7 @@ export class AccNavComponent implements OnInit {
     window.addEventListener('resize', () => {
       self.width = window.innerWidth
     })
+    
   }
 
   signOut() {

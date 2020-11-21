@@ -7,6 +7,12 @@
         "blog": {
             ".read": "true",
             ".write": "root.child('admins').hasChild(auth.uid)",
+            "events": {
+                ".write": "root.child('admins').hasChild(auth.uid)",
+            },
+            "podcasts": {
+                ".write": "root.child('admins').hasChild(auth.uid)",
+            },
             "$blog_type": {
                 "$blog_id": {
                     "authorImg": {
@@ -62,8 +68,21 @@
         },
         "users": {
             "$uid": {
-                ".read": "auth.uid === $uid || root.child('admin').hasChild(auth.uid)",
-                ".write": "auth.uid === $uid || root.child('admin').hasChild(auth.uid)"
+                ".write": "auth.uid === $uid || root.child('admin').hasChild(auth.uid)",
+                "blog-comments": {
+                    "private": {
+                        ".read": "auth.uid === $uid || root.child('admin').hasChild(auth.uid)"
+                    },
+                    "blog-posts": {
+                        ".read": true
+                    },
+                    "drafts": {
+                        ".read": "auth.uid === $uid || root.child('admin').hasChild(auth.uid)"
+                    },
+                    "blog-likes": {
+                        ".read": "auth.uid === $uid || root.child('admin').hasChild(auth.uid)"
+                    },
+                }
             }
         }
     }

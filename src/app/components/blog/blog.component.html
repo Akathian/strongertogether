@@ -2,7 +2,11 @@
 
 <div class="container mt-5">
   <app-blog-nav></app-blog-nav>
-  <button class="btn btn-dark rounded-0 mt-2" (click)="newPost()">
+  <button
+    *ngIf="isAdmin"
+    class="btn btn-dark rounded-0 mt-2"
+    (click)="newPost()"
+  >
     <small>New Post</small>
   </button>
 
@@ -53,10 +57,13 @@
       </div>
     </div>
   </div>
-  <div class="d-flex justify-content-center">
+  <div class="d-flex justify-content-center mt-3" *ngIf="numPages === 0">
+    <i>No Posts Yet</i>
+  </div>
+  <div class="d-flex justify-content-center" *ngIf="numPages > 0">
     <!-- <div class="col" *ngFor="let page of numPages">
-      {{ page + 1 }}
-    </div> -->
+    {{ page + 1 }}
+  </div> -->
     <div class="col"><button class="btn" (click)="goToPage(1)"><<</button></div>
     <div class="col">
       <button class="btn" (click)="goToPage(page - 1)"><</button>

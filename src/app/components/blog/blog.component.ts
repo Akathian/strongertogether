@@ -25,12 +25,24 @@ export class BlogComponent implements OnInit {
   }
   pageKeys = {};
   numPages;
+  isAdmin = false
   constructor() { }
 
   ngOnInit() {
     this.path = window.location.pathname.replace('/blog', '').replace('-', '') || 'general'
     this.getNumPosts();
     this.getPosts()
+    this.checkAdmin()
+  }
+
+  checkAdmin() {
+    let self = this
+    firebase.auth().onAuthStateChanged(async function (user) {
+      if (user) {
+        const admin = await (await firebase.database().ref('admins/' + user.uid).once('value')).val()
+        self.isAdmin = admin ? true : false
+      }
+    })
   }
 
   getNumPosts() {

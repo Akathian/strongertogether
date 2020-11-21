@@ -1,4 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+
 import firebase from 'firebase/app'
 import 'firebase/database'
 import 'firebase/auth'
@@ -27,10 +29,13 @@ export class BlogCommentsComponent implements OnInit {
   user
   pubNextKey;
   privNextKey;
-  constructor() { }
+  constructor(private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
     this.authAndGetComments()
+    this.route.paramMap.subscribe(async params => {
+
+    })
   }
 
   authAndGetComments() {

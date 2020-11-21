@@ -55,35 +55,44 @@ function diff(first, second, type) {
 }
 
 function updateNum(change, type, cat) {
-    const dataBefore = change.before.val()
-    const dataAfter = change.after.val();
-
-    const keysBefore = Object.keys(dataBefore)
-    const keysAfter = Object.keys(dataAfter)
-
-    const countBefore = keysBefore.length;
-    const countAfter = keysAfter.length;
-
-    if (countBefore !== countAfter) {
-        const [keys, loc] = diff(keysBefore, keysAfter, POST)
-        for (let id of keys) {
-            const uid = change[loc].val()[id].uid
-            change.after.ref.root.child('users/' + uid + '/num-' + type).transaction((count) => {
-                if (loc === BEFORE) {
-                    return count - 1
-                } else {
-                    return count + 1
-                }
-            })
-            if(loc === BEFORE) {
-                if(uid) {
-                    change.after.ref.root.child('users/' + uid + '/' + type + '/' + id).set(null)
-                }
-                
-                change.after.ref.root.child('blog/' + cat  + '/' + id).set(null)
-            }
-
+    if (change) {
+        const dataBefore = change.before.val()
+        const dataAfter = change.after.val();
+        let keysAfter = [], keysBefore = []
+        if(dataBefore) {
+            keysBefore = Object.keys(dataBefore)
         }
-    } 
-    return countAfter
+        if(dataAfter) {
+            keysAfter = Object.keys(dataAfter)
+        }
+        const countBefore = keysBefore.length;
+        const countAfter = keysAfter.length;
+
+        if (countBefore !== countAfter) { // delete or create a post
+            const [keys, loc] = diff(keysBefore, keysAfter, POST) // get the post that was added or deleted
+            for (let id of keys) { // loop}
+                const flip = loc === BEFORE ? AFTER : BEFORE
+                const uid = change[loc].val()[id].uid || change[flip].val()[id].uid 
+                if(uid) {
+                    change.after.ref.root.child('users/' + uid + '/num-' + type).transaction((count) => {
+                        if (loc === BEFORE) { // post was deleted
+                            return count - 1
+                        } else {
+                            return count + 1
+                        }
+                    })
+                }
+                if(loc === BEFORE) {
+                    if(uid) {
+                        change.after.ref.root.child('users/' + uid + '/' + type + '/' + id).set(null)
+                    }
+                    
+                    change.after.ref.root.child('blog/' + cat  + '/' + id).set(null)
+                }
+
+            }
+        } 
+        return countAfter
+    }
+    return 0
 }
