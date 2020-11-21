@@ -43,6 +43,7 @@ export class PostComponent implements OnInit {
     });
   }
 
+
   updateViews() {
     let self = this
     this.ipService.getIPAddress().subscribe((res: any) => {

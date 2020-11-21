@@ -22,17 +22,19 @@
           <small>
             <div class="row justify-content-start">
               <div class="col-1 p-0 ml-3">
-                <img
-                  class="rounded-circle"
-                  [src]="post.authorImg"
-                  width="100%"
-                />
+                <a [href]="'/user/' + post.uid + '/profile'">
+                  <img
+                    class="rounded-circle"
+                    [src]="post.authorImg"
+                    width="100%"
+                  />
+                </a>
               </div>
               <div class="d-flex flex-column p-0 ml-3 justify-content-center">
                 <div class="">
-                  <a [href]="'/user/' + post.uid + '/profile'">{{
-                    post.authorName
-                  }}</a>
+                  <a [href]="'/user/' + post.uid + '/profile'">
+                    {{ post.authorName }}
+                  </a>
                 </div>
                 <div class="text-muted">
                   <small>

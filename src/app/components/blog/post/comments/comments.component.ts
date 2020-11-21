@@ -15,6 +15,7 @@ export class CommentsComponent implements OnInit {
   href
   gearData = { id: '', editLink: '', dbLink: '', type: 'comment', editors: [] }
   user
+  isAdmin
   constructor() { }
 
   ngOnInit() {
@@ -24,9 +25,11 @@ export class CommentsComponent implements OnInit {
     this.gearData.dbLink = 'blog/general/' + this.comment.parentId + '/comments/' + this.comment.id
     this.gearData.id = this.comment.id
     let self = this
-    firebase.auth().onAuthStateChanged(function (user) {
+    firebase.auth().onAuthStateChanged(async function (user) {
       if (user) {
         self.user = user
+        const admin = await (await firebase.database().ref('admins/' + user.uid).once('value')).val()
+        self.isAdmin = admin ? true : false
       }
     })
   }

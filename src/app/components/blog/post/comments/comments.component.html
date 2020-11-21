@@ -1,12 +1,27 @@
 <span class="commentContent">
   <div class="row px-2 pt-2" [id]="comment.id">
     <div class="mr-2">
-      <img [src]="comment.authorImg" class="rounded-circle" width="32px" />
+      <a
+        [href]="'/user/' + comment.uid + '/profile'"
+        *ngIf="comment.authorName !== 'Anonymous' || isAdmin"
+      >
+        <img [src]="comment.authorImg" class="rounded-circle" width="32px" />
+      </a>
+      <a *ngIf="comment.authorName === 'Anonymous' && !isAdmin">
+        <img [src]="comment.authorImg" class="rounded-circle" width="32px" />
+      </a>
     </div>
     <div class="">
-      <a [href]="'/user/' + comment.uid + '/profile'"
-        >{{ comment.authorName }} </a
-      ><br />
+      <a
+        [href]="'/user/' + comment.uid + '/profile'"
+        *ngIf="comment.authorName !== 'Anonymous' || isAdmin"
+      >
+        {{ comment.authorName }}
+      </a>
+      <a *ngIf="comment.authorName === 'Anonymous' && !isAdmin">
+        {{ comment.authorName }}
+      </a>
+      <br />
       <small
         ><small class="text-muted">{{ comment.time | timeParse }}</small></small
       >

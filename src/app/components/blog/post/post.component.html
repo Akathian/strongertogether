@@ -5,10 +5,27 @@
       <small>
         <div class="d-flex row text-muted">
           <div class="mr-2 ml-3">
-            <img [src]="post.authorImg" width="32px" class="rounded-circle" />
+            <a
+              [href]="'/user/' + post.uid + '/profile'"
+              *ngIf="post.authorName !== 'Anonymous'"
+            >
+              <img [src]="post.authorImg" width="32px" class="rounded-circle"
+            /></a>
+            <a *ngIf="post.authorName === 'Anonymous'">
+              <img [src]="post.authorImg" width="32px" class="rounded-circle"
+            /></a>
           </div>
           <div class="align-self-center">
-            {{ post.authorName }} &middot; {{ post.time | timeParse }} &middot;
+            <a
+              [href]="'/user/' + post.uid + '/profile'"
+              *ngIf="post.authorName !== 'Anonymous'"
+            >
+              {{ post.authorName }}
+            </a>
+            <a *ngIf="post.authorName === 'Anonymous'">
+              {{ post.authorName }}</a
+            >
+            &middot; {{ post.time | timeParse }} &middot;
             {{ post.readTime | readParse }}
           </div>
           <div class="align-self-center ml-auto text-big gear">
