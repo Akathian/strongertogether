@@ -9,6 +9,23 @@ const AFTER = 'after'
 // // Create and Deploy Your First Cloud Functions
 // // https://firebase.google.com/docs/functions/write-firebase-functions
 //
+
+exports.getUser = functions.https.onCall(async (data, context) => {
+    let user, final
+    try {
+        user = await (await admin.auth().getUser(data)).toJSON()
+        final = {
+            uid: user.uid,
+            displayName: user.displayName,
+            photoURL: user.photoURL
+        }
+    } catch(e) {
+        final = ''
+    }
+
+    return final
+})
+
 exports.countGeneralBlogs = functions.database.ref(`/blog/general`).onWrite(async (change, context) => {
     const count = updateNum(change, 'blog-posts', 'general')
     return change.after.ref.parent.child('num-general').set(count);

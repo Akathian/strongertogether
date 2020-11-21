@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import firebase from 'firebase/app'
 import 'firebase/database'
 import 'firebase/auth'
+import { ActivatedRoute, Router } from '@angular/router';
+import { UserService } from 'src/app/services/user.service';
 
 const OFFSET = 15;
 @Component({
@@ -19,28 +21,36 @@ export class BlogPostsComponent implements OnInit {
   page = 1
   user
   numPages
-  constructor() { }
+  paramUid
+
+  constructor(private route: ActivatedRoute, private router: Router, private userService: UserService) { }
 
   ngOnInit() {
     this.authAndGetPosts()
-  }
-
-  getNumPosts(self) {
-    firebase.database().ref('users/' + self.user.uid + '/num-blog-posts').on('value', function (numData) {
-      self.numPages = Math.ceil(numData.val() / OFFSET)
+    this.route.paramMap.subscribe(async params => {
+      this.paramUid = params.get('uid')
     })
   }
 
-  authAndGetPosts() {
+  async getNumPosts(self) {
+    const numData = await (await firebase.database().ref('users/' + self.user.uid + '/num-blog-posts').once('value')).val()
+    self.numPages = Math.ceil(numData / OFFSET)
+
+  }
+
+  async authAndGetPosts() {
     let self = this
     if (!this.user) {
-      firebase.auth().onAuthStateChanged(function (user) {
-        self.user = user
-        self.getNumPosts(self);
+      firebase.auth().onAuthStateChanged(async function (user) {
+        self.user = user.uid === self.paramUid ? user : await self.userService.getUserByUid(self.paramUid)
+        if (self.user === '') {
+          self.user = user
+        }
+        await self.getNumPosts(self);
         self.getPosts(self)
       })
     } else {
-      this.getNumPosts(self);
+      await this.getNumPosts(self);
       this.getPosts(self)
     }
   }
@@ -53,6 +63,8 @@ export class BlogPostsComponent implements OnInit {
       postQuery = firebase.database().ref('users/' + self.user.uid + '/blog-posts').orderByKey().limitToLast(OFFSET + 1)
     }
     postQuery.on('value', async function (postData) {
+      console.log(postData.val())
+
       if (postData.val()) {
         self.posts = postData.val()
         let postRefs = []

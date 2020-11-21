@@ -4,7 +4,9 @@
       <img [src]="comment.authorImg" class="rounded-circle" width="32px" />
     </div>
     <div class="">
-      {{ comment.authorName }} <br />
+      <a [href]="'/user/' + comment.uid + '/profile'"
+        >{{ comment.authorName }} </a
+      ><br />
       <small
         ><small class="text-muted">{{ comment.time | timeParse }}</small></small
       >

@@ -5,6 +5,7 @@ import firebase from 'firebase/app'
 import 'firebase/database'
 import 'firebase/auth'
 import { ModalDirective } from 'angular-bootstrap-md';
+import { UserService } from 'src/app/services/user.service';
 const PUB_OFFSET = 5
 const PRIV_OFFSET = 5
 @Component({
@@ -21,7 +22,7 @@ export class BlogCommentsComponent implements OnInit {
   privData = [];
   pubDataVals;
   pubData = [];
-  showLoading = true
+  showLoading = false
   lenOfPub = 0
   lenOfPriv = 0
   currCom = { content: '', time: '', title: '', ref: '' };
@@ -29,12 +30,13 @@ export class BlogCommentsComponent implements OnInit {
   user
   pubNextKey;
   privNextKey;
-  constructor(private route: ActivatedRoute, private router: Router) { }
+  paramUid
+  constructor(private route: ActivatedRoute, private router: Router, private userService: UserService) { }
 
   ngOnInit() {
     this.authAndGetComments()
     this.route.paramMap.subscribe(async params => {
-
+      this.paramUid = params.get('uid')
     })
   }
 
@@ -44,11 +46,13 @@ export class BlogCommentsComponent implements OnInit {
       this.getPubComments(this.user, self)
       this.getPrivComments(this.user, self)
     } else {
-      firebase.auth().onAuthStateChanged(function (user) {
-        self.user = user
-        self.getPubComments(user, self)
-        self.getPrivComments(user, self)
-
+      firebase.auth().onAuthStateChanged(async function (user) {
+        self.user = user.uid === self.paramUid ? user : await self.userService.getUserByUid(self.paramUid)
+        if (self.user === '') {
+          self.user = user
+        }
+        self.getPubComments(self.user, self)
+        self.getPrivComments(self.user, self)
       })
     }
   }
@@ -60,6 +64,7 @@ export class BlogCommentsComponent implements OnInit {
       ref = firebase.database().ref('users/' + user.uid + '/blog-comments/public').orderByKey().limitToLast(PUB_OFFSET + 1)
     }
     ref.on('value', async function (commentsData) {
+
       if (commentsData.val()) {
         self.publicComments = commentsData.val()
         let pubRefs = []

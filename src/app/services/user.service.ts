@@ -60,6 +60,12 @@ export class UserService {
       //
     });
   }
+
+  async getUserByUid(uid) {
+    const getUser = firebase.functions().httpsCallable('getUser')
+    const user = await (await getUser(uid)).data
+    return user
+  }
   signOut() {
     firebase.auth().signOut();
   }

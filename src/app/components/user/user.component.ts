@@ -29,10 +29,6 @@ export class UserComponent implements OnInit {
   ngOnInit() {
     let self = this
     this.userService.renderAccInfo();
-    firebase.auth().onAuthStateChanged(function (user) {
-      self.userLoggedIn = user ? true : false
-      self.user = user
-    })
     this.route.paramMap.subscribe(async params => {
       this.section = params.get('section');
       this.paramUid = params.get('uid')
@@ -48,7 +44,27 @@ export class UserComponent implements OnInit {
         this.router.navigate(['/user/' + this.paramUid + '/profile'], { relativeTo: this.route })
       }
     });
+
+    firebase.auth().onAuthStateChanged(async function (user) {
+      self.userLoggedIn = user ? true : false
+      self.user = user.uid === self.paramUid ? user : await self.userService.getUserByUid(self.paramUid)
+      if (self.user !== user && self.user !== '') {
+        self.sections = [
+          { name: 'Profile', id: 'profile' },
+          { name: 'Blog Posts', id: 'blog-posts' },
+          { name: 'Blog Comments', id: 'blog-comments' },
+          { name: 'Forum Posts', id: 'forum-posts' },
+          { name: 'Forum Comments', id: 'forum-comments' },
+        ]
+        self.validateSection(self.section)
+      } else if (self.user === '') {
+        self.user = user
+        self.router.navigate(['/user/' + self.user.uid + '/profile'], { relativeTo: self.route })
+      }
+    })
+
   }
+
 
   validateSection(section) {
     for (let page of this.sections) {
@@ -56,6 +72,7 @@ export class UserComponent implements OnInit {
         return true
       }
     }
-    return false
+    this.section = 'profile'
+    this.router.navigate(['/user/' + this.paramUid + '/profile'], { relativeTo: this.route })
   }
 }
