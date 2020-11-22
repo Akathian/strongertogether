@@ -1,12 +1,16 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { ChangeEvent } from '@ckeditor/ckeditor5-angular/ckeditor.component';
-import * as ClassicEditor from 'ckeditor5-build-classic-all-plugin';
+// import * as ClassicEditor from 'ckeditor5-build-classic-all-plugin';
+import * as Editor from '../../../../assets/ckeditor5/build/ckeditor.js'
 import { CKEditorComponent } from '@ckeditor/ckeditor5-angular'
+import { CKEditorConfig } from 'ckeditor5-build-classic-all-plugin'
 import { ActivatedRoute, Router } from '@angular/router';
 import firebase from 'firebase/app'
 import 'firebase/database'
 import 'firebase/auth'
 import { MessengerService } from '../../../services/messenger.service'
+import { ModalDirective } from 'angular-bootstrap-md';
+
 import * as $ from 'jquery'
 @Component({
   selector: 'app-blog-edit',
@@ -15,7 +19,21 @@ import * as $ from 'jquery'
 })
 export class BlogEditComponent implements AfterViewInit {
   @ViewChild('editor', { static: false }) editorComponent: CKEditorComponent;
-  public Editor = ClassicEditor;
+  @ViewChild('delModal', { static: false }) delModal: ModalDirective;
+  @ViewChild('pubModal', { static: false }) pubModal: ModalDirective;
+  @ViewChild('editModal', { static: false }) editModal: ModalDirective;
+
+
+
+  public Editor = Editor;
+  config: CKEditorConfig = {
+    placeholder: "Write your answer here.",
+    // BUG: Current CKEditor5's generated build does not 
+    // show the default toolbar as defined in the online builder
+    toolbar: [
+      'Heading', '|', 'FontFamily', 'FontSize', 'Bold', 'Italic', 'Underline', 'Strikethrough', 'Subscript', 'Superscript', 'FontColor', 'FontBackgroundColor', 'Highlight', '|', 'Alignment', 'BulletedList', 'NumberedList', 'Indent', 'Outdent', 'InsertTable', '|', 'ImageUpload', 'MediaEmbed', 'HtmlEmbed', '|', 'BlockQuote', 'RemoveFormat', 'HorizontalLine', 'SpecialCharacters', 'Undo', 'Redo'
+    ],
+  };
   autoSaveReady = true
   autoSaveStarted = false
   lastSaved = 'Never'
@@ -32,6 +50,8 @@ export class BlogEditComponent implements AfterViewInit {
   uid;
   create;
   type
+  coverImg;
+  iframe;
   ref;
   category;
   catDirty = false;
@@ -88,6 +108,19 @@ export class BlogEditComponent implements AfterViewInit {
       }
     })
   }
+  saveEdit() {
+    this.coverImg = this.getCover(this.data)
+    if (this.coverImg) {
+      this.coverImg = this.coverImg.replace('src=', "width='100%' src=")
+    } else {
+      this.coverImg = `<img width='100%' src='../../../assets/STNEWCOVER2.png'>`
+    }
+    this.iframe = this.data.match(/&lt;iframe(?:.*?)&lt;\/iframe&gt;/g)
+    if (this.iframe) {
+      this.iframe = this.iframe[0].replace('&lt;', "<").replace('&lt;', "<").replace('&gt;', '>').replace('&gt;', '>')
+    }
+    this.editModal.show()
+  }
 
   public onChange({ editor }: ChangeEvent) {
     const data = editor.getData();
@@ -133,6 +166,7 @@ export class BlogEditComponent implements AfterViewInit {
       updates[ref + 'title'] = this.title
       updates[ref + 'readTime'] = this.data.split(' ').length / 200
       updates[ref + 'category'] = this.category
+
       if (this.catDirty && this.type === 'post') {
         firebase.database().ref('blog/events/' + this.id).remove()
         firebase.database().ref('blog/podcasts/' + this.id).remove()
@@ -141,6 +175,9 @@ export class BlogEditComponent implements AfterViewInit {
         }
       }
       firebase.database().ref().update(updates)
+      if (this.type === 'post') {
+        window.location.href = `/blog/${this.id}`;
+      }
     }
   }
 
@@ -203,5 +240,32 @@ export class BlogEditComponent implements AfterViewInit {
       this.saveStatus = `<small>Save as Draft</small>`
     }
     document.getElementById('saveBtn').classList.remove('disabled')
+  }
+
+  deleteDraft() {
+    this.delModal.show()
+  }
+
+  publishDraft() {
+    this.coverImg = this.getCover(this.data)
+    if (this.coverImg) {
+      this.coverImg = this.coverImg.replace('src=', "width='100%' src=")
+    } else {
+      this.coverImg = `<img width='100%' src='../../../assets/STNEWCOVER2.png'>`
+    }
+    this.iframe = this.data.match(/&lt;iframe(?:.*?)&lt;\/iframe&gt;/g)
+    if (this.iframe) {
+      this.iframe = this.iframe[0].replace('&lt;', "<").replace('&lt;', "<").replace('&gt;', '>').replace('&gt;', '>')
+    }
+    this.pubModal.show()
+  }
+
+  del() {
+    let self = this
+    firebase.auth().onAuthStateChanged(async function (user) {
+      await firebase.database().ref('users/' + user.uid + '/drafts/' + self.id).remove()
+      this.delModal.hide()
+      window.location.href = '/user/' + user.uid + '/drafts'
+    })
   }
 }

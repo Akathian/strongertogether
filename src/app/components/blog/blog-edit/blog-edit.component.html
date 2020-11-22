@@ -12,28 +12,39 @@
           [value]="title"
         />
       </div>
-      <div class="">
-        <label class="align-self-center">Set Category</label>
-        <form class="">
-          <div class="form-group">
-            <select
-              class="form-control-sm"
-              (ngModelChange)="catChange($event)"
-              (change)="catChange($event)"
-              id="catChoose"
-            >
-              <option value="general">General</option>
-              <option value="events">Event</option>
-              <option value="podcasts">Podcast</option>
-            </select>
-          </div>
-        </form>
+      <div class="d-flex flex-row justify-content-between">
+        <div class="">
+          <label class="align-self-center">Set Category</label>
+          <form class="">
+            <div class="form-group rounded-0">
+              <select
+                class="form-control-sm rounded-0"
+                (ngModelChange)="catChange($event)"
+                (change)="catChange($event)"
+                id="catChoose"
+              >
+                <option value="general">General</option>
+                <option value="events">Event</option>
+                <option value="podcasts">Podcast</option>
+              </select>
+            </div>
+          </form>
+        </div>
+        <div class="align-self-center" *ngIf="type === 'drafts'">
+          <button
+            class="btn btn-outline-danger rounded-0"
+            (click)="deleteDraft()"
+          >
+            <small> Delete Draft </small>
+          </button>
+        </div>
       </div>
       <div>
         <ckeditor
           [editor]="Editor"
           [data]="postContent"
           (change)="onChange($event)"
+          [config]="config"
           #editor
           width="100%"
         ></ckeditor>
@@ -44,12 +55,20 @@
           id="saveBtn"
           (click)="save()"
           [innerHTML]="saveStatus"
+          *ngIf="type === 'drafts'"
+        ></button>
+        <button
+          class="btn btn-dark disabled rounded-0 m-2"
+          id="saveBtn"
+          (click)="saveEdit()"
+          [innerHTML]="saveStatus"
+          *ngIf="type === 'post'"
         ></button>
         <button
           *ngIf="type === 'drafts'"
           class="m-2 btn btn-primary rounded-0"
           id="pubBtn"
-          (click)="pub()"
+          (click)="publishDraft()"
         >
           <small> Publish </small>
         </button>
@@ -58,3 +77,154 @@
   </div>
 </div>
 
+<div
+  mdbModal
+  #delModal="mdbModal"
+  class="modal fade"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myBasicModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button
+          type="button"
+          class="close pull-right"
+          aria-label="Close"
+          (click)="delModal.hide()"
+        >
+          <span (click)="delModal.hide()" aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title w-100" id="myModalLabel">Confirm Delete</h4>
+      </div>
+      <div class="modal-body">
+        You will be deleting this draft:
+        <div class=""></div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-md btn-dark rounded-0"
+          (click)="del()"
+        >
+          Yes
+        </button>
+        <button
+          type="button"
+          class="btn btn-md btn-info rounded-0"
+          (click)="delModal.hide()"
+        >
+          No
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  mdbModal
+  #pubModal="mdbModal"
+  class="modal fade"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myBasicModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button
+          type="button"
+          class="close pull-right"
+          aria-label="Close"
+          (click)="pubModal.hide()"
+        >
+          <span (click)="pubModal.hide()" aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title w-100" id="myModalLabel">Confirm Publish</h4>
+      </div>
+      <div class="modal-body">
+        Title: <b>{{ title }}</b> <br />
+        Category: <b>{{ category }}</b> <br />
+        <span *ngIf="iframe">
+          Podcast Preview: <br />
+          <div class="my-1" [innerHTML]="iframe | sanitizeHtml"></div>
+        </span>
+
+        Cover Image: <br />
+        <div id="imgDiv" class="my-1" [innerHTML]="coverImg"></div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-md btn-dark rounded-0"
+          (click)="pub()"
+        >
+          Yes
+        </button>
+        <button
+          type="button"
+          class="btn btn-md btn-info rounded-0"
+          (click)="pubModal.hide()"
+        >
+          No
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  mdbModal
+  #editModal="mdbModal"
+  class="modal fade"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myBasicModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button
+          type="button"
+          class="close pull-right"
+          aria-label="Close"
+          (click)="editModal.hide()"
+        >
+          <span (click)="editModal.hide()" aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title w-100" id="myModalLabel">Confirm Publish</h4>
+      </div>
+      <div class="modal-body">
+        Title: <b>{{ title }}</b> <br />
+        Category: <b>{{ category }}</b> <br />
+        <span *ngIf="iframe">
+          Podcast Preview: <br />
+          <div class="my-1" [innerHTML]="iframe | sanitizeHtml"></div>
+        </span>
+
+        Cover Image: <br />
+        <div id="imgDiv" class="my-1" [innerHTML]="coverImg"></div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-md btn-dark rounded-0"
+          (click)="save()"
+        >
+          Yes
+        </button>
+        <button
+          type="button"
+          class="btn btn-md btn-info rounded-0"
+          (click)="editModal.hide()"
+        >
+          No
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

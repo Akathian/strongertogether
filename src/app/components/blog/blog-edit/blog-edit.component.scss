@@ -1,0 +1,8 @@
+.modal-body > img , #imgDiv{
+    width: 100%;
+}
+
+.modal-body {
+    max-height: calc(100vh - 210px);
+    overflow-y: auto;
+}

@@ -95,12 +95,16 @@
       </div>
       <div class="modal-body">You will be deleting this {{ type }}</div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-md btn-dark" (click)="del()">
+        <button
+          type="button"
+          class="btn btn-md btn-dark rounded-0"
+          (click)="del()"
+        >
           Yes
         </button>
         <button
           type="button"
-          class="btn btn-md btn-info"
+          class="btn btn-md btn-info rounded-0"
           (click)="confirmModal.hide()"
         >
           No

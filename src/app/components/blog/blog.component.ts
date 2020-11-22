@@ -26,6 +26,7 @@ export class BlogComponent implements OnInit {
   pageKeys = {};
   numPages;
   isAdmin = false
+
   constructor() { }
 
   ngOnInit() {

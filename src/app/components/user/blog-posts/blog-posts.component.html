@@ -29,16 +29,18 @@
     <!-- <div class="col" *ngFor="let page of numPages">
       {{ page + 1 }}
     </div> -->
-    <div class="col"><button class="btn" (click)="goToPage(1)"><<</button></div>
-    <div class="col">
+    <div class="align-self-center">
+      <button class="btn" (click)="goToPage(1)"><<</button>
+    </div>
+    <div class="align-self-center">
       <button class="btn" (click)="goToPage(page - 1)"><</button>
     </div>
 
-    <div class="col">{{ page }} of {{ numPages }}</div>
-    <div class="col">
+    <div class="align-self-center">{{ page }} of {{ numPages }}</div>
+    <div class="align-self-center">
       <button class="btn" (click)="goToPage(page + 1)">></button>
     </div>
-    <div class="col">
+    <div class="align-self-center">
       <button class="btn" (click)="goToPage(numPages)">>></button>
     </div>
   </div>

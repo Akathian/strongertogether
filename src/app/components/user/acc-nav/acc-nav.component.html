@@ -70,7 +70,7 @@
           <div
             class="row pl-4 py-2 accNavElem"
             [id]="section.id"
-            [routerLink]="'/login/' + section.id"
+            [routerLink]="'/user/' + user.uid + '/' + section.id"
           >
             {{ section.name }}
           </div>
