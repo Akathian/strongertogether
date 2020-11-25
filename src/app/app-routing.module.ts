@@ -9,6 +9,7 @@ import { ForumComponent } from './components/forum/forum.component';
 import { UserComponent } from './components/user/user.component';
 import { PostComponent } from './components/blog/post/post.component';
 import { BlogEditComponent } from './components/blog/blog-edit/blog-edit.component';
+import { BugReportComponent } from './components/bug-report/bug-report.component';
 
 import * as firebase from 'firebase';
 import 'firebase/analytics'
@@ -33,6 +34,8 @@ const routes: Routes = [
   { path: 'blog/:type/:id/edit', component: BlogEditComponent },
   { path: 'login', component: UserComponent },
   { path: 'user/:uid/:section', component: UserComponent },
+  { path: 'bug-report', component: BugReportComponent },
+
 ];
 
 @NgModule({

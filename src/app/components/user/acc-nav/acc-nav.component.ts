@@ -29,9 +29,13 @@ export class AccNavComponent implements OnInit {
       self.width = window.innerWidth
     })
     firebase.auth().onAuthStateChanged(async function (user) {
-      self.isOwn = user.uid === self.paramUid
-      const admin = await (await firebase.database().ref('admins/' + self.paramUid).once('value')).val()
-      self.isAdmin = admin ? true : false
+      if (user) {
+        self.isOwn = user.uid === self.paramUid
+        const admin = await (await firebase.database().ref('admins/' + self.paramUid).once('value')).val()
+        self.isAdmin = admin ? true : false
+      } else {
+        // window.location.href = '/login'
+      }
     })
 
   }

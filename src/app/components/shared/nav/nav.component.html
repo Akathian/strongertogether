@@ -41,27 +41,27 @@
     <div class="row d-flex flex-row">
       <div class="row d-flex flex-row">
         <div class="col">
-          <a routerLink="/">Home</a>
+          <a href="/">Home</a>
         </div>
         <div class="col">
-          <a routerLink="/blog">Blog</a>
+          <a href="/blog">Blog</a>
         </div>
         <div class="col">
-          <a routerLink="/programs">Programs</a>
+          <a href="/programs">Programs</a>
         </div>
         <div class="col">
-          <a routerLink="/forum">Forum</a>
+          <a href="/forum">Forum</a>
         </div>
         <div class="col">
-          <a routerLink="/resources">Resources</a>
+          <a href="/resources">Resources</a>
         </div>
         <div class="col">
-          <a routerLink="/about">About</a>
+          <a href="/about">About</a>
         </div>
       </div>
       <div class="col d-flex flex-row-reverse pr-5">
         <div class="align-self-end">
-          <a *ngIf="!uid" href="/login">
+          <a *ngIf="!uid" href="/login" [innerHTML]="profilePic | sanitizeHtml">
             <svg
               id="login"
               width="1.5em"
@@ -81,25 +81,11 @@
               />
             </svg>
           </a>
-          <a *ngIf="uid" [href]="'/user/' + uid + '/profile'">
-            <svg
-              id="login"
-              width="1.5em"
-              height="1.5em"
-              viewBox="0 0 16 16"
-              class="bi bi-person-circle"
-              fill="currentColor"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 0 0 8 15a6.987 6.987 0 0 0 5.468-2.63z"
-              />
-              <path fill-rule="evenodd" d="M8 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
-              <path
-                fill-rule="evenodd"
-                d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z"
-              />
-            </svg>
+          <a
+            *ngIf="uid"
+            [href]="'/user/' + uid + '/profile'"
+            [innerHTML]="profilePic | sanitizeHtml"
+          >
           </a>
         </div>
       </div>
@@ -122,25 +108,25 @@
     <div id="smallNav" class="collapse" role="tabpanel">
       <div class="col">
         <div class="row justify-content-center p-1 navItem">
-          <a routerLink="/">Home</a>
+          <a href="/">Home</a>
         </div>
         <div class="row justify-content-center p-1 navItem">
-          <a routerLink="/blog">Blog</a>
+          <a href="/blog">Blog</a>
         </div>
         <div class="row justify-content-center p-1 navItem">
-          <a routerLink="/programs">Programs</a>
+          <a href="/programs">Programs</a>
         </div>
         <div class="row justify-content-center p-1 navItem">
-          <a routerLink="/forum">Forum</a>
+          <a href="/forum">Forum</a>
         </div>
         <div class="row justify-content-center p-1 navItem">
-          <a routerLink="/resources">Resources</a>
+          <a href="/resources">Resources</a>
         </div>
         <div class="row justify-content-center p-1 navItem">
-          <a routerLink="/about">About</a>
+          <a href="/about">About</a>
         </div>
         <div class="row justify-content-center p-1 navItem mb-1">
-          <a routerLink="/login">
+          <a href="/login">
             <svg
               id="login"
               width="1.5em"

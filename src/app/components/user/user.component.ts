@@ -47,7 +47,11 @@ export class UserComponent implements OnInit {
 
     firebase.auth().onAuthStateChanged(async function (user) {
       self.userLoggedIn = user ? true : false
-      self.user = user.uid === self.paramUid ? user : await self.userService.getUserByUid(self.paramUid)
+      let uid
+      if (user) {
+        uid = user.uid
+      }
+      self.user = uid === self.paramUid ? user : await self.userService.getUserByUid(self.paramUid)
       if (self.user !== user && self.user !== '') {
         self.sections = [
           { name: 'Profile', id: 'profile' },
@@ -59,7 +63,7 @@ export class UserComponent implements OnInit {
         self.validateSection(self.section)
       } else if (self.user === '') {
         self.user = user
-        self.router.navigate(['/user/' + self.user.uid + '/profile'], { relativeTo: self.route })
+        self.router.navigate(['/user/' + uid + '/profile'], { relativeTo: self.route })
       }
     })
 

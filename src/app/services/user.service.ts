@@ -37,8 +37,6 @@ export class UserService {
       } else {
         self.user = '';
         self.userLoggedIn = false;
-        document.getElementById('login').innerHTML = loginIMG;
-        document.getElementById('logoutImg').style.fill = 'black';
         const uiConfig = {
           signInSuccessUrl: '/login',
           signInOptions: [

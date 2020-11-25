@@ -44,6 +44,7 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { BlogFooterComponent } from './components/blog/blog-footer/blog-footer.component';
 import { TimeParsePipe } from './pipes/time-parse.pipe';
 import { ReadParsePipe } from './pipes/read-parse.pipe';
+import { BugReportComponent } from './components/bug-report/bug-report.component';
 
 @NgModule({
   declarations: [
@@ -80,9 +81,10 @@ import { ReadParsePipe } from './pipes/read-parse.pipe';
     BlogFooterComponent,
     TimeParsePipe,
     ReadParsePipe,
+    BugReportComponent,
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     SlickCarouselModule,
     FormsModule,
