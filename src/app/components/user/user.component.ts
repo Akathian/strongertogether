@@ -32,7 +32,7 @@ export class UserComponent implements OnInit {
     this.route.paramMap.subscribe(async params => {
       this.section = params.get('section');
       this.paramUid = params.get('uid')
-      if (this.section && this.validateSection(this.section)) {
+      if (this.validateSection(this.section)) {
         for (let i = 0; i < document.getElementsByClassName('accNavElem').length; i++) {
           (<HTMLElement>document.getElementsByClassName('accNavElem')[i]).style.color = 'black'
         }

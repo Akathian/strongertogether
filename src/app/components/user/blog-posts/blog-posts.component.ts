@@ -63,8 +63,6 @@ export class BlogPostsComponent implements OnInit {
       postQuery = firebase.database().ref('users/' + self.user.uid + '/blog-posts').orderByKey().limitToLast(OFFSET + 1)
     }
     postQuery.on('value', async function (postData) {
-      console.log(postData.val())
-
       if (postData.val()) {
         self.posts = postData.val()
         let postRefs = []

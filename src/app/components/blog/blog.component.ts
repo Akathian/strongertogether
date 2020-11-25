@@ -57,7 +57,7 @@ export class BlogComponent implements OnInit {
   getPosts() {
     let self = this
     let postQuery;
-    console.log(this.nextKey, this.page)
+
     if (this.nextKey) {
       postQuery = firebase.database().ref('/blog/' + this.path).orderByKey().endAt(this.nextKey).limitToLast(OFFSET + 1)
     } else {

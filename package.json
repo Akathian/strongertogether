@@ -40,6 +40,7 @@
     "angular-webstorage-service": "^1.0.2",
     "angularfire2": "^5.4.2",
     "animate.css": "^4.1.0",
+    "aos": "^2.3.3",
     "bootstrap": "^4.0.0-beta",
     "buffer": "^5.6.0",
     "chart.js": "^2.5.0",

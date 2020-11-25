@@ -264,7 +264,7 @@ export class BlogEditComponent implements AfterViewInit {
     let self = this
     firebase.auth().onAuthStateChanged(async function (user) {
       await firebase.database().ref('users/' + user.uid + '/drafts/' + self.id).remove()
-      this.delModal.hide()
+      self.delModal.hide()
       window.location.href = '/user/' + user.uid + '/drafts'
     })
   }
