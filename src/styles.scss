@@ -8,7 +8,6 @@ body {
 
 html,body
 {
-    width: 100%;
     margin: 0px;
     padding: 0px;
     // overflow-x: hidden; 
@@ -33,4 +32,8 @@ h3 {
 h4 {
     font-family: brandon-grot-w01-light, sans-serif;
     font-weight: 200;
+}
+
+* {
+    // outline: 1px solid red;
 }

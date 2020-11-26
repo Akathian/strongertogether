@@ -18,6 +18,7 @@ export class SlideshowComponent implements OnInit {
     { img: "https://static.wixstatic.com/media/54db4c322f9644b38ac9956285717c12.jpg/v1/fill/w_3998,h_2664,al_c,q_90,usm_0.66_1.00_0.01/54db4c322f9644b38ac9956285717c12.jpg" },
     { img: 'https://static.wixstatic.com/media/5b0263ea6cfc4dab9f3d3fcec87a8337.jpg/v1/fill/w_3998,h_2104,al_c,q_90,usm_0.66_1.00_0.01/5b0263ea6cfc4dab9f3d3fcec87a8337.jpg' }
   ];
+
   slideConfig = {
     "slidesToShow": 1,
     "slidesToScroll": 1,

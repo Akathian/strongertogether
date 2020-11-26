@@ -1,14 +1,18 @@
-<ngx-slick-carousel
-  class="carousel"
-  #slickModal="slick-carousel"
-  [config]="slideConfig"
->
-  <div
-    ngxSlickItem
-    *ngFor="let slide of slides"
-    style="height: 50vh"
-    class="slide"
-  >
-    <img src="{{ slide.img }}" class="ml-50" width="100%" />
+<div class="col">
+  <div class="mx-3">
+    <ngx-slick-carousel
+      class="carousel"
+      #slickModal="slick-carousel"
+      [config]="slideConfig"
+    >
+      <div
+        ngxSlickItem
+        *ngFor="let slide of slides"
+        style="height: 50vh"
+        class="slide"
+      >
+        <img src="{{ slide.img }}" class="ml-50" width="100%" />
+      </div>
+    </ngx-slick-carousel>
   </div>
-</ngx-slick-carousel>
+</div>
