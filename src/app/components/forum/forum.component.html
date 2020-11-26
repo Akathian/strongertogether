@@ -1,1 +1,106 @@
-<p>forum works!</p>
+<div class="container-fluid">
+  <small>
+    <a href="/">Stronger Together </a> /
+    <a href="/forum"> Forum </a>
+  </small>
+  <hr class="m-0" />
+</div>
+<div class="container mt-5">
+  <div class="col">
+    <div class="row">Header</div>
+    <div
+      class="row text-white"
+      style="
+        background-image: url('https://i.pinimg.com/originals/8f/92/f1/8f92f142af353941a47b98aa8d8c27ab.jpg');
+        background-size: cover;
+        background-position: center;
+      "
+    >
+      <div class="col">
+        <div class="row justify-content-center p-5">
+          <span class="p-5">
+            <h1>Welcome to the Forum</h1>
+            Add or edit a post to get the conversation started
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col">
+        <div class="row border border-bottom-0 p-3">Filter Sort Create</div>
+        <!-- <table class="table">
+          <thead>
+            <tr>
+              <th scope="col"><i class="fas fa-comments"></i></th>
+              <th scope="col"><i class="far fa-heart"></i></th>
+              <th scope="col"><i class="fas fa-eye"></i></th>
+              <th scope="col"><small>Recent Activity</small></th>
+            </tr>
+          </thead>
+        </table> -->
+        <div class="row border border-bottom-0 justify-content-end p-1">
+          <div class="col-6"></div>
+          <div class="col-1 text-center">
+            <i class="fas fa-comments"></i>
+          </div>
+          <div class="col-1 text-center">
+            <i class="far fa-heart"></i>
+          </div>
+          <div class="col-1 text-center">
+            <i class="fas fa-eye"></i>
+          </div>
+          <div class="col-3 text-center"><small>Recent Activity</small></div>
+        </div>
+        <div class="row border">
+          <div class="col">
+            <div *ngFor="let forum of forums" class="row forum p-2">
+              <div class="col">
+                <div class="row">
+                  <div class="col-6">
+                    <div class="row">
+                      <div class="col">
+                        {{ forum.title }}
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <small>
+                          <small>
+                            {{ forum.authorName }} &middot; {{ forum.type }}
+                          </small>
+                        </small>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-1 text-center my-auto">
+                    {{ forum.numComments }}
+                  </div>
+                  <div class="col-1 text-center my-auto">
+                    {{ forum.numLikes }}
+                  </div>
+                  <div class="col-1 text-center my-auto">
+                    {{ forum.numViews }}
+                  </div>
+                  <div class="col-3 text-center my-auto">
+                    <img
+                      [src]="forum.recentActivity.authorImg"
+                      class="rounded-circle"
+                      width="24px"
+                    />
+                    <small>
+                      {{ forum.recentActivity.time | timeParse }}
+                    </small>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-12">
+                <hr class="m-0" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

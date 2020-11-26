@@ -25,7 +25,7 @@
       No Posts Yet
     </div>
   </div>
-  <div class="d-flex justify-content-center">
+  <div class="d-flex justify-content-center" *ngIf="!showLoading && lenOfData">
     <!-- <div class="col" *ngFor="let page of numPages">
       {{ page + 1 }}
     </div> -->

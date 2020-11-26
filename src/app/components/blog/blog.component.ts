@@ -26,10 +26,11 @@ export class BlogComponent implements OnInit {
   pageKeys = {};
   numPages;
   isAdmin = false
-
+  currPath
   constructor() { }
 
   ngOnInit() {
+    this.currPath = window.location.pathname
     this.path = window.location.pathname.replace('/blog', '').replace('-', '') || 'general'
     this.getNumPosts();
     this.getPosts()

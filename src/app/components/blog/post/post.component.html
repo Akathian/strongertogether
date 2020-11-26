@@ -1,3 +1,12 @@
+<div class="container-fluid" *ngIf="post">
+  <small>
+    <a href="/">Stronger Together </a> /
+    <a [href]="catUrl"> Blog {{ post.category }} </a> /
+    <a [href]="currPath"> {{ post.title }} </a>
+  </small>
+  <hr class="m-0" />
+</div>
+
 <div class="container mt-5" *ngIf="post">
   <app-blog-nav></app-blog-nav>
   <div class="post col mt-3 border p-5">

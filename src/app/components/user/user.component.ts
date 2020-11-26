@@ -25,11 +25,14 @@ export class UserComponent implements OnInit {
     { name: 'Forum Comments', id: 'forum-comments' },
   ]
   paramUid;
+  username;
+  currPath
   constructor(private userService: UserService, private messenger: MessengerService, private route: ActivatedRoute, private router: Router) { }
   ngOnInit() {
     let self = this
     this.userService.renderAccInfo();
     this.route.paramMap.subscribe(async params => {
+
       this.section = params.get('section');
       this.paramUid = params.get('uid')
       if (this.validateSection(this.section)) {
@@ -50,6 +53,8 @@ export class UserComponent implements OnInit {
       let uid
       if (user) {
         uid = user.uid
+        self.username = user.displayName
+        self.currPath = window.location.pathname
       }
       self.user = uid === self.paramUid ? user : await self.userService.getUserByUid(self.paramUid)
       if (self.user !== user && self.user !== '') {

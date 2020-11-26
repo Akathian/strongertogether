@@ -23,6 +23,8 @@ export class PostComponent implements OnInit {
   gearData = { id: '', editLink: '', dbLink: '', type: 'post', editors: [] }
   footerData = {};
   user = { displayName: 'Sign in to comment', photoURL: '' }
+  catUrl;
+  currPath;
   @ViewChild('iframeContent', { static: true }) iframeBox: ElementRef;
   ngOnInit() {
     let self = this
@@ -43,7 +45,11 @@ export class PostComponent implements OnInit {
     });
   }
 
-
+  getPaths(self) {
+    self.currPath = window.location.pathname
+    let cat = self.post.category === 'general' ? '' : self.post.category
+    self.catUrl = cat ? ('/blog-' + cat) : '/blog'
+  }
   updateViews() {
     let self = this
     this.ipService.getIPAddress().subscribe((res: any) => {
@@ -84,6 +90,7 @@ export class PostComponent implements OnInit {
           const parsedIframe = self.iframe[0].replace('&lt;', "<").replace('&lt;', "<").replace('&gt;', '>').replace('&gt;', '>')
           self.post.content = self.post.content.replace(self.iframe, parsedIframe)
         }
+        self.getPaths(self)
       }
     })
   }
