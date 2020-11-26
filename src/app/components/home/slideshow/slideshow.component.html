@@ -1,4 +1,4 @@
-<div class="col">
+<div class="col pb-1">
   <div class="mx-3">
     <ngx-slick-carousel
       class="carousel"
@@ -8,7 +8,7 @@
       <div
         ngxSlickItem
         *ngFor="let slide of slides"
-        style="height: 50vh"
+        style="max-height: 50vh"
         class="slide"
       >
         <img src="{{ slide.img }}" class="ml-50" width="100%" />
