@@ -10,7 +10,14 @@
     <small>New Post</small>
   </button>
 
-  <div *ngFor="let post of posts" class="post row my-3">
+  <div
+    *ngFor="let post of posts"
+    class="post row my-3"
+    data-aos="fade-right"
+    data-aos-once="true"
+    data-aos-duration="1000"
+    data-aos-offset="100"
+  >
     <div class="col-sm-12 col-md-12 col-lg-6 p-0 mr-0">
       <a [href]="'/blog/' + post.id">
         <div class="" [innerHTML]="post.cover"></div>
