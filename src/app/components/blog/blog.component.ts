@@ -26,15 +26,47 @@ export class BlogComponent implements OnInit {
   pageKeys = {};
   numPages;
   isAdmin = false
-  currPath
+  currPath;
+  pinnedPosts = [];
   constructor() { }
 
   ngOnInit() {
     this.currPath = window.location.pathname
     this.path = window.location.pathname.replace('/blog', '').replace('-', '') || 'general'
     this.getNumPosts();
+    this.getPins();
     this.getPosts()
     this.checkAdmin()
+
+
+  }
+  getPins() {
+    let self = this
+    firebase.database().ref('blog/pinned').on('value', async function (pinData) {
+      if (pinData.val()) {
+        self.pinnedPosts = []
+        let pinnedRefs = []
+        pinnedRefs = Object.values(pinData.val()).reverse()
+        for (let ref of pinnedRefs) {
+          let pinnedPost = await (await firebase.database().ref(ref).once('value')).val()
+          self.pinnedPosts.push(pinnedPost)
+        }
+      } else {
+        self.pinnedPosts = []
+      }
+    })
+  }
+
+  pin(postId) {
+    firebase.database().ref('blog/pinned/' + postId).set('blog/general/' + postId)
+    firebase.database().ref('blog/general/' + postId + '/pinned').set('true')
+
+  }
+
+  unpin(postId) {
+    firebase.database().ref('blog/pinned/' + postId).remove()
+    firebase.database().ref('blog/general/' + postId + '/pinned').set(null)
+
   }
 
   checkAdmin() {
@@ -82,6 +114,13 @@ export class BlogComponent implements OnInit {
           for (let ref of refs) {
             let post = await (await firebase.database().ref(ref).once('value')).val()
             if (post) {
+              post.gearData = {
+                id: post.id,
+                dbLink: ref,
+                editLink: '/blog/post/' + post.id + '/edit',
+                type: 'post',
+                editors: [post.uid]
+              }
               posts.push(post)
             }
           }
@@ -96,6 +135,17 @@ export class BlogComponent implements OnInit {
             }
           }
           self.posts = toValues.reverse()
+          for (let post of self.posts) {
+            if (post) {
+              post.gearData = {
+                id: post.id,
+                dbLink: 'blog/general/' + post.id,
+                editLink: '/blog/post/' + post.id + '/edit',
+                type: 'post',
+                editors: [post.uid]
+              }
+            }
+          }
           self.lenOfData = self.posts.length
           // self.clamp()
         }

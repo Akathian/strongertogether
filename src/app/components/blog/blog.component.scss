@@ -73,3 +73,15 @@ a {
 // .ck-content h1, .ck-content h2, .ck-content h3, .ck-content h4, .ck-content h5, .ck-content h6 {
 //     font-size: 0px !important;
 // }
+.modal-backdrop {
+  /* bug fix - no overlay */    
+  display: none !important;    
+}
+
+.pin-post  {
+  transition: 0.5s background-color;
+}
+
+.pin-post:hover  {
+  background-color: #f4f4f4;
+}

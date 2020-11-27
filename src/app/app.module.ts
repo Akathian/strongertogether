@@ -6,7 +6,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { BlogComponent } from './components/blog/blog.component';
-import { ResourcesComponent } from './components/resources/resources.component';
 import { AboutComponent } from './components/about/about.component';
 import { ForumComponent } from './components/forum/forum.component';
 import { NavComponent } from './components/shared/nav/nav.component';
@@ -51,7 +50,6 @@ import { BugReportComponent } from './components/bug-report/bug-report.component
     AppComponent,
     HomeComponent,
     BlogComponent,
-    ResourcesComponent,
     AboutComponent,
     ForumComponent,
     NavComponent,

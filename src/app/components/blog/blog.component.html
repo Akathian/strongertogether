@@ -7,15 +7,89 @@
   <hr class="m-0" />
 </div>
 <div class="container mt-5">
-  <app-blog-nav></app-blog-nav>
-  <button
-    *ngIf="isAdmin"
-    class="btn btn-dark rounded-0 mt-2"
-    (click)="newPost()"
-  >
-    <small>New Post</small>
-  </button>
+  <h3 *ngIf="pinnedPosts.length">Pinned Posts</h3>
+  <span *ngIf="pinnedPosts.length">
+    <div
+      class="row border my-3 p-3"
+      *ngFor="let pinned of pinnedPosts"
+      data-aos="fade-right"
+      data-aos-once="true"
+      data-aos-duration="1000"
+      data-aos-offset="100"
+    >
+      <div class="d-flex col px-5 p-2">
+        <div class="align-self-center" width="100%">
+          <div class="mb-2">
+            <small class="align-self-center">
+              <div class="row justify-content-start">
+                <div class="p-0 ml-3">
+                  <a [href]="'/user/' + pinned.uid + '/profile'">
+                    <img
+                      class="rounded-circle"
+                      [src]="pinned.authorImg"
+                      width="32px"
+                    />
+                  </a>
+                </div>
+                <div class="d-flex flex-column p-0 ml-3 justify-content-center">
+                  <div class="">
+                    <a [href]="'/user/' + pinned.uid + '/profile'">
+                      {{ pinned.authorName }}
+                    </a>
+                  </div>
+                  <div class="text-muted">
+                    <small>
+                      {{ pinned.time | timeParse }} &middot;
+                      {{ pinned.readTime | readParse }}
+                    </small>
+                  </div>
+                </div>
+                <div class="col-3 ml-auto">
+                  <div class="row">
+                    <button class="btn my-auto pin-post rounded ml-auto">
+                      <img
+                        src="https://img.icons8.com/material-rounded/96/000000/pin.png"
+                        width="16px"
+                        (click)="unpin(pinned.id)"
+                        class=""
+                      />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </small>
+          </div>
 
+          <a [href]="'/blog/' + pinned.id">
+            <h5>{{ pinned.title }}</h5>
+            <a class="blurb-link" [href]="'/blog/' + pinned.id">
+              <!-- <p class="text-muted blurb ck-content">{{ pinned.content }}</p> -->
+              <div
+                class="blurb ck-content"
+                height="100px"
+                [innerHTML]="pinned.content"
+              ></div>
+            </a>
+          </a>
+          <app-blog-footer [post]="pinned"></app-blog-footer>
+        </div>
+      </div>
+    </div>
+    <hr />
+  </span>
+
+  <div class="col">
+    <div class="row">
+      <app-blog-nav></app-blog-nav>
+      <button
+        *ngIf="isAdmin"
+        class="btn btn-dark rounded-0 ml-auto"
+        (click)="newPost()"
+      >
+        <small>New Post</small>
+      </button>
+    </div>
+  </div>
   <div
     *ngFor="let post of posts"
     class="post row my-3"
@@ -31,32 +105,56 @@
     </div>
     <div class="d-flex col-sm-12 col-md-12 col-lg-6 px-5 p-2">
       <div class="align-self-center" width="100%">
-        <small class="align-self-center">
-          <div class="row justify-content-start">
-            <div class="col-1 p-0 ml-3">
-              <a [href]="'/user/' + post.uid + '/profile'">
-                <img
-                  class="rounded-circle"
-                  [src]="post.authorImg"
-                  width="32px"
-                />
-              </a>
-            </div>
-            <div class="d-flex flex-column p-0 ml-3 justify-content-center">
-              <div class="">
+        <div class="mb-2">
+          <small class="align-self-center">
+            <div class="row justify-content-start">
+              <div class="col-1 p-0 ml-3">
                 <a [href]="'/user/' + post.uid + '/profile'">
-                  {{ post.authorName }}
+                  <img
+                    class="rounded-circle"
+                    [src]="post.authorImg"
+                    width="32px"
+                  />
                 </a>
               </div>
-              <div class="text-muted">
-                <small>
-                  {{ post.time | timeParse }} &middot;
-                  {{ post.readTime | readParse }}
-                </small>
+              <div class="d-flex flex-column p-0 ml-3 justify-content-center">
+                <div class="">
+                  <a [href]="'/user/' + post.uid + '/profile'">
+                    {{ post.authorName }}
+                  </a>
+                </div>
+                <div class="text-muted">
+                  <small>
+                    {{ post.time | timeParse }} &middot;
+                    {{ post.readTime | readParse }}
+                  </small>
+                </div>
+              </div>
+              <div class="col-3 ml-auto">
+                <div class="row">
+                  <button class="btn my-auto pin-post rounded ml-auto">
+                    <img
+                      src="https://img.icons8.com/material-outlined/96/000000/pin.png"
+                      width="16px"
+                      (click)="pin(post.id)"
+                      class=""
+                      *ngIf="!post.pinned"
+                    />
+                    <img
+                      src="https://img.icons8.com/material-rounded/96/000000/pin.png"
+                      width="16px"
+                      (click)="unpin(post.id)"
+                      *ngIf="post.pinned"
+                      class=""
+                    />
+                  </button>
+                  <app-gear [data]="post.gearData"></app-gear>
+                </div>
               </div>
             </div>
-          </div>
-        </small>
+          </small>
+        </div>
+
         <a [href]="'/blog/' + post.id">
           <h5>{{ post.title }}</h5>
           <a class="blurb-link" [href]="'/blog/' + post.id">

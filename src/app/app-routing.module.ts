@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
-import { ResourcesComponent } from './components/resources/resources.component';
+
 import { ProgramsComponent } from './components/programs/programs.component';
 import { BlogComponent } from './components/blog/blog.component';
 import { AboutComponent } from './components/about/about.component';
@@ -23,7 +23,7 @@ firebase.analytics();
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'resources', component: ResourcesComponent },
+
   { path: 'blog', component: BlogComponent },
   { path: 'blog-events', component: BlogComponent },
   { path: 'blog-podcasts', component: BlogComponent },

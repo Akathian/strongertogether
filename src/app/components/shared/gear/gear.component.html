@@ -67,7 +67,7 @@
   </button>
   <div [id]="id" class="dropdown-content gearBtn">
     <a class="gearBtn" *ngIf="editLink" [href]="editLink">Edit</a>
-    <a class="gearBtn" (click)="confirmModal.show()">Delete</a>
+    <a class="gearBtn" (click)="showModal()">Delete</a>
   </div>
 </div>
 
@@ -79,6 +79,7 @@
   role="dialog"
   aria-labelledby="myBasicModalLabel"
   aria-hidden="true"
+  id="confirmModal"
 >
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -87,9 +88,9 @@
           type="button"
           class="close pull-right"
           aria-label="Close"
-          (click)="confirmModal.hide()"
+          (click)="hideModal()"
         >
-          <span (click)="confirmModal.hide()" aria-hidden="true">×</span>
+          <span (click)="hideModal()" aria-hidden="true">×</span>
         </button>
         <h4 class="modal-title w-100" id="myModalLabel">Confirm Delete</h4>
       </div>
@@ -105,7 +106,7 @@
         <button
           type="button"
           class="btn btn-md btn-info rounded-0"
-          (click)="confirmModal.hide()"
+          (click)="hideModal()"
         >
           No
         </button>

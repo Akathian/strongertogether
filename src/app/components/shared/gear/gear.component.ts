@@ -3,6 +3,7 @@ import firebase from 'firebase/app'
 import 'firebase/database'
 import 'firebase/auth'
 import { ModalDirective } from 'angular-bootstrap-md';
+import * as $ from 'jquery'
 
 @Component({
   selector: 'app-gear',
@@ -45,6 +46,17 @@ export class GearComponent implements OnInit {
       })
     })
 
+  }
+
+  hideModal() {
+    $("body>#confirmModal").remove();
+    this.confirmModal.hide()
+  }
+
+
+  showModal() {
+    this.confirmModal.show()
+    $("#confirmModal").appendTo("body");
   }
 
   myFunction() {
