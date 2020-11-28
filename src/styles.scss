@@ -1,6 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+
+@font-face {
+    font-family: bran;
+    src : url('./assets/fonts/BrandonGrotesque-Light.otf')
+}
+
 body {
-    font-family: brandon-grot-w01-lighte, sans-serif !important;
+    font-family:bran, sans-serif !important;
     font-style: normal;
     font-weight: 100 !important;
     
