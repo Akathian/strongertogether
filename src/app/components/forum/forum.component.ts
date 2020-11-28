@@ -34,9 +34,20 @@ export class ForumComponent implements OnInit {
       }
     }
   ]
+  id = 'createBtn'
   constructor() { }
 
   ngOnInit() {
+    let self = this
+    window.addEventListener("click", function (event) {
+      if (!(<HTMLElement>event.target).classList.contains('gearBtn')) {
+        document.getElementById('createBtn').classList.remove("show");
+      }
+    });
+  }
+
+  myFunction() {
+    document.getElementById('createBtn').classList.toggle("show");
   }
 
 }

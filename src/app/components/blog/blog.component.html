@@ -46,11 +46,13 @@
                 </div>
                 <div class="col-3 ml-auto">
                   <div class="row">
-                    <button class="btn my-auto pin-post rounded ml-auto">
+                    <button
+                      class="btn my-auto pin-post rounded ml-auto"
+                      (click)="unpin(pinned.id)"
+                    >
                       <img
                         src="https://img.icons8.com/material-rounded/96/000000/pin.png"
                         width="16px"
-                        (click)="unpin(pinned.id)"
                         class=""
                       />
                     </button>
@@ -132,19 +134,25 @@
               </div>
               <div class="col-3 ml-auto">
                 <div class="row">
-                  <button class="btn my-auto pin-post rounded ml-auto">
+                  <button
+                    *ngIf="!post.pinned"
+                    (click)="pin(post.id)"
+                    class="btn my-auto pin-post rounded ml-auto"
+                  >
                     <img
                       src="https://img.icons8.com/material-outlined/96/000000/pin.png"
                       width="16px"
-                      (click)="pin(post.id)"
                       class=""
-                      *ngIf="!post.pinned"
                     />
+                  </button>
+                  <button
+                    (click)="unpin(post.id)"
+                    *ngIf="post.pinned"
+                    class="btn my-auto pin-post rounded ml-auto"
+                  >
                     <img
                       src="https://img.icons8.com/material-rounded/96/000000/pin.png"
                       width="16px"
-                      (click)="unpin(post.id)"
-                      *ngIf="post.pinned"
                       class=""
                     />
                   </button>

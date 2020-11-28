@@ -6,10 +6,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./about.component.scss']
 })
 export class AboutComponent implements OnInit {
-
+  width
   constructor() { }
 
   ngOnInit() {
+    let self = this
+    this.width = window.innerWidth
+    window.addEventListener('resize', () => {
+      self.width = window.innerWidth
+    })
   }
 
 }

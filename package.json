@@ -33,6 +33,7 @@
     "@fortawesome/fontawesome-free": "^5.14.0",
     "@ng-bootstrap/ng-bootstrap": "^5.3.1",
     "@nguniversal/express-engine": "^11.0.0",
+    "@popperjs/core": "^2.5.4",
     "@schematics/angular": "^8.3.29",
     "@tinymce/tinymce-angular": "^4.2.0",
     "@types/chart.js": "^2.9.24",
