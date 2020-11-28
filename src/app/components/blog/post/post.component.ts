@@ -4,6 +4,7 @@ import 'firebase/database'
 import { ActivatedRoute, Router } from '@angular/router';
 import { SortService } from '../../../services/sort.service'
 import { IpService } from 'src/app/services/ip.service';
+import * as $ from 'jquery'
 const ANON = 'anon'
 @Component({
   selector: 'app-post',
@@ -45,6 +46,19 @@ export class PostComponent implements OnInit {
         }
       })
     });
+  }
+
+  copyUrl() {
+    var $temp = $("<input>");
+    var $url = $(location).attr('href');
+
+    $('.clipboard').on('click', function () {
+      $("body").append($temp);
+      $temp.val($url).select();
+      document.execCommand("copy");
+      $temp.remove();
+      $("p").text("URL copied!");
+    })
   }
 
   getPaths(self) {

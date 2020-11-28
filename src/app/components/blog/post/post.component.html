@@ -50,17 +50,23 @@
         class="fa fa-facebook-official col text-center"
         style="font-size: 1.2em"
       ></i>
-      <a
-        class="twitter-share-button col text-center"
-        [href]="'https://twitter.com/intent/tweet?text=' + tweet"
-        ><i class="fa fa-twitter" style="font-size: 1.2em"></i>
-      </a>
+      <button class="col text-center btn">
+        <a
+          class="twitter-share-button col text-center"
+          [href]="'https://twitter.com/intent/tweet?text=' + tweet"
+        >
+          <i class="fa fa-twitter" style="font-size: 1.2em"></i>
+        </a>
+      </button>
 
-      <a [href]="linkedIn" class="col text-center"
-        ><i class="fa fa-linkedin-square" style="font-size: 1.2em"></i
-      ></a>
-
-      <i class="fa fa-link col text-center" style="font-size: 1.2em"></i>
+      <button class="col text-center btn clipboard">
+        <a [href]="linkedIn" class="col text-center"
+          ><i class="fa fa-linkedin-square" style="font-size: 1.2em"></i
+        ></a>
+      </button>
+      <button class="col text-center btn" (click)="copyUrl()">
+        <i class="fa fa-link col text-center" style="font-size: 1.2em"></i>
+      </button>
     </div>
     <app-blog-footer [post]="footerData"></app-blog-footer>
   </div>
