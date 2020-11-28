@@ -96,7 +96,7 @@ export class BlogComponent implements OnInit {
     } else {
       postQuery = firebase.database().ref('/blog/' + this.path).orderByKey().limitToLast(OFFSET + 1)
     }
-    postQuery.on('value', async function (blogData) {
+    postQuery.once('value', async function (blogData) {
       if (blogData.val()) {
         let toValues = Object.values(blogData.val())
         if (self.path !== 'general') {
