@@ -50,11 +50,16 @@
         class="fa fa-facebook-official col text-center"
         style="font-size: 1.2em"
       ></i>
-      <i class="fa fa-twitter col text-center" style="font-size: 1.2em"></i>
-      <i
-        class="fa fa-linkedin-square col text-center"
-        style="font-size: 1.2em"
-      ></i>
+      <a
+        class="twitter-share-button col text-center"
+        [href]="'https://twitter.com/intent/tweet?text=' + tweet"
+        ><i class="fa fa-twitter" style="font-size: 1.2em"></i>
+      </a>
+
+      <a [href]="linkedIn" class="col text-center"
+        ><i class="fa fa-linkedin-square" style="font-size: 1.2em"></i
+      ></a>
+
       <i class="fa fa-link col text-center" style="font-size: 1.2em"></i>
     </div>
     <app-blog-footer [post]="footerData"></app-blog-footer>

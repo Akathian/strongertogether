@@ -25,6 +25,8 @@ export class PostComponent implements OnInit {
   user = { displayName: 'Sign in to comment', photoURL: '' }
   catUrl;
   currPath;
+  tweet
+  linkedIn
   @ViewChild('iframeContent', { static: true }) iframeBox: ElementRef;
   ngOnInit() {
     let self = this
@@ -80,7 +82,9 @@ export class PostComponent implements OnInit {
       self.gearData.editLink = self.editLink
       self.gearData.dbLink = `/blog/general/${this.id}`
       self.post = postData.val()
-      self.footerData = self.post
+      self.tweet = 'Check%20out%20this%20blog%20post%20from%20Stronger%20Together!%20' + window.location.href
+      // self.linkedIn = 'http://www.linkedin.com/shareArticle?mini=true&url=' + window.location.href + '/&summary=some%20summary%20if%20you%20want'
+      self.linkedIn = 'http://www.linkedin.com/shareArticle?mini=true&url=' + window.location.href
       if (self.post) {
         if (self.post.comments) {
           self.post.comments = Object.values(self.post.comments).reverse()
