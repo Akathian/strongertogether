@@ -32,7 +32,9 @@ a {
 }
 
 .author-img-small {
-    width: min(24px, 3.75vmin)
+    width: min(24px, 3.75vmin);
+    height: 100% !important
+
 }
 .author-img-big {
     width: min(32px, 5vmin)
