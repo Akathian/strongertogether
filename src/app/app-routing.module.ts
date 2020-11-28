@@ -10,7 +10,8 @@ import { UserComponent } from './components/user/user.component';
 import { PostComponent } from './components/blog/post/post.component';
 import { BlogEditComponent } from './components/blog/blog-edit/blog-edit.component';
 import { BugReportComponent } from './components/bug-report/bug-report.component';
-
+import { PrivacyComponent } from './components/legal/privacy/privacy.component';
+import { TermsComponent } from './components/legal/terms/terms.component';
 import * as firebase from 'firebase';
 import 'firebase/analytics'
 import "firebase/auth";
@@ -23,7 +24,6 @@ firebase.analytics();
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-
   { path: 'blog', component: BlogComponent },
   { path: 'blog-events', component: BlogComponent },
   { path: 'blog-podcasts', component: BlogComponent },
@@ -35,7 +35,8 @@ const routes: Routes = [
   { path: 'login', component: UserComponent },
   { path: 'user/:uid/:section', component: UserComponent },
   { path: 'bug-report', component: BugReportComponent },
-
+  { path: 'privacy', component: PrivacyComponent },
+  { path: 'terms', component: TermsComponent },
 ];
 
 @NgModule({

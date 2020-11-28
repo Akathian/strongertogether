@@ -44,6 +44,8 @@ import { BlogFooterComponent } from './components/blog/blog-footer/blog-footer.c
 import { TimeParsePipe } from './pipes/time-parse.pipe';
 import { ReadParsePipe } from './pipes/read-parse.pipe';
 import { BugReportComponent } from './components/bug-report/bug-report.component';
+import { PrivacyComponent } from './components/legal/privacy/privacy.component';
+import { TermsComponent } from './components/legal/terms/terms.component';
 
 @NgModule({
   declarations: [
@@ -80,6 +82,8 @@ import { BugReportComponent } from './components/bug-report/bug-report.component
     TimeParsePipe,
     ReadParsePipe,
     BugReportComponent,
+    PrivacyComponent,
+    TermsComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
