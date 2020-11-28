@@ -25,3 +25,12 @@ a {
     top: 0;
     width: 100% !important;
   }
+
+.author-img-big {
+    width: min(32px, 5vmin)
+}
+
+.author-img-bigger {
+    width: min(48px, 7.5vmin)
+
+}

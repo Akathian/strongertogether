@@ -20,10 +20,18 @@
         [href]="'/user/' + reply.uid + '/profile'"
         *ngIf="reply.authorName !== 'Anonymous' || isAdmin"
       >
-        <img [src]="reply.authorImg" class="rounded-circle" width="24px" />
+        <img
+          [src]="reply.authorImg"
+          class="rounded-circle author-img-small"
+          width="24px"
+        />
       </a>
       <a *ngIf="reply.authorName === 'Anonymous' && !isAdmin">
-        <img [src]="reply.authorImg" class="rounded-circle" width="24px" />
+        <img
+          [src]="reply.authorImg"
+          class="rounded-circle author-img-small"
+          width="24px"
+        />
       </a>
     </div>
     <div class="">

@@ -4,3 +4,14 @@ font-size: min(2.25vmin, 14px);
 a {
     color: inherit
 }
+.author-img-small {
+    width: min(24px, 3.75vmin)
+}
+.author-img-big {
+    width: min(32px, 5vmin)
+}
+
+.author-img-bigger {
+    width: min(48px, 7.5vmin)
+
+}

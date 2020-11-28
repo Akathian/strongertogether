@@ -5,10 +5,10 @@
         [href]="'/user/' + comment.uid + '/profile'"
         *ngIf="comment.authorName !== 'Anonymous' || isAdmin"
       >
-        <img [src]="comment.authorImg" class="rounded-circle" width="32px" />
+        <img [src]="comment.authorImg" class="rounded-circle author-img-big" />
       </a>
       <a *ngIf="comment.authorName === 'Anonymous' && !isAdmin">
-        <img [src]="comment.authorImg" class="rounded-circle" width="32px" />
+        <img [src]="comment.authorImg" class="rounded-circle author-img-big" />
       </a>
     </div>
     <div class="">
@@ -61,9 +61,7 @@
                   </svg>
                   <img
                     [src]="user.photoURL"
-                    class="rounded-circle"
-                    width="24px"
-                    height="100%"
+                    class="rounded-circle author-img-small"
                   />
                 </div>
               </div>

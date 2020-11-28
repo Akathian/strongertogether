@@ -13,15 +13,9 @@
     <div class="p-3">
       <small>
         <div class="d-flex row text-muted">
-          <div class="mr-2 ml-3">
-            <a
-              [href]="'/user/' + post.uid + '/profile'"
-              *ngIf="post.authorName !== 'Anonymous'"
-            >
-              <img [src]="post.authorImg" width="32px" class="rounded-circle"
-            /></a>
-            <a *ngIf="post.authorName === 'Anonymous'">
-              <img [src]="post.authorImg" width="32px" class="rounded-circle"
+          <div class="mr-2 ml-3 my-auto">
+            <a [href]="'/user/' + post.uid + '/profile'">
+              <img [src]="post.authorImg" class="rounded-circle author-img-big"
             /></a>
           </div>
           <div class="align-self-center">
@@ -52,10 +46,16 @@
     </div>
     <hr />
     <div class="row px-3 py-1 mb-2">
-      <i class="fa fa-facebook-official mr-5" style="font-size: 1.2em"></i>
-      <i class="fa fa-twitter mr-5" style="font-size: 1.2em"></i>
-      <i class="fa fa-linkedin-square mr-5" style="font-size: 1.2em"></i>
-      <i class="fa fa-link mr-5" style="font-size: 1.2em"></i>
+      <i
+        class="fa fa-facebook-official col text-center"
+        style="font-size: 1.2em"
+      ></i>
+      <i class="fa fa-twitter col text-center" style="font-size: 1.2em"></i>
+      <i
+        class="fa fa-linkedin-square col text-center"
+        style="font-size: 1.2em"
+      ></i>
+      <i class="fa fa-link col text-center" style="font-size: 1.2em"></i>
     </div>
     <app-blog-footer [post]="footerData"></app-blog-footer>
   </div>
@@ -63,7 +63,7 @@
     <div class="rounded-circle">
       <div class="row">
         <div class="mr-4">
-          <img [src]="user.photoURL" class="rounded-circle" width="48px" />
+          <img [src]="user.photoURL" class="rounded-circle author-img-bigger" />
         </div>
         <div class="row align-self-center">
           {{ user.displayName }}
