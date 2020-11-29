@@ -65,40 +65,47 @@ export class BlogEditComponent implements AfterViewInit {
       let self = this
 
       if (this.type === 'drafts') {
-        firebase.auth().onAuthStateChanged(function (user) {
-          self.ref = 'users/' + user.uid + '/drafts'
-          self.create = params.get('create') === 'create'
-          self.time = +params.get('time')
-          firebase.database().ref(`/${self.ref}/` + self.id).once('value', (blogData) => {
-
-            if (blogData.val()) {
-              if ((user.uid !== blogData.val().uid)) {
-                self.router.navigate([`/blog`], { relativeTo: self.route })
+        firebase.auth().onAuthStateChanged(async function (user) {
+          if (await (await firebase.database().ref('admins/' + user.uid).once('value')).val()) {
+            self.ref = 'users/' + user.uid + '/drafts'
+            self.create = params.get('create') === 'create'
+            self.time = +params.get('time')
+            firebase.database().ref(`/${self.ref}/` + self.id).once('value', (blogData) => {
+              if (blogData.val()) {
+                if ((user.uid !== blogData.val().uid)) {
+                  self.router.navigate([`/blog`], { relativeTo: self.route })
+                } else {
+                  self.postContent = blogData.val().content
+                  self.category = blogData.val().category
+                  $('#catChoose').val(self.category)
+                  self.title = blogData.val().title
+                  self.editorComponent.editorInstance.setData(self.postContent)
+                }
               } else {
-                self.postContent = blogData.val().content
-                self.category = blogData.val().category
-                $('#catChoose').val(self.category)
-                self.title = blogData.val().title
-                self.editorComponent.editorInstance.setData(self.postContent)
+                self.router.navigate([`/blog`], { relativeTo: self.route })
               }
-            } else {
-              self.router.navigate([`/blog`], { relativeTo: self.route })
-            }
-
-          })
+            })
+          } else {
+            self.router.navigate([`/blog`], { relativeTo: self.route })
+          }
         })
       } else if (this.type === 'post') {
         firebase.database().ref(`/blog/general/` + self.id).once('value', (blogData) => {
-          firebase.auth().onAuthStateChanged(function (user) {
-            if (blogData.val()) {
-              if ((user.uid !== blogData.val().uid)) {
-                self.router.navigate([`/blog`], { relativeTo: self.route })
+          firebase.auth().onAuthStateChanged(async function (user) {
+            if (await (await firebase.database().ref('admins/' + user.uid).once('value')).val()) {
+
+              if (blogData.val()) {
+                if ((user.uid !== blogData.val().uid)) {
+                  self.router.navigate([`/blog`], { relativeTo: self.route })
+                } else {
+                  self.postContent = blogData.val().content
+                  self.title = blogData.val().title
+                  self.category = blogData.val().category
+                  $('#catChoose').val(self.category)
+                  self.editorComponent.editorInstance.setData(self.postContent)
+                }
               } else {
-                self.postContent = blogData.val().content
-                self.title = blogData.val().title
-                self.category = blogData.val().category
-                $('#catChoose').val(self.category)
-                self.editorComponent.editorInstance.setData(self.postContent)
+                self.router.navigate([`/blog`], { relativeTo: self.route })
               }
             } else {
               self.router.navigate([`/blog`], { relativeTo: self.route })
@@ -108,6 +115,7 @@ export class BlogEditComponent implements AfterViewInit {
       }
     })
   }
+
   saveEdit() {
     this.coverImg = this.getCover(this.data)
     if (this.coverImg) {

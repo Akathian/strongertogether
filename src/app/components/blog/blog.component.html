@@ -44,7 +44,7 @@
                     </small>
                   </div>
                 </div>
-                <div class="col-3 ml-auto">
+                <div class="col-3 ml-auto" *ngIf="isAdmin">
                   <div class="row">
                     <button
                       class="btn my-auto pin-post rounded ml-auto"
@@ -132,7 +132,7 @@
                   </small>
                 </div>
               </div>
-              <div class="col-3 ml-auto">
+              <div class="col-3 ml-auto" *ngIf="isAdmin">
                 <div class="row">
                   <button
                     *ngIf="!post.pinned"

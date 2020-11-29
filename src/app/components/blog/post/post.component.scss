@@ -34,3 +34,7 @@ a {
     width: min(48px, 7.5vmin)
 
 }
+
+#urlDiv, #urlDiv:hover, #url, #url:hover {
+    cursor: default;
+}

@@ -17,10 +17,10 @@ export class UserComponent implements OnInit {
   sections = [
     { name: 'Profile', id: 'profile' },
     { name: 'Bookings', id: 'bookings' },
-    { name: 'Blog Posts', id: 'blog-posts' },
+    // { name: 'Blog Posts', id: 'blog-posts' },
     { name: 'Blog Comments', id: 'blog-comments' },
     { name: 'Blog Likes', id: 'blog-likes' },
-    { name: 'Drafts', id: 'drafts' },
+    // { name: 'Drafts', id: 'drafts' },
     { name: 'Forum Posts', id: 'forum-posts' },
     { name: 'Forum Comments', id: 'forum-comments' },
   ]
@@ -47,7 +47,6 @@ export class UserComponent implements OnInit {
         this.router.navigate(['/user/' + this.paramUid + '/profile'], { relativeTo: this.route })
       }
     });
-
     firebase.auth().onAuthStateChanged(async function (user) {
       self.userLoggedIn = user ? true : false
       let uid
@@ -55,16 +54,67 @@ export class UserComponent implements OnInit {
         uid = user.uid
         self.username = user.displayName
         self.currPath = window.location.pathname
+        if (await (await firebase.database().ref('admins/' + user.uid).once('value')).val()) { // i am admin
+          self.sections = [
+            { name: 'Profile', id: 'profile' },
+            { name: 'Bookings', id: 'bookings' },
+            { name: 'Blog Posts', id: 'blog-posts' },
+            { name: 'Blog Comments', id: 'blog-comments' },
+            { name: 'Blog Likes', id: 'blog-likes' },
+            { name: 'Drafts', id: 'drafts' },
+            { name: 'Forum Posts', id: 'forum-posts' },
+            { name: 'Forum Comments', id: 'forum-comments' },
+          ]
+        } else {
+          self.sections = [
+            { name: 'Profile', id: 'profile' },
+            { name: 'Bookings', id: 'bookings' },
+            { name: 'Blog Comments', id: 'blog-comments' },
+            { name: 'Blog Likes', id: 'blog-likes' },
+            { name: 'Forum Posts', id: 'forum-posts' },
+            { name: 'Forum Comments', id: 'forum-comments' },
+          ]
+        }
       }
       self.user = uid === self.paramUid ? user : await self.userService.getUserByUid(self.paramUid)
       if (self.user !== user && self.user !== '') {
-        self.sections = [
-          { name: 'Profile', id: 'profile' },
-          { name: 'Blog Posts', id: 'blog-posts' },
-          { name: 'Blog Comments', id: 'blog-comments' },
-          { name: 'Forum Posts', id: 'forum-posts' },
-          { name: 'Forum Comments', id: 'forum-comments' },
-        ]
+        if (await (await firebase.database().ref('admins/' + self.user.uid).once('value')).val()) { // person is admin (not me)
+          if (await (await firebase.database().ref('admins/' + user.uid).once('value')).val()) { // i am admin
+            self.sections = [
+              { name: 'Profile', id: 'profile' },
+              { name: 'Blog Posts', id: 'blog-posts' },
+              { name: 'Blog Comments', id: 'blog-comments' },
+              { name: 'Blog Likes', id: 'blog-likes' },
+              { name: 'Forum Posts', id: 'forum-posts' },
+              { name: 'Forum Comments', id: 'forum-comments' },
+            ]
+          } else {
+            self.sections = [
+              { name: 'Profile', id: 'profile' },
+              { name: 'Blog Posts', id: 'blog-posts' },
+              { name: 'Blog Comments', id: 'blog-comments' },
+              { name: 'Forum Posts', id: 'forum-posts' },
+              { name: 'Forum Comments', id: 'forum-comments' },
+            ]
+          }
+        } else {
+          if (await (await firebase.database().ref('admins/' + user.uid).once('value')).val()) { // i am admin
+            self.sections = [
+              { name: 'Profile', id: 'profile' },
+              { name: 'Blog Comments', id: 'blog-comments' },
+              { name: 'Blog Likes', id: 'blog-likes' },
+              { name: 'Forum Posts', id: 'forum-posts' },
+              { name: 'Forum Comments', id: 'forum-comments' },
+            ]
+          } else {
+            self.sections = [
+              { name: 'Profile', id: 'profile' },
+              { name: 'Blog Comments', id: 'blog-comments' },
+              { name: 'Forum Posts', id: 'forum-posts' },
+              { name: 'Forum Comments', id: 'forum-comments' },
+            ]
+          }
+        }
         self.validateSection(self.section)
       } else if (self.user === '') {
         self.user = user

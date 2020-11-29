@@ -24,18 +24,21 @@ export class AccNavComponent implements OnInit {
     this.width = window.innerWidth
     this.route.paramMap.subscribe(async params => {
       this.paramUid = params.get('uid')
+      firebase.auth().onAuthStateChanged(async function (user) {
+        if (user) {
+          self.isOwn = user.uid === self.paramUid
+          console.log(self.isOwn)
+
+          const admin = await (await firebase.database().ref('admins/' + self.paramUid).once('value')).val()
+          self.isAdmin = admin ? true : false
+        } else {
+          // window.location.href = '/login'
+        }
+      })
+
     })
     window.addEventListener('resize', () => {
       self.width = window.innerWidth
-    })
-    firebase.auth().onAuthStateChanged(async function (user) {
-      if (user) {
-        self.isOwn = user.uid === self.paramUid
-        const admin = await (await firebase.database().ref('admins/' + self.paramUid).once('value')).val()
-        self.isAdmin = admin ? true : false
-      } else {
-        // window.location.href = '/login'
-      }
     })
 
   }

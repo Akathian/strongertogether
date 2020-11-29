@@ -23,7 +23,7 @@ export class DraftsComponent implements OnInit {
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
         firebase.database().ref('/users/' + user.uid + '/drafts').on('value', function (draftData) {
-          if (draftData) {
+          if (draftData.val()) {
             self.drafts = draftData.val()
             self.lenOfData = Object.values(self.drafts)
             self.href = '/blog/drafts/'

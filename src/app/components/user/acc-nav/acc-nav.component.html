@@ -21,6 +21,7 @@
         <div class="row justify-content-center mb-2" *ngIf="isOwn">
           <button
             (click)="signOut()"
+            *ngIf="isOwn"
             class="btn btn-outline-dark rounded-0 px-3"
           >
             <small>Sign Out</small>
@@ -51,12 +52,12 @@
         <div class="row justify-content-center mb-1">
           {{ user.displayName }}
         </div>
-        <div class="row justify-content-center mb-3">
+        <div class="row justify-content-center mb-3" *ngIf="isAdmin">
           <small class="text-muted">
             <i class="fas fa-crown mr-1"></i> Admin
           </small>
         </div>
-        <div class="row justify-content-center mb-2">
+        <div class="row justify-content-center mb-2" *ngIf="isOwn">
           <button
             (click)="signOut()"
             class="btn btn-outline-dark rounded-0 px-3"

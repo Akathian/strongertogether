@@ -49,7 +49,11 @@ export class BlogComponent implements OnInit {
         pinnedRefs = Object.values(pinData.val()).reverse()
         for (let ref of pinnedRefs) {
           let pinnedPost = await (await firebase.database().ref(ref).once('value')).val()
-          self.pinnedPosts.push(pinnedPost)
+          if (pinnedPost) {
+            self.pinnedPosts.push(pinnedPost)
+          } else {
+            firebase.database().ref(ref).remove()
+          }
         }
       } else {
         self.pinnedPosts = []
@@ -101,8 +105,9 @@ export class BlogComponent implements OnInit {
         let toValues = Object.values(blogData.val())
         if (self.path !== 'general') {
           let refs = []
-          if (self.page !== self.numPages) {
+          if (self.page !== self.numPages && self.numPages > 0) {
             if (!self.pageKeys[self.page + 1]) {
+
               self.nextKey = (<string>toValues.shift()).split('/')[2]
               self.pageKeys[self.page + 1] = self.nextKey
             } else {
@@ -126,7 +131,7 @@ export class BlogComponent implements OnInit {
           }
           self.posts = posts
         } else {
-          if (self.page !== self.numPages) {
+          if (self.page !== self.numPages && self.numPages > 0) {
             if (!self.pageKeys[self.page + 1]) {
               self.nextKey = (<any>toValues.shift()).id
               self.pageKeys[self.page + 1] = self.nextKey
@@ -147,12 +152,10 @@ export class BlogComponent implements OnInit {
             }
           }
           self.lenOfData = self.posts.length
-          // self.clamp()
         }
       }
     })
   }
-
 
   newPost() {
     let d = (new Date()).getTime()

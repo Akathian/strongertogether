@@ -22,12 +22,13 @@ export class PostComponent implements OnInit {
   comment;
   iframe;
   gearData = { id: '', editLink: '', dbLink: '', type: 'post', editors: [] }
-  footerData = {};
   user = { displayName: 'Sign in to comment', photoURL: '' }
   catUrl;
   currPath;
   tweet
   linkedIn
+  fbHref
+  fhHrefDiv
   @ViewChild('iframeContent', { static: true }) iframeBox: ElementRef;
   ngOnInit() {
     let self = this
@@ -49,16 +50,11 @@ export class PostComponent implements OnInit {
   }
 
   copyUrl() {
-    var $temp = $("<input>");
-    var $url = $(location).attr('href');
-
-    $('.clipboard').on('click', function () {
-      $("body").append($temp);
-      $temp.val($url).select();
-      document.execCommand("copy");
-      $temp.remove();
-      $("p").text("URL copied!");
-    })
+    let Url = document.getElementById("url") as HTMLInputElement;
+    Url.innerHTML = window.location.href;
+    Url.select();
+    document.execCommand("copy");
+    document.getElementById('copyBtn').innerHTML = 'Copied!'
   }
 
   getPaths(self) {
@@ -97,7 +93,12 @@ export class PostComponent implements OnInit {
       self.gearData.dbLink = `/blog/general/${this.id}`
       self.post = postData.val()
       self.tweet = 'Check%20out%20this%20blog%20post%20from%20Stronger%20Together!%20' + window.location.href
-      // self.linkedIn = 'http://www.linkedin.com/shareArticle?mini=true&url=' + window.location.href + '/&summary=some%20summary%20if%20you%20want'
+      const u1 = window.location.href.replace(window.location.pathname, '').replace("https://", "https%3A%2F%2F").replace("http://", "http%3A%2F%2F").replace(':', '%3A')
+      const u2 = window.location.pathname.replace('/', '%2F').replace('/', '%2F')
+      const u = u1 + u2
+      self.fbHref = "https://www.facebook.com/sharer/sharer.php?u=" + u + "&amp;src=sdkpreparse"
+      self.fhHrefDiv = window.location.href
+
       self.linkedIn = 'http://www.linkedin.com/shareArticle?mini=true&url=' + window.location.href
       if (self.post) {
         if (self.post.comments) {
