@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { AosStaggerService } from '../../services/aos-stagger.service'
 @Component({
   selector: 'app-about',
   templateUrl: './about.component.html',
@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AboutComponent implements OnInit {
   width
-  constructor() { }
+  constructor(private staggerAos: AosStaggerService) { }
 
   ngOnInit() {
     let self = this
@@ -15,6 +15,6 @@ export class AboutComponent implements OnInit {
     window.addEventListener('resize', () => {
       self.width = window.innerWidth
     })
+    this.staggerAos.stagger(200)
   }
-
 }

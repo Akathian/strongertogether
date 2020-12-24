@@ -1,6 +1,7 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import * as AOS from 'aos'
 import * as $ from 'jquery'
+import { AosStaggerService } from '../../services/aos-stagger.service'
 
 @Component({
   selector: 'app-programs',
@@ -8,9 +9,11 @@ import * as $ from 'jquery'
   styleUrls: ['./programs.component.scss']
 })
 export class ProgramsComponent implements OnInit {
-  constructor() { }
+
+  constructor(private staggerAos: AosStaggerService) { }
 
   ngOnInit() {
+    this.staggerAos.stagger(200)
 
   }
 

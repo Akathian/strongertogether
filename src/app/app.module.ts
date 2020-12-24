@@ -46,6 +46,8 @@ import { ReadParsePipe } from './pipes/read-parse.pipe';
 import { BugReportComponent } from './components/bug-report/bug-report.component';
 import { PrivacyComponent } from './components/legal/privacy/privacy.component';
 import { TermsComponent } from './components/legal/terms/terms.component';
+import { PeerComponent } from './components/programs/peer/peer.component';
+import { LifeComponent } from './components/programs/life/life.component';
 
 @NgModule({
   declarations: [
@@ -84,6 +86,8 @@ import { TermsComponent } from './components/legal/terms/terms.component';
     BugReportComponent,
     PrivacyComponent,
     TermsComponent,
+    PeerComponent,
+    LifeComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

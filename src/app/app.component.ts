@@ -28,8 +28,8 @@ export class AppComponent implements OnInit {
     // anchorPlacement: 'top-bottom', // defines which position of the element regarding to window should trigger the animation
   }
   ngOnInit() {
-    AOS.init(this.config);
 
+    AOS.init(this.config);
     $(window).on('load', function () {
       AOS.refresh(this.config);
     });

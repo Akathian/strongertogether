@@ -1,4 +1,65 @@
 Profile overview
 live chat
 forum
-need fb access for share button (& login w fb if you want)
+buddy sign up
+coaching sign up
+forum 
+    post (create disc or quest)
+    comment
+    reply
+    like
+    delete
+    pin
+    show comment on user page
+    show reply on user page
+    show like on user page
+    show posts on user page
+    sort
+    filter
+    answer upvote/ downvote
+    mark as best answer
+    
+
+XSS - domain specific api key
+
+
+
+
+
+Layout/Colours/Aesthetics
+
+Colour Codes That Can Be Used: #003459, #799bb9, #c9d7e4, white, black, greys
+Can we play around with different layouts for the home page? Different fonts and not too small? 
+
+
+Stronger Together at a Glance
+Can we have a register for an account pop up or something under this?
+
+
+Peer Buddy Support (I know we spoke about doing an automatic generator to pair them, but I think I will do it manually instead)
+
+Want to make a friend? Need some encouragement or peer support to help you? Remember, that signing up for this peer buddy support does not replace therapy. If you require professional support, please call crisis lines, your family physician, or other mental health resources (can be found in our extensive resources list on our blog). Please fill out the submission form below so that we can pair you with you buddy! Thank you, and you will hear from us about your peer buddy soon.
+
+Submission Form: 
+What’s your name?
+I identify as (male, female, LGBTQQIP2SAA)... 
+How old are you?
+Specify preferences on who you’d like to speak to (we will try our best to meet preferences). 
+How do you want to contact your peer buddy (phone, email, instagram, etc.)? Please leave your contact info. 
+
+Life Coaching
+
+Welcome to Stronger Together Inspires. Are you looking to seek help to further your life to the next level? Stronger Together Inspires is here to provide life coaching sessions to help you achieve the life you’re dreaming of! As a coach, my main focus is YOU. To start, I offer FREE 30 minute consultations for you to decide if you would like to start this journey with me, and to see if we are a good fit! If you are looking to further explore life coaching with me, leave your information down below and I will contact you as soon as possible! BOOK YOUR FREE CONSULTATION NOW! 
+
+Contact Form: 
+First Name 
+Last Name
+Email Address
+Phone Number 
+
+
+A safe space where you can journal about your day, your problems, etc., in which people can reply providing emotional support, help, and guidance. Together, we can promote healing, hope, strength, resiliency, trust, and support.
+Something like this - replacing that text with what is above. Keeping tabs All, and My posts. The other tabs/functions aren’t necessary. 
+
+
+

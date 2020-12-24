@@ -1,0 +1,131 @@
+<div class="row justify-content-center my-3" style="background-color: #f4f4f4">
+  <div
+    data-aos="fade-right"
+    data-aos-duration="1000"
+    data-aos-once="true"
+    data-aos-offset="150"
+    class="col-sm-10 col-md-10 col-lg-5 p-4 align-self-center"
+  >
+    <h3 class="text-uppercase">Peer Buddy support</h3>
+    Want to make a friend? Need some encouragement or peer support to help you?
+    Remember, that signing up for this peer buddy support does not replace
+    therapy. If you require professional support, please call crisis lines, your
+    family physician, or other mental health resources (can be found in our
+    extensive resources list on our blog). Please fill out the submission form
+    so that we can pair you with you buddy! Thank you, and you will hear from us
+    about your peer buddy soon.
+  </div>
+  <div
+    class="d-flex col-sm-10 col-md-10 col-lg-5 px-5 p-2 text-center"
+    data-aos="fade"
+    data-aos-duration="1000"
+    data-aos-once="true"
+    data-aos-offset="200"
+  >
+    <div class="align-self-center">
+      <form
+        [formGroup]="peerBuddyForm"
+        (ngSubmit)="onSubmit(peerBuddyForm.value)"
+        class="p-5 mb-3"
+      >
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col mr-1" id="peer-name">
+              <div class="row">
+                <label>
+                  Name:
+                  <span class="text-danger small" *ngIf="">*Required</span>
+                </label>
+                <input
+                  type="text"
+                  class="form-control mb-4 rounded-0"
+                  placeholder="Name"
+                  formControlName="name"
+                />
+              </div>
+            </div>
+            <div class="col" id="peer-age">
+              <div class="row">
+                <label>
+                  Age:
+                  <span class="text-danger small" *ngIf="">*Required</span>
+                </label>
+                <input
+                  type="text"
+                  class="form-control mb-4 rounded-0"
+                  placeholder="Age"
+                  formControlName="age"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col" id="peer-idAs">
+              <div class="row">
+                <label>
+                  I identify as:
+                  <span class="text-danger small" *ngIf="">*Required</span>
+                </label>
+                <input
+                  type="text"
+                  class="form-control mb-4 rounded-0"
+                  placeholder="Male, Female, LGBTQQIP2SAA..."
+                  formControlName="identify"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row" id="peer-pref">
+            <div class="col" id="peer-name">
+              <div class="row">
+                <label>
+                  Specify preferences on who you’d like to speak to:
+                  <span class="text-danger small" *ngIf="">*Required</span>
+                </label>
+                <input
+                  type="text"
+                  class="form-control mb-4 rounded-0"
+                  placeholder=""
+                  formControlName="pref"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row" id="peer-contact">
+            <div class="col mr-1" id="peer-contact-method">
+              <div class="row">
+                <label>
+                  Contact Method:
+                  <span class="text-danger small" *ngIf="">*Required</span>
+                </label>
+                <input
+                  type="text"
+                  class="form-control mb-4 rounded-0"
+                  placeholder="Phone, Email, Instagram, etc."
+                  formControlName="contactMethod"
+                />
+              </div>
+            </div>
+            <div class="col" id="peer-name">
+              <div class="row">
+                <label>
+                  Contact Info:
+                  <span class="text-danger small" *ngIf="">*Required</span>
+                </label>
+                <input
+                  type="text"
+                  class="form-control mb-4 rounded-0"
+                  placeholder=""
+                  formControlName="contactInfo"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-dark btn-block rounded-0" type="submit">
+          Submit
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
