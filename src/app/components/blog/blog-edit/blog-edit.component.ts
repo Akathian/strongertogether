@@ -27,7 +27,7 @@ export class BlogEditComponent implements AfterViewInit {
 
   public Editor = Editor;
   config: CKEditorConfig = {
-    placeholder: "Write your answer here.",
+    placeholder: "Type here",
     // BUG: Current CKEditor5's generated build does not 
     // show the default toolbar as defined in the online builder
     toolbar: [

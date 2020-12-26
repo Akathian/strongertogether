@@ -26,6 +26,11 @@ exports.getUser = functions.https.onCall(async (data, context) => {
     return final
 })
 
+exports.countCommunity = functions.database.ref('/community').onWrite(async (change, context) => {
+    const count = updateNum(change, 'community-posts', '')
+    return change.after.ref.parent.child('num-community').set(count);
+});
+
 exports.countGeneralBlogs = functions.database.ref(`/blog/general`).onWrite(async (change, context) => {
     const count = updateNum(change, 'blog-posts', 'general')
     return change.after.ref.parent.child('num-general').set(count);
@@ -103,10 +108,12 @@ function updateNum(change, type, cat) {
                     if(uid) {
                         change.after.ref.root.child('users/' + uid + '/' + type + '/' + id).set(null)
                     }
-                    
-                    change.after.ref.root.child('blog/' + cat  + '/' + id).set(null)
+                    if(cat) {
+                        change.after.ref.root.child('blog/' + cat  + '/' + id).set(null)
+                    } else {
+                        change.after.ref.root.child('community/' + '/' + id).set(null)
+                    }
                 }
-
             }
         } 
         return countAfter

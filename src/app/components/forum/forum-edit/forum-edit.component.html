@@ -1,0 +1,194 @@
+<div class="container">
+  <div class="row mt-3">
+    <div class="col">
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">Post Title</span>
+        </div>
+        <input
+          type="text"
+          class="form-control"
+          (input)="titleChange($event.target.value)"
+          [value]="title"
+        />
+      </div>
+      <div class="d-flex flex-row justify-content-between">
+        <div class="align-self-center" *ngIf="type === 'drafts'">
+          <button
+            class="btn btn-outline-danger rounded-0"
+            (click)="deleteDraft()"
+          >
+            <small> Delete Draft </small>
+          </button>
+        </div>
+      </div>
+      <div>
+        <ckeditor
+          [editor]="Editor"
+          [data]="postContent"
+          (change)="onChange($event)"
+          [config]="config"
+          #editor
+          width="100%"
+        ></ckeditor>
+      </div>
+      <div>
+        <button
+          class="btn btn-dark disabled rounded-0 m-2"
+          id="saveBtn"
+          (click)="save()"
+          [innerHTML]="saveStatus"
+          *ngIf="type === 'drafts'"
+        ></button>
+        <button
+          class="btn btn-dark disabled rounded-0 m-2"
+          id="saveBtn"
+          (click)="saveEdit()"
+          [innerHTML]="saveStatus"
+          *ngIf="type === 'post'"
+        ></button>
+        <button
+          *ngIf="type === 'drafts'"
+          class="m-2 btn btn-primary rounded-0"
+          id="pubBtn"
+          (click)="publishDraft()"
+        >
+          <small> Publish </small>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  mdbModal
+  #delModal="mdbModal"
+  class="modal fade"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myBasicModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button
+          type="button"
+          class="close pull-right"
+          aria-label="Close"
+          (click)="delModal.hide()"
+        >
+          <span (click)="delModal.hide()" aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title w-100" id="myModalLabel">Confirm Delete</h4>
+      </div>
+      <div class="modal-body">You will be deleting this draft</div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-md btn-dark rounded-0"
+          (click)="del()"
+        >
+          Yes
+        </button>
+        <button
+          type="button"
+          class="btn btn-md btn-info rounded-0"
+          (click)="delModal.hide()"
+        >
+          No
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  mdbModal
+  #pubModal="mdbModal"
+  class="modal fade"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myBasicModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button
+          type="button"
+          class="close pull-right"
+          aria-label="Close"
+          (click)="pubModal.hide()"
+        >
+          <span (click)="pubModal.hide()" aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title w-100" id="myModalLabel">Confirm Publish</h4>
+      </div>
+      <div class="modal-body">
+        Title: <b>{{ title }}</b> <br />
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-md btn-dark rounded-0"
+          (click)="pub()"
+        >
+          Yes
+        </button>
+        <button
+          type="button"
+          class="btn btn-md btn-info rounded-0"
+          (click)="pubModal.hide()"
+        >
+          No
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  mdbModal
+  #editModal="mdbModal"
+  class="modal fade"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myBasicModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button
+          type="button"
+          class="close pull-right"
+          aria-label="Close"
+          (click)="editModal.hide()"
+        >
+          <span (click)="editModal.hide()" aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title w-100" id="myModalLabel">Confirm Publish</h4>
+      </div>
+      <div class="modal-body">
+        Title: <b>{{ title }}</b> <br />
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-md btn-dark rounded-0"
+          (click)="save()"
+        >
+          Yes
+        </button>
+        <button
+          type="button"
+          class="btn btn-md btn-info rounded-0"
+          (click)="editModal.hide()"
+        >
+          No
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

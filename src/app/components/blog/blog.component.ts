@@ -191,8 +191,11 @@ export class BlogComponent implements OnInit {
           uid: user.uid,
           id: postId,
           category: 'general'
+        }, function (err) {
+          if (!err) {
+            window.location.href = `/blog/drafts/${postId}/edit`;
+          }
         })
-        window.location.href = `/blog/drafts/${postId}/edit`;
       }
     })
   }

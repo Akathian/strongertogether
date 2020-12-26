@@ -48,6 +48,8 @@ import { PrivacyComponent } from './components/legal/privacy/privacy.component';
 import { TermsComponent } from './components/legal/terms/terms.component';
 import { PeerComponent } from './components/programs/peer/peer.component';
 import { LifeComponent } from './components/programs/life/life.component';
+import { ForumEditComponent } from './components/forum/forum-edit/forum-edit.component';
+import { ForumPostComponent } from './components/forum/forum-post/forum-post.component';
 
 @NgModule({
   declarations: [
@@ -88,6 +90,8 @@ import { LifeComponent } from './components/programs/life/life.component';
     TermsComponent,
     PeerComponent,
     LifeComponent,
+    ForumEditComponent,
+    ForumPostComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

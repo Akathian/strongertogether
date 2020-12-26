@@ -8,17 +8,10 @@
 <div class="container mt-5">
   <div class="col">
     <!-- <div class="row">Header</div> -->
-    <div
-      class="row text-white"
-      style="
-        background-image: url('https://i.pinimg.com/originals/8f/92/f1/8f92f142af353941a47b98aa8d8c27ab.jpg');
-        background-size: cover;
-        background-position: center;
-      "
-    >
+    <div class="row">
       <div class="col">
-        <div class="row justify-content-center p-5">
-          <span class="p-5" style="text-shadow: 0px 0px 2px #000000">
+        <div class="row justify-content-center">
+          <span class="">
             A safe space where you can journal about your day, your problems,
             etc., in which people can reply providing emotional support, help,
             and guidance. Together, we can promote healing, hope, strength,
@@ -29,10 +22,11 @@
     </div>
     <div class="row mt-3">
       <div class="col">
-        <div class="row border border-bottom-0 p-3">
-          Filter Sort
+        <div class="row border border-bottom-0 p-3 justify-content-start">
+          <div class="col-3">All Posts</div>
+          <div class="col-3">My Posts</div>
           <div class="dropdown gearBtn ml-auto">
-            <button (click)="myFunction()" class="dropbtn gearBtn">
+            <button (click)="newPost()" class="dropbtn gearBtn">
               Create New Post
             </button>
             <div id="createBtn" class="dropdown-content gearBtn">
@@ -41,8 +35,14 @@
             </div>
           </div>
         </div>
-
-        <div class="row border border-bottom-0 justify-content-end p-1">
+        <div class="row border">
+          <div class="col">
+            <div class="row" *ngFor="let forum of posts">
+              <a [href]="'/community/' + forum.id">{{ forum.title }}</a>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="row border border-bottom-0 justify-content-end p-1">
           <div class="col-6"></div>
           <div class="col-1 text-center">
             <i class="fas fa-comments"></i>
@@ -103,7 +103,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
