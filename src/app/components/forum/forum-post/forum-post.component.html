@@ -1,1 +1,153 @@
-<p>forum-post works!</p>
+<div class="container-fluid" *ngIf="post">
+  <small>
+    <a href="/">Stronger Together </a> / <a href="/community"> Community </a> /
+    <a [href]="currPath"> {{ post.title }} </a>
+  </small>
+  <hr class="m-0" />
+</div>
+
+<div class="container mt-5" *ngIf="post">
+  <div class="post col mt-3 border p-5">
+    <div class="p-3">
+      <small>
+        <div class="d-flex row text-muted">
+          <div class="mr-2 ml-3 my-auto">
+            <a [href]="'/user/' + post.uid + '/profile'">
+              <img [src]="post.authorImg" class="rounded-circle author-img-big"
+            /></a>
+          </div>
+          <div class="align-self-center">
+            <a
+              [href]="'/user/' + post.uid + '/profile'"
+              *ngIf="post.authorName !== 'Anonymous'"
+            >
+              {{ post.authorName }}
+            </a>
+            <a *ngIf="post.authorName === 'Anonymous'">
+              {{ post.authorName }}</a
+            >
+            &middot; {{ post.time | timeParse }}
+          </div>
+          <div class="align-self-center ml-auto text-big gear">
+            <app-gear [data]="gearData"></app-gear>
+          </div>
+        </div>
+      </small>
+      <div class="d-flex">
+        <h3>{{ post.title }}</h3>
+      </div>
+
+      <div class="ck-content">
+        <div [innerHTML]="post.content | sanitizeHtml"></div>
+      </div>
+    </div>
+    <!-- <hr />
+    <div class="row px-3 py-1 mb-2">
+      <div class="col text-center">
+        <button class="text-center btn">
+          <div
+            class="fb-share-button"
+            data-href="https://becomestrongertogether.ca/"
+            data-layout="button_count"
+            data-size="large"
+          >
+            <a target="_blank" [href]="fbHref" class="fb-xfbml-parse-ignore"
+              ><i
+                class="fa fa-facebook-official text-center"
+                style="font-size: 1.2em"
+              ></i
+            ></a>
+          </div>
+        </button>
+      </div>
+
+      <div class="col text-center">
+        <button class="text-center btn">
+          <a
+            class="twitter-share-button text-center"
+            [href]="'https://twitter.com/intent/tweet?text=' + tweet"
+          >
+            <i class="fa fa-twitter" style="font-size: 1.2em"></i>
+          </a>
+        </button>
+      </div>
+      <div class="col text-center">
+        <button class="text-center btn clipboard">
+          <a [href]="linkedIn" class="text-center"
+            ><i class="fa fa-linkedin-square" style="font-size: 1.2em"></i
+          ></a>
+        </button>
+      </div>
+      <div class="col text-center">
+        <button class="text-center btn" id="copyBtn" (click)="copyUrl()">
+          <i class="fa fa-link col text-center" style="font-size: 1.2em"></i>
+        </button>
+      </div>
+    </div> -->
+    <app-forum-footer [post]="post"></app-forum-footer>
+  </div>
+
+  <!-- <div class="d-flex">
+      <label class="align-self-center">Sort By</label>
+      <form class="ml-3">
+        <div class="form-group">
+          <select
+            class="form-control-sm"
+            (ngModelChange)="sort($event)"
+            (change)="sort($event)"
+          >
+            <option value="newest">Newest</option>
+            <option value="oldest">Oldest</option>
+          </select>
+        </div>
+      </form>
+    </div> -->
+  <div *ngFor="let comment of post.comments" class="col border-bottom m-2 pt-3">
+    <app-forum-comments [comment]="comment"></app-forum-comments>
+  </div>
+  <div class="col mt-3 p-5">
+    <div class="rounded-circle">
+      <div class="row">
+        <div class="mr-4">
+          <img [src]="user.photoURL" class="rounded-circle author-img-bigger" />
+        </div>
+        <div class="row align-self-center">
+          {{ user.displayName }}
+        </div>
+      </div>
+      <!-- <div class="row mt-3 text-muted"> -->
+      <div
+        class="form-group row mt-3"
+        *ngIf="user.displayName != 'Sign in to comment'"
+      >
+        <textarea
+          class="form-control"
+          placeholder="Add to the discussion..."
+          id="commentFormArea"
+          rows="2"
+          (change)="commentChange($event.target.value)"
+        ></textarea>
+      </div>
+      <!-- </div> -->
+      <button
+        *ngIf="user.displayName != 'Sign in to comment'"
+        class="btn btn-dark float-right px-4 rounded-0"
+        (click)="postComment('')"
+      >
+        <small>Post</small>
+      </button>
+      <button
+        *ngIf="user.displayName != 'Sign in to comment'"
+        class="btn btn-outline-dark float-right px-4 rounded-0 mx-1"
+        (click)="postComment('anon')"
+      >
+        <small>Post Anonymously</small>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- <div id="urlDiv" style="opacity: 0; width: 1px; height: 1px">
+  <br />
+  <textarea id="url" rows="1" cols="30"></textarea>
+</div> -->

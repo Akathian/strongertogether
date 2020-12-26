@@ -1,0 +1,40 @@
+h3 {
+    font-weight: 200;
+}
+
+p {
+    font-size: 18px;
+    font-weight: 100;
+}
+
+a {
+    color: inherit
+}
+
+.raw-html-embed {
+    overflow: hidden;
+    padding-top: 56.25%;
+    position: relative;
+  }
+  
+  .raw-html-embed > iframe {
+    border: 0;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100% !important;
+  }
+
+.author-img-big {
+    width: min(32px, 5vmin)
+}
+
+.author-img-bigger {
+    width: min(48px, 7.5vmin)
+
+}
+
+#urlDiv, #urlDiv:hover, #url, #url:hover {
+    cursor: default;
+}

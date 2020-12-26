@@ -22,7 +22,7 @@ export class UserComponent implements OnInit {
     { name: 'Blog Likes', id: 'blog-likes' },
     // { name: 'Drafts', id: 'drafts' },
     { name: 'Forum Posts', id: 'forum-posts' },
-    { name: 'Forum Comments', id: 'forum-comments' },
+    { name: 'Forum Comments', id: 'user-user-forum-comments' },
   ]
   paramUid;
   username;
@@ -63,7 +63,7 @@ export class UserComponent implements OnInit {
             { name: 'Blog Likes', id: 'blog-likes' },
             { name: 'Drafts', id: 'drafts' },
             { name: 'Forum Posts', id: 'forum-posts' },
-            { name: 'Forum Comments', id: 'forum-comments' },
+            { name: 'Forum Comments', id: 'user-forum-comments' },
           ]
         } else {
           self.sections = [
@@ -72,7 +72,7 @@ export class UserComponent implements OnInit {
             { name: 'Blog Comments', id: 'blog-comments' },
             { name: 'Blog Likes', id: 'blog-likes' },
             { name: 'Forum Posts', id: 'forum-posts' },
-            { name: 'Forum Comments', id: 'forum-comments' },
+            { name: 'Forum Comments', id: 'user-forum-comments' },
           ]
         }
       }
@@ -86,7 +86,7 @@ export class UserComponent implements OnInit {
               { name: 'Blog Comments', id: 'blog-comments' },
               { name: 'Blog Likes', id: 'blog-likes' },
               { name: 'Forum Posts', id: 'forum-posts' },
-              { name: 'Forum Comments', id: 'forum-comments' },
+              { name: 'Forum Comments', id: 'user-forum-comments' },
             ]
           } else {
             self.sections = [
@@ -94,7 +94,7 @@ export class UserComponent implements OnInit {
               { name: 'Blog Posts', id: 'blog-posts' },
               { name: 'Blog Comments', id: 'blog-comments' },
               { name: 'Forum Posts', id: 'forum-posts' },
-              { name: 'Forum Comments', id: 'forum-comments' },
+              { name: 'Forum Comments', id: 'user-forum-comments' },
             ]
           }
         } else {
@@ -104,14 +104,14 @@ export class UserComponent implements OnInit {
               { name: 'Blog Comments', id: 'blog-comments' },
               { name: 'Blog Likes', id: 'blog-likes' },
               { name: 'Forum Posts', id: 'forum-posts' },
-              { name: 'Forum Comments', id: 'forum-comments' },
+              { name: 'Forum Comments', id: 'user-forum-comments' },
             ]
           } else {
             self.sections = [
               { name: 'Profile', id: 'profile' },
               { name: 'Blog Comments', id: 'blog-comments' },
               { name: 'Forum Posts', id: 'forum-posts' },
-              { name: 'Forum Comments', id: 'forum-comments' },
+              { name: 'Forum Comments', id: 'user-forum-comments' },
             ]
           }
         }

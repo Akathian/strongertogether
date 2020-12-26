@@ -29,7 +29,6 @@ import { BlogPostsComponent } from './components/user/blog-posts/blog-posts.comp
 import { BlogCommentsComponent } from './components/user/blog-comments/blog-comments.component';
 import { BlogLikesComponent } from './components/user/blog-likes/blog-likes.component';
 import { DraftsComponent } from './components/user/drafts/drafts.component';
-import { ForumCommentsComponent } from './components/user/forum-comments/forum-comments.component';
 import { ForumPostsComponent } from './components/user/forum-posts/forum-posts.component';
 // import { EditorModule } from '@tinymce/tinymce-angular';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
@@ -50,6 +49,12 @@ import { PeerComponent } from './components/programs/peer/peer.component';
 import { LifeComponent } from './components/programs/life/life.component';
 import { ForumEditComponent } from './components/forum/forum-edit/forum-edit.component';
 import { ForumPostComponent } from './components/forum/forum-post/forum-post.component';
+import { ForumCommentsComponent } from './components/forum/forum-post/forum-comments/forum-comments.component';
+import { ForumRepliesComponent } from './components/forum/forum-post/forum-replies/forum-replies.component';
+
+import { UserForumCommentsComponent } from './components/user/user-forum-comments/user-forum-comments.component';
+import { ForumFooterComponent } from './components/forum/forum-footer/forum-footer.component';
+
 
 @NgModule({
   declarations: [
@@ -92,6 +97,9 @@ import { ForumPostComponent } from './components/forum/forum-post/forum-post.com
     LifeComponent,
     ForumEditComponent,
     ForumPostComponent,
+    UserForumCommentsComponent,
+    ForumRepliesComponent,
+    ForumFooterComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

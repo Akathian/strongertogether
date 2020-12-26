@@ -1,0 +1,46 @@
+
+a {
+    color: inherit
+}
+
+[data-toggle="collapse"]:after {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: medium;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    content: "\f054";
+    transform: rotate(90deg);
+    transition: all linear 0.25s;
+}
+
+[data-toggle="collapse"].collapsed:after {
+    transform: rotate(0deg);
+}
+
+.commentContent {
+    font-size: min(2.25vmin, 14px);
+}
+
+.newReply {
+    font-size: min(2.25vmin, 14px);
+}
+
+#replyFormArea {
+    font-size: min(2.25vmin, 14px);
+}
+
+.author-img-small {
+    width: min(24px, 3.75vmin);
+    height: 100% !important
+
+}
+.author-img-big {
+    width: min(32px, 5vmin)
+}
+
+.author-img-bigger {
+    width: min(48px, 7.5vmin)
+
+}

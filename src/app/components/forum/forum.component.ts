@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import firebase from 'firebase/app'
 import 'firebase/database'
 import { ActivatedRoute, Router } from '@angular/router';
+import * as $ from 'jquery'
+
 const OFFSET = 5
 
 @Component({
@@ -11,30 +13,32 @@ const OFFSET = 5
 })
 export class ForumComponent implements OnInit {
   posts;
-  nums;
-  path
+  nums = {
+    community: 0,
+  }
+  path = 'community'
   numPages
   nextKey
-  pageKeys
-  page
+  pageKeys = {};
+  page = 1;
   lenOfData
   id = 'createBtn'
   constructor(private router: Router, private route: ActivatedRoute,) { }
 
   ngOnInit() {
     let self = this
+    this.getNumPosts()
+    this.getPosts()
     window.addEventListener("click", function (event) {
       if (!(<HTMLElement>event.target).classList.contains('gearBtn')) {
         document.getElementById('createBtn').classList.remove("show");
       }
     });
-    this.getNumPosts()
-    this.getPosts()
-
   }
+
   getNumPosts() {
     let self = this
-    firebase.database().ref("num-community").on('value', function (numData) {
+    firebase.database().ref("/num-" + this.path).on('value', function (numData) {
       self.nums[self.path] = numData.val()
       self.numPages = Math.ceil(self.nums[self.path] / OFFSET)
     })
@@ -106,5 +110,22 @@ export class ForumComponent implements OnInit {
       }
     })
 
+  }
+  goToPage(page) {
+    if (page < 1) {
+      page = 1
+    }
+    if (page > this.numPages) {
+      page = this.numPages
+    }
+    this.page = page
+    if (this.pageKeys[this.page]) {
+      this.nextKey = this.pageKeys[this.page]
+    }
+    if (this.page === 1) {
+      this.nextKey = ''
+    }
+    $("body").scrollTop(0);
+    this.getPosts()
   }
 }
