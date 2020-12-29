@@ -13,8 +13,7 @@ export class ProgramsComponent implements OnInit {
   constructor(private staggerAos: AosStaggerService) { }
 
   ngOnInit() {
-    this.staggerAos.stagger(200)
-
+    // this.staggerAos.stagger(200)
   }
 
 }

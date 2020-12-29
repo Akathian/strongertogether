@@ -34,7 +34,9 @@
               <div class="row">
                 <label>
                   Name:
-                  <span class="text-danger small" *ngIf="">*Required</span>
+                  <span class="text-danger small" *ngIf="nameErr"
+                    >*Required</span
+                  >
                 </label>
                 <input
                   type="text"
@@ -64,7 +66,9 @@
               <div class="row">
                 <label>
                   I identify as:
-                  <span class="text-danger small" *ngIf="">*Required</span>
+                  <span class="text-danger small" *ngIf="identifyErr"
+                    >*Required</span
+                  >
                 </label>
                 <input
                   type="text"
@@ -96,7 +100,9 @@
               <div class="row">
                 <label>
                   Contact Method:
-                  <span class="text-danger small" *ngIf="">*Required</span>
+                  <span class="text-danger small" *ngIf="contactMethodErr"
+                    >*Required</span
+                  >
                 </label>
                 <input
                   type="text"
@@ -110,20 +116,33 @@
               <div class="row">
                 <label>
                   Contact Info:
-                  <span class="text-danger small" *ngIf="">*Required</span>
+                  <span class="text-danger small" *ngIf="contactInfoErr"
+                    >*Required</span
+                  >
                 </label>
                 <input
                   type="text"
                   class="form-control mb-4 rounded-0"
-                  placeholder=""
+                  placeholder="(555) 555-5555, example@domain.com, @user, etc"
                   formControlName="contactInfo"
                 />
               </div>
             </div>
           </div>
         </div>
-        <button class="btn btn-dark btn-block rounded-0" type="submit">
-          Submit
+        <button
+          class="btn btn-dark btn-block rounded-0"
+          id="peerSubmit"
+          type="submit"
+        >
+          <span *ngIf="!sent && !showLoading && !error">Submit</span>
+          <img
+            src="../../../../assets/loading.gif"
+            height="16px"
+            *ngIf="showLoading"
+          />
+          <span *ngIf="sent && !showLoading && !error">Sent!</span>
+          <span *ngIf="error && !showLoading">Error, try again</span>
         </button>
       </form>
     </div>

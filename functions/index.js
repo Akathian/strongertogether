@@ -6,9 +6,7 @@ admin.initializeApp(functions.config().firebase);
 const POST = 'post'
 const BEFORE = 'before'
 const AFTER = 'after'
-// // Create and Deploy Your First Cloud Functions
-// // https://firebase.google.com/docs/functions/write-firebase-functions
-//
+const nodemailer = require('nodemailer')
 
 exports.getUser = functions.https.onCall(async (data, context) => {
     let user, final
@@ -46,6 +44,77 @@ exports.countPodcastBlogs = functions.database.ref(`/blog/podcasts`).onWrite((ch
     const count = updateNum(change, 'blog-posts', 'podcasts')
     return change.after.ref.parent.child('num-podcasts').set(count);
 });
+
+function removeHtmlTags(text) {
+    if(text === "") {
+        return "Not Provided"
+    } else {
+        while (text.indexOf('<') !== -1) {
+            text = text.replace('<', '&lt;')
+        }
+        while (text.indexOf('>') !== -1) {
+            text = text.replace('>', '&gt;')
+        }
+        return text
+    }
+  }
+
+exports.sendEmail = functions.https.onCall(async (data) => {
+    const { to, subject, formValue } = data
+    if(!to || !subject) {
+        throw Error('Incorrect Data');
+    }
+    let html = ''
+    if(formValue.name) { // peer
+        html = `
+        <html>
+            Name: ${removeHtmlTags(formValue.name)} <br/>
+            Age: ${removeHtmlTags(formValue.age)} <br/>
+            I identify as: ${removeHtmlTags(formValue.identify)} <br/>
+            Preference: ${removeHtmlTags(formValue.pref)} <br/>
+            Contact Method: ${removeHtmlTags(formValue.contactMethod)} <br/>
+            Contact Info: ${removeHtmlTags(formValue.contactInfo)} <br/>
+        </html>
+        `
+    } else if (formValue.fname) { // life coach
+        html = `
+        <html>
+            First Name: ${removeHtmlTags(formValue.fname)} <br/>
+            Last Name: ${removeHtmlTags(formValue.lname)} <br/>
+            Email: ${removeHtmlTags(formValue.email)} <br/>
+            Phone: ${removeHtmlTags(formValue.phone)} <br/>
+
+        </html>
+        `
+    } else {
+        throw Error("Incorrect Data")
+    }
+
+    const smtpTrans = nodemailer.createTransport({
+        host: 'smtp.gmail.com',
+        port: 465,
+        secure: true,
+        auth: {
+          user: functions.config().email.user,
+          pass: functions.config().email.pass
+        }
+      })
+      const mailOpts = {
+        from: '',
+        to,
+        subject,
+        html
+      }
+      smtpTrans.sendMail(mailOpts, (error, response) => {
+        if (error) {
+            throw error
+        }
+        else {
+            return response
+        }
+    })
+  })
+  
 
 function diff(first, second, type) {
     let difference

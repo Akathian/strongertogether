@@ -35,7 +35,9 @@
               <div class="row">
                 <label>
                   First Name:
-                  <span class="text-danger small" *ngIf="">*Required</span>
+                  <span class="text-danger small" *ngIf="fnameErr"
+                    >*Required</span
+                  >
                 </label>
                 <input
                   type="text"
@@ -49,7 +51,9 @@
               <div class="row">
                 <label>
                   Last Name:
-                  <span class="text-danger small" *ngIf="">*Required</span>
+                  <span class="text-danger small" *ngIf="lnameErr"
+                    >*Required</span
+                  >
                 </label>
                 <input
                   type="text"
@@ -65,7 +69,9 @@
               <div class="row">
                 <label>
                   Email:
-                  <span class="text-danger small" *ngIf="">*Required</span>
+                  <span class="text-danger small" *ngIf="emailErr"
+                    >*Required</span
+                  >
                 </label>
                 <input
                   type="text"
@@ -91,8 +97,19 @@
             </div>
           </div>
         </div>
-        <button class="btn btn-dark btn-block rounded-0" type="submit">
-          Submit
+        <button
+          class="btn btn-dark btn-block rounded-0"
+          id="lifeSubmit"
+          type="submit"
+        >
+          <span *ngIf="!sent && !showLoading && !error">Submit</span>
+          <img
+            src="../../../../assets/loading.gif"
+            height="16px"
+            *ngIf="showLoading"
+          />
+          <span *ngIf="sent && !showLoading && !error">Sent!</span>
+          <span *ngIf="error && !showLoading">Error, try again</span>
         </button>
       </form>
     </div>

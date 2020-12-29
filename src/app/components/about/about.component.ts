@@ -15,6 +15,6 @@ export class AboutComponent implements OnInit {
     window.addEventListener('resize', () => {
       self.width = window.innerWidth
     })
-    this.staggerAos.stagger(200)
+    // this.staggerAos.stagger(200)
   }
 }
