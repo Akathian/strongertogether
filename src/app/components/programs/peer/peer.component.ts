@@ -62,7 +62,6 @@ export class PeerComponent implements OnInit {
           this.showLoading = false
         }
       }
-      console.log(formValue)
     } else {
       this.showLoading = false
     }
