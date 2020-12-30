@@ -87,3 +87,43 @@ a {
     font-family: pfd, serif;
     font-weight: 200;
 }
+
+.dark-solid-button {
+    color: white;
+    background-color: #003459;
+}
+
+.dark-solid-button:hover {
+    color: white;
+    background-color: #00243e;
+}
+
+.dark-outline-button {
+    color :  #003459;
+    border: 1px solid #003459 ;
+}
+
+.dark-outline-button:hover {
+    color: white;
+    background-color: #003459;
+}
+
+.primary-solid-button {
+    color: white;
+    background-color: #799bb9;
+}
+
+.primary-solid-button:hover {
+    color: white;
+    background-color: #68849d;
+}
+
+.primary-outline-button {
+    color :  #799bb9;
+    border: 1px solid #799bb9 ;
+}
+
+.primary-outline-button:hover {
+    color: white;
+    background-color: #799bb9;
+}

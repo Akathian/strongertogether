@@ -69,5 +69,6 @@ export class GearComponent implements OnInit {
       await firebase.database().ref('blog/podcasts/' + this.data.id).set(null)
     }
     await firebase.database().ref(this.dbLink).remove()
+    window.location.href = window.location.href
   }
 }

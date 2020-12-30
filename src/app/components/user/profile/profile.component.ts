@@ -13,7 +13,6 @@ export class ProfileComponent implements OnInit {
   editMode = false;
   profileUid
   bio = 'No Bio Yet!'
-  newBio;
   isAdmin
   constructor(private route: ActivatedRoute) { }
 
@@ -60,11 +59,10 @@ export class ProfileComponent implements OnInit {
   }
 
   bioChange(text) {
-    this.newBio = text
+    this.bio = text
   }
 
   saveBio() {
-    this.bio = this.newBio
     this.editMode = false
     let self = this
     firebase.auth().onAuthStateChanged(function (user) {

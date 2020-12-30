@@ -131,14 +131,14 @@
       <!-- </div> -->
       <button
         *ngIf="user.displayName != 'Sign in to comment'"
-        class="btn btn-dark float-right px-4 rounded-0"
+        class="btn dark-solid-button float-right px-4 rounded-0"
         (click)="postComment('')"
       >
         <small>Post</small>
       </button>
       <button
         *ngIf="user.displayName != 'Sign in to comment'"
-        class="btn btn-outline-dark float-right px-4 rounded-0 mx-1"
+        class="btn dark-outline-button float-right px-4 rounded-0 mx-1"
         (click)="postComment('anon')"
       >
         <small>Post Anonymously</small>

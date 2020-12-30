@@ -34,14 +34,14 @@
       </div>
       <div>
         <button
-          class="btn btn-dark disabled rounded-0 m-2"
+          class="btn dark-solid-button disabled rounded-0 m-2"
           id="saveBtn"
           (click)="save()"
           [innerHTML]="saveStatus"
           *ngIf="type === 'drafts'"
         ></button>
         <button
-          class="btn btn-dark disabled rounded-0 m-2"
+          class="btn dark-solid-button disabled rounded-0 m-2"
           id="saveBtn"
           (click)="saveEdit()"
           [innerHTML]="saveStatus"
@@ -49,7 +49,7 @@
         ></button>
         <button
           *ngIf="type === 'drafts'"
-          class="m-2 btn btn-primary rounded-0"
+          class="m-2 btn primary-solid-button rounded-0"
           id="pubBtn"
           (click)="publishDraft('pub')"
         >
@@ -57,7 +57,7 @@
         </button>
         <button
           *ngIf="type === 'drafts'"
-          class="m-2 btn btn-outline-primary rounded-0"
+          class="m-2 btn primary-outline-button rounded-0"
           id="pubBtn"
           (click)="publishDraft('priv')"
         >
@@ -94,7 +94,7 @@
       <div class="modal-footer">
         <button
           type="button"
-          class="btn btn-md btn-dark rounded-0"
+          class="btn btn-md dark-solid-button rounded-0"
           (click)="del()"
         >
           Yes
@@ -139,7 +139,7 @@
       <div class="modal-footer">
         <button
           type="button"
-          class="btn btn-md btn-dark rounded-0"
+          class="btn btn-md dark-solid-button rounded-0"
           (click)="pub()"
         >
           Yes
@@ -184,7 +184,7 @@
       <div class="modal-footer">
         <button
           type="button"
-          class="btn btn-md btn-dark rounded-0"
+          class="btn btn-md dark-solid-button rounded-0"
           (click)="save()"
         >
           Yes

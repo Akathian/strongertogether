@@ -1,10 +1,24 @@
-<!-- <a href="/blog/create"><button class="btn btn-dark">New Post</button></a> -->
 <div class="container-fluid">
   <small>
     <a href="/">Stronger Together </a> /
     <a [href]="currPath"> Blog {{ path }} </a></small
   >
   <hr class="m-0" />
+</div>
+<div class="row my-3 p-5 m-5">
+  <div class="col">
+    <div class="row">
+      <h1
+        class="text-center text-uppercase mx-auto"
+        data-aos="fade-up"
+        data-aos-easing="ease-in-out"
+        data-aos-duration="1000"
+        data-aos-offset="300"
+      >
+        Blog
+      </h1>
+    </div>
+  </div>
 </div>
 <div class="container mt-5">
   <h3 *ngIf="pinnedPosts.length">Pinned Posts</h3>
@@ -85,7 +99,7 @@
       <app-blog-nav></app-blog-nav>
       <button
         *ngIf="isAdmin"
-        class="btn btn-dark rounded-0 ml-auto"
+        class="btn dark-solid-button rounded-0 ml-auto"
         (click)="newPost()"
       >
         <small>New Post</small>
