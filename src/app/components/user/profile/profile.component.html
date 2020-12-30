@@ -1,8 +1,52 @@
 <div class="container">
   <div class="row mt-2">
     <div class="col">
-      <h5>Profile Overview</h5>
+      <h5>Biography</h5>
       <hr />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col" *ngIf="!editMode">
+      {{ bio }}
+    </div>
+    <div class="col" *ngIf="editMode">
+      <textarea
+        class="form-control"
+        placeholder="Write a Comment..."
+        rows="2"
+        id="bioEdit"
+        (change)="bioChange($event.target.value)"
+        [innerText]="bio"
+      ></textarea>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div
+      class="col"
+      *ngIf="
+        (isSelf && bio === 'No Bio Yet!' && !editMode) ||
+        (isAdmin && !editMode && bio === 'No Bio Yet!')
+      "
+    >
+      <button class="btn btn-outline-dark rounded-0" (click)="editBio()">
+        <small>Write a Bio <i class="far fa-edit"></i></small>
+      </button>
+    </div>
+    <div
+      class="col"
+      *ngIf="
+        (isSelf && bio !== 'No Bio Yet!' && !editMode) ||
+        (isAdmin && !editMode && bio !== 'No Bio Yet!')
+      "
+    >
+      <button class="btn btn-outline-dark rounded-0" (click)="editBio()">
+        <small>Edit Bio <i class="far fa-edit"></i> </small>
+      </button>
+    </div>
+    <div class="col" *ngIf="isSelf && editMode">
+      <button class="btn btn-outline-dark rounded-0" (click)="saveBio()">
+        <small>Save <i class="far fa-edit"></i> </small>
+      </button>
     </div>
   </div>
 </div>

@@ -5,11 +5,25 @@
     src : url('./assets/fonts/BrandonGrotesque-Light.otf')
 }
 
+
+
+@font-face {
+    font-family: lato;
+    src : url('./assets/fonts/Lato-Regular.ttf')
+}
+
+@font-face {
+    font-family: pfd;
+    src : url('./assets/fonts/PlayfairDisplay-VariableFont_wght.ttf')
+}
+
+
+
+
 body {
-    font-family:bran, sans-serif !important;
+    font-family: lato, sans-serif !important;
     font-style: normal;
     font-weight: 100 !important;
-    
 }
 
 html,body
@@ -20,23 +34,33 @@ html,body
     scroll-behavior: smooth;
 }
 h1 {
-    font-family: brandon-grot-w01-light, sans-serif;
-    font-weight: 200;
+    font-family: pfd, serif;
+    font-weight: 400;
     font-size: min(72px, 4vmax);
 }
 
 h2 {
-    font-family: brandon-grot-w01-light, sans-serif;
-    font-weight: 200;
+    font-family: pfd, serif;
+    font-weight: 400;
 }
 
 h3 {
-    font-family: brandon-grot-w01-light, sans-serif;
-    font-weight: 200;
+    font-family: pfd, serif;
+    font-weight: 400;
 }
 
 h4 {
-    font-family: brandon-grot-w01-light, sans-serif;
+    font-family: pfd, serif;
+    font-weight: 400;
+}
+
+h5 {
+    font-family: pfd, serif;
+    font-weight: 200;
+}
+
+h6 {
+    font-family: pfd, serif;
     font-weight: 200;
 }
 
@@ -54,3 +78,12 @@ a {
     color: #c9d7e4;
 }
 
+.title {
+    font-family: pfd, serif;
+    font-weight: 400;
+}
+
+.sub-title {
+    font-family: pfd, serif;
+    font-weight: 200;
+}

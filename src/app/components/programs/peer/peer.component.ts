@@ -27,6 +27,7 @@ export class PeerComponent implements OnInit {
       pref: '',
       contactMethod: '', // req  
       contactInfo: '', // req
+      type: 'peer'
     });
   }
 

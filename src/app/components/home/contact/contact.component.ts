@@ -5,14 +5,14 @@ import 'firebase/database';
 import 'firebase/auth';
 
 @Component({
-  selector: 'app-life',
-  templateUrl: './life.component.html',
-  styleUrls: ['./life.component.scss']
+  selector: 'app-contact',
+  templateUrl: './contact.component.html',
+  styleUrls: ['./contact.component.scss']
 })
-export class LifeComponent implements OnInit {
+export class ContactComponent implements OnInit {
   lifeCoachForm;
   fnameErr = false;
-  lnameErr = false;
+  messageErr = false;
   emailErr = false;
   showLoading = false;
   sent = false
@@ -20,10 +20,9 @@ export class LifeComponent implements OnInit {
   constructor(private formBuilder: FormBuilder) {
     this.lifeCoachForm = this.formBuilder.group({
       fname: '',
-      lname: '',
+      message: '',
       email: '',
-      phone: '', // not req
-      type: 'life'
+      type: 'contact'
     });
   }
 
@@ -35,9 +34,9 @@ export class LifeComponent implements OnInit {
     document.getElementById('lifeSubmit').classList.add('disabled')
     if (!this.sent) {
       this.fnameErr = formValue.fname === '' ? true : false
-      this.lnameErr = formValue.lname === '' ? true : false
+      this.messageErr = formValue.message === '' ? true : false
       this.emailErr = formValue.email === '' ? true : false
-      if (this.fnameErr || this.lnameErr || this.emailErr) {
+      if (this.fnameErr || this.messageErr || this.emailErr) {
         this.showLoading = false
         document.getElementById('lifeSubmit').classList.remove('disabled')
       } else {
@@ -45,7 +44,7 @@ export class LifeComponent implements OnInit {
         const sendEmail = firebase.functions().httpsCallable('sendEmail')
         const data = {
           to: 's.strongertogether@gmail.com',
-          subject: `Life Coaching: ${formValue.fname} has signed up!`,
+          subject: `Contact: ${formValue.fname} sent you a message!`,
           formValue
         }
         try {

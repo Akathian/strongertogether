@@ -56,6 +56,7 @@ import { UserForumCommentsComponent } from './components/user/user-forum-comment
 import { ForumFooterComponent } from './components/forum/forum-footer/forum-footer.component';
 import { ForumDraftsComponent } from './components/user/forum-drafts/forum-drafts.component';
 import { ForumLikesComponent } from './components/user/forum-likes/forum-likes.component';
+import { ContactComponent } from './components/home/contact/contact.component';
 
 
 @NgModule({
@@ -103,7 +104,8 @@ import { ForumLikesComponent } from './components/user/forum-likes/forum-likes.c
     ForumRepliesComponent,
     ForumFooterComponent,
     ForumDraftsComponent,
-    ForumLikesComponent
+    ForumLikesComponent,
+    ContactComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

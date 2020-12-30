@@ -1,6 +1,6 @@
 <!-- <div class="col p-0"> -->
 <div
-  class="row text-white p-4 mr-0 justify-content-start"
+  class="row text-white p-4 mr-0 justify-content-start sub-title"
   style="background-color: #799bb9"
 >
   <!-- <div class="row"> -->
@@ -14,33 +14,13 @@
         health.
       </div>
     </div>
-
-    <div class="col align-self-center d-flex flex-row-reverse">
-      <div class="row">
-        <div class="p-1 fb">
-          <a href="https://www.facebook.com/Stronger.Together100/">
-            <i class="fa fa-facebook-official" style="font-size: 1.5em"></i>
-          </a>
-        </div>
-        <div class="p-1 ig">
-          <a href="https://www.instagram.com/s.strongertogether/">
-            <i class="fa fa-instagram" style="font-size: 1.5em"></i>
-          </a>
-        </div>
-        <div class="p-1 li">
-          <a href="http://linkedin.com/company/s-stronger-together">
-            <i class="fa fa-linkedin-square" style="font-size: 1.5em"></i>
-          </a>
-        </div>
-      </div>
-    </div>
   </div>
 </div>
 <!-- </div> -->
 
 <div
   *ngIf="width > 587"
-  class="col pl-5 py-2"
+  class="col pl-5 py-2 sub-title"
   style="border-bottom: 5px solid #799bb9"
 >
   <div class="row">
@@ -60,6 +40,9 @@
         </div>
         <div class="col">
           <a href="/about">About</a>
+        </div>
+        <div class="col">
+          <a href="/#contact">Contact</a>
         </div>
       </div>
     </div>
@@ -97,7 +80,7 @@
 </div>
 
 <span *ngIf="width <= 587">
-  <div class="mb-3" style="border-bottom: 5px solid #799bb9">
+  <div class="mb-3 sub-title" style="border-bottom: 5px solid #799bb9">
     <div role="tab">
       <div class="mb-0 d-flex justify-content-center">
         <a
@@ -125,6 +108,9 @@
         </div>
         <div class="row justify-content-center p-1 navItem">
           <a href="/about">About</a>
+        </div>
+        <div class="row justify-content-center p-1 navItem">
+          <a href="/#contact">Contact</a>
         </div>
         <div class="row justify-content-center p-1 navItem mb-1">
           <a *ngIf="!uid" href="/login" [innerHTML]="profilePic | sanitizeHtml">

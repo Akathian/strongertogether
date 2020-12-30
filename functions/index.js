@@ -65,7 +65,7 @@ exports.sendEmail = functions.https.onCall(async (data) => {
         throw Error('Incorrect Data');
     }
     let html = ''
-    if(formValue.name) { // peer
+    if(formValue.type === 'peer') { // peer
         html = `
         <html>
             Name: ${removeHtmlTags(formValue.name)} <br/>
@@ -76,7 +76,7 @@ exports.sendEmail = functions.https.onCall(async (data) => {
             Contact Info: ${removeHtmlTags(formValue.contactInfo)} <br/>
         </html>
         `
-    } else if (formValue.fname) { // life coach
+    } else if (formValue.type === 'life') { // life coach
         html = `
         <html>
             First Name: ${removeHtmlTags(formValue.fname)} <br/>
@@ -84,6 +84,14 @@ exports.sendEmail = functions.https.onCall(async (data) => {
             Email: ${removeHtmlTags(formValue.email)} <br/>
             Phone: ${removeHtmlTags(formValue.phone)} <br/>
 
+        </html>
+        `
+    } else if (formValue.type === 'contact') { // contact
+        html = `
+        <html>
+            Name: ${removeHtmlTags(formValue.fname)} <br/>
+            Email: ${removeHtmlTags(formValue.email)} <br/>
+            Message: ${removeHtmlTags(formValue.message)} <br/>
         </html>
         `
     } else {
@@ -101,7 +109,7 @@ exports.sendEmail = functions.https.onCall(async (data) => {
       })
       const mailOpts = {
         from: '',
-        to,
+        to: 's.strongertogether@gmail.com',
         subject,
         html
       }

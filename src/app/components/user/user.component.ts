@@ -15,16 +15,17 @@ export class UserComponent implements OnInit {
   userLoggedIn = true;
   section = 'profile';
   sections = [
-    { name: 'Profile', id: 'profile' },
+    { name: 'Biography', id: 'profile' },
     { name: 'Bookings', id: 'bookings' },
     { name: 'Blog Posts', id: 'blog-posts' },
     { name: 'Blog Comments', id: 'blog-comments' },
     { name: 'Blog Likes', id: 'blog-likes' },
     // { name: 'Drafts', id: 'drafts' },
-    { name: 'Community Drafts', id: 'community-drafts' },
     // { name: 'Community Posts', id: 'community-posts' },
     { name: 'Community Comments', id: 'user-community-comments' },
     { name: 'Commmunity Likes', id: 'community-likes' },
+    { name: 'Community Drafts', id: 'community-drafts' },
+
   ]
   paramUid;
   username;
@@ -60,20 +61,21 @@ export class UserComponent implements OnInit {
         self.currPath = window.location.pathname
         if (await (await firebase.database().ref('admins/' + user.uid).once('value')).val()) { // i am admin
           self.sections = [
-            { name: 'Profile', id: 'profile' },
+            { name: 'Biography', id: 'profile' },
             // { name: 'Bookings', id: 'bookings' },
             { name: 'Blog Posts', id: 'blog-posts' },
             { name: 'Blog Comments', id: 'blog-comments' },
             { name: 'Blog Likes', id: 'blog-likes' },
             { name: 'Blog Drafts', id: 'drafts' },
             // { name: 'Forum Posts', id: 'forum-posts' },
-            { name: 'Community Drafts', id: 'community-drafts' },
+
             { name: 'Commmunity Comments', id: 'user-community-comments' },
             { name: 'Commmunity Likes', id: 'community-likes' },
+            { name: 'Community Drafts', id: 'community-drafts' },
           ]
         } else {
           self.sections = [
-            { name: 'Profile', id: 'profile' },
+            { name: 'Biography', id: 'profile' },
             { name: 'Bookings', id: 'bookings' },
             { name: 'Blog Comments', id: 'blog-comments' },
             { name: 'Blog Likes', id: 'blog-likes' },
@@ -88,7 +90,7 @@ export class UserComponent implements OnInit {
         if (await (await firebase.database().ref('admins/' + self.user.uid).once('value')).val()) { // person is admin (not me)
           if (await (await firebase.database().ref('admins/' + user.uid).once('value')).val()) { // i am admin
             self.sections = [
-              { name: 'Profile', id: 'profile' },
+              { name: 'Biography', id: 'profile' },
               { name: 'Blog Posts', id: 'blog-posts' },
               { name: 'Blog Comments', id: 'blog-comments' },
               { name: 'Blog Likes', id: 'blog-likes' },
@@ -98,7 +100,7 @@ export class UserComponent implements OnInit {
             ]
           } else {
             self.sections = [
-              { name: 'Profile', id: 'profile' },
+              { name: 'Biography', id: 'profile' },
               { name: 'Blog Posts', id: 'blog-posts' },
               { name: 'Blog Comments', id: 'blog-comments' },
               // { name: 'Forum Posts', id: 'forum-posts' },
@@ -109,7 +111,7 @@ export class UserComponent implements OnInit {
         } else {
           if (await (await firebase.database().ref('admins/' + user.uid).once('value')).val()) { // i am admin
             self.sections = [
-              { name: 'Profile', id: 'profile' },
+              { name: 'Biography', id: 'profile' },
               { name: 'Blog Comments', id: 'blog-comments' },
               { name: 'Blog Likes', id: 'blog-likes' },
               // { name: 'Forum Posts', id: 'forum-posts' },
@@ -118,7 +120,7 @@ export class UserComponent implements OnInit {
             ]
           } else {
             self.sections = [
-              { name: 'Profile', id: 'profile' },
+              { name: 'Biography', id: 'profile' },
               { name: 'Blog Comments', id: 'blog-comments' },
               // { name: 'Forum Posts', id: 'forum-posts' },
               { name: 'Commmunity Comments', id: 'user-community-comments' },
