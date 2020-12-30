@@ -28,6 +28,7 @@ export class ForumPostComponent implements OnInit {
   linkedIn
   fbHref
   fhHrefDiv
+  isAdmin
   ngOnInit() {
     let self = this
     this.route.paramMap.subscribe(async params => {
@@ -40,12 +41,25 @@ export class ForumPostComponent implements OnInit {
           self.getPost()
           self.getUser()
           self.updateViews()
+          self.checkAdmin()
         } else {
           window.location.href = '/community'
         }
       })
     });
   }
+
+  checkAdmin() {
+    let self = this
+    firebase.auth().onAuthStateChanged(async function (user) {
+      if (user) {
+        const admin = await (await firebase.database().ref('admins/' + user.uid).once('value')).val()
+        self.isAdmin = admin ? true : false
+      }
+    })
+  }
+
+
 
   getPaths(self) {
     self.currPath = window.location.pathname

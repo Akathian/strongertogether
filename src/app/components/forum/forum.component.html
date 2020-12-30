@@ -5,6 +5,7 @@
   </small>
   <hr class="m-0" />
 </div>
+
 <div class="container mt-5">
   <div class="col">
     <!-- <div class="row">Header</div> -->
@@ -22,28 +23,20 @@
     </div>
     <div class="row mt-3">
       <div class="col">
-        <div class="row border border-bottom-0 p-3 justify-content-start">
-          <div class="mr-3">All Posts</div>
-          <div class="">My Posts</div>
-          <div class="dropdown gearBtn ml-auto">
-            <button (click)="newPost()" class="dropbtn gearBtn">
-              Create New Post
-            </button>
-            <div id="createBtn" class="dropdown-content gearBtn">
-              <a class="gearBtn" href="#">Start a Discussion</a>
-              <a class="gearBtn" href="#">Ask a Question</a>
+        <div class="row border border-bottom-0 justify-content-end p-2">
+          <div class="col-6 mr-auto ml-3">
+            <div class="row justify-content-start">
+              <div class="mr-3">
+                <a href="/community"> All Posts </a>
+              </div>
+              <div class="mr-3">
+                <a href="/my-community-posts"> My Posts</a>
+              </div>
+              <button (click)="newPost()" class="dropbtn gearBtn">
+                Create New Post
+              </button>
             </div>
           </div>
-        </div>
-        <div class="row border">
-          <div class="col">
-            <div class="row" *ngFor="let forum of posts">
-              <a [href]="'/community/' + forum.id">{{ forum.title }}</a>
-            </div>
-          </div>
-        </div>
-        <!-- <div class="row border border-bottom-0 justify-content-end p-1">
-          <div class="col-6"></div>
           <div class="col-1 text-center">
             <i class="fas fa-comments"></i>
           </div>
@@ -53,24 +46,93 @@
           <div class="col-1 text-center">
             <i class="fas fa-eye"></i>
           </div>
-          <div class="col-3 text-center"><small>Recent Activity</small></div>
+          <!-- <div class="col-3 text-center"><small>Recent Activity</small></div> -->
         </div>
         <div class="row border">
           <div class="col">
-            <div *ngFor="let forum of forums" class="row forum p-2">
+            <div class="row border-bottom p-2">
+              <div class="col">
+                <h5 class="mb-0 pb-0">Pinned Posts</h5>
+              </div>
+            </div>
+            <div *ngFor="let forum of pinnedPosts" class="row forum p-2">
               <div class="col">
                 <div class="row">
-                  <div class="col-6">
+                  <div class="col-6 mr-auto">
                     <div class="row">
                       <div class="col">
-                        {{ forum.title }}
+                        <div class="row">
+                          <button
+                            *ngIf="!forum.pinned && isAdmin"
+                            (click)="pin(forum.id)"
+                            class="btn pin-post rounded pb-1 px-0 pt-0 ml-1 mr-2"
+                          >
+                            <img
+                              src="https://img.icons8.com/material-outlined/96/000000/pin.png"
+                              width="16px"
+                              class=""
+                            />
+                          </button>
+                          <button
+                            (click)="unpin(forum.id)"
+                            *ngIf="forum.pinned && isAdmin"
+                            class="btn pin-post rounded pb-1 px-0 pt-0 ml-1 mr-2"
+                          >
+                            <img
+                              src="https://img.icons8.com/material-rounded/96/000000/pin.png"
+                              width="16px"
+                              class=""
+                            />
+                          </button>
+
+                          <button
+                            *ngIf="!forum.pinned && !isAdmin"
+                            class="btn pin-post rounded pb-1 px-0 pt-0 ml-1 mr-2 notAdminPin"
+                          >
+                            <img
+                              src="https://img.icons8.com/material-outlined/96/000000/pin.png"
+                              width="16px"
+                              class="notAdminPin"
+                            />
+                          </button>
+                          <button
+                            *ngIf="forum.pinned && !isAdmin"
+                            class="btn pin-post rounded pb-1 px-0 pt-0 ml-1 mr-2 notAdminPin"
+                          >
+                            <img
+                              src="https://img.icons8.com/material-rounded/96/000000/pin.png"
+                              width="16px"
+                              class="notAdminPin"
+                            />
+                          </button>
+                          <a
+                            [href]="'/community/' + forum.id"
+                            class="my-auto mr-1"
+                          >
+                            {{ forum.title }}
+                          </a>
+                        </div>
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col">
+                      <div class="col ml-3">
                         <small>
                           <small>
-                            {{ forum.authorName }} &middot; {{ forum.type }}
+                            <a
+                              [href]="'/user/' + forum.uid + '/profile'"
+                              *ngIf="
+                                forum.authorName !== 'Anonymous' || isAdmin
+                              "
+                            >
+                              {{ forum.authorName }}
+                            </a>
+                            <a
+                              *ngIf="
+                                forum.authorName === 'Anonymous' && !isAdmin
+                              "
+                            >
+                              {{ forum.authorName }}</a
+                            >
                           </small>
                         </small>
                       </div>
@@ -85,15 +147,116 @@
                   <div class="col-1 text-center my-auto">
                     {{ forum.numViews }}
                   </div>
-                  <div class="col-3 text-center my-auto">
-                    <img
-                      [src]="forum.recentActivity.authorImg"
-                      class="rounded-circle"
-                      width="24px"
-                    />
-                    <small>
-                      {{ forum.recentActivity.time | timeParse }}
-                    </small>
+                </div>
+              </div>
+
+              <div class="col-12">
+                <hr class="m-0" />
+              </div>
+            </div>
+            <div
+              class="row border-bottom border-top p-2 justify-content-center"
+              *ngIf="!pinnedPosts.length"
+            >
+              <div class="col text-center">
+                <i> No Pinned Posts </i>
+              </div>
+            </div>
+            <div class="row border-bottom border-top p-2">
+              <div class="col">
+                <h5 class="mb-0 pb-0">All Posts</h5>
+              </div>
+            </div>
+            <div *ngFor="let forum of posts" class="row forum p-2">
+              <div class="col">
+                <div class="row">
+                  <div class="col-6 mr-auto">
+                    <div class="row">
+                      <div class="col">
+                        <div class="row">
+                          <button
+                            *ngIf="!forum.pinned && isAdmin"
+                            (click)="pin(forum.id)"
+                            class="btn pin-post rounded pb-1 px-0 pt-0 ml-1 mr-2"
+                          >
+                            <img
+                              src="https://img.icons8.com/material-outlined/96/000000/pin.png"
+                              width="16px"
+                              class=""
+                            />
+                          </button>
+                          <button
+                            (click)="unpin(forum.id)"
+                            *ngIf="forum.pinned && isAdmin"
+                            class="btn pin-post rounded pb-1 px-0 pt-0 ml-1 mr-2"
+                          >
+                            <img
+                              src="https://img.icons8.com/material-rounded/96/000000/pin.png"
+                              width="16px"
+                              class=""
+                            />
+                          </button>
+                          <button
+                            *ngIf="!forum.pinned && !isAdmin"
+                            class="btn pin-post rounded pb-1 px-0 pt-0 ml-1 mr-2 notAdminPin"
+                          >
+                            <img
+                              src="https://img.icons8.com/material-outlined/96/000000/pin.png"
+                              width="16px"
+                              class="notAdminPin"
+                            />
+                          </button>
+                          <button
+                            *ngIf="forum.pinned && !isAdmin"
+                            class="btn pin-post rounded pb-1 px-0 pt-0 ml-1 mr-2 notAdminPin"
+                          >
+                            <img
+                              src="https://img.icons8.com/material-rounded/96/000000/pin.png"
+                              width="16px"
+                              class="notAdminPin"
+                            />
+                          </button>
+                          <a
+                            [href]="'/community/' + forum.id"
+                            class="my-auto mr-1"
+                          >
+                            {{ forum.title }}
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col ml-3">
+                        <small>
+                          <small>
+                            <a
+                              [href]="'/user/' + forum.uid + '/profile'"
+                              *ngIf="
+                                forum.authorName !== 'Anonymous' || isAdmin
+                              "
+                            >
+                              {{ forum.authorName }}
+                            </a>
+                            <a
+                              *ngIf="
+                                forum.authorName === 'Anonymous' && !isAdmin
+                              "
+                            >
+                              {{ forum.authorName }}</a
+                            >
+                          </small>
+                        </small>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-1 text-center my-auto">
+                    {{ forum.numComments }}
+                  </div>
+                  <div class="col-1 text-center my-auto">
+                    {{ forum.numLikes }}
+                  </div>
+                  <div class="col-1 text-center my-auto">
+                    {{ forum.numViews }}
                   </div>
                 </div>
               </div>
@@ -103,7 +266,7 @@
               </div>
             </div>
           </div>
-        </div> -->
+        </div>
       </div>
     </div>
   </div>

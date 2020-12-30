@@ -44,3 +44,15 @@
 .show {
   display: block;
 }
+
+.notAdminPin:hover {
+  cursor: default;
+  pointer-events: none;
+
+}
+
+.notAdminPin {
+  cursor: default;
+  pointer-events: none;
+
+}

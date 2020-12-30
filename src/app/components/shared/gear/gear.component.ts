@@ -64,8 +64,10 @@ export class GearComponent implements OnInit {
   }
 
   async del() {
-    await firebase.database().ref('blog/events/' + this.data.id).set(null)
-    await firebase.database().ref('blog/podcasts/' + this.data.id).set(null)
+    if (this.dbLink.indexOf('blog') !== -1) {
+      await firebase.database().ref('blog/events/' + this.data.id).set(null)
+      await firebase.database().ref('blog/podcasts/' + this.data.id).set(null)
+    }
     await firebase.database().ref(this.dbLink).remove()
   }
 }

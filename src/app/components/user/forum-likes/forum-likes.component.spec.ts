@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ForumCommentsComponent } from './forum-comments.component';
+import { ForumLikesComponent } from './forum-likes.component';
 
-describe('ForumCommentsComponent', () => {
-  let component: ForumCommentsComponent;
-  let fixture: ComponentFixture<ForumCommentsComponent>;
+describe('ForumLikesComponent', () => {
+  let component: ForumLikesComponent;
+  let fixture: ComponentFixture<ForumLikesComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ForumCommentsComponent ]
+      declarations: [ ForumLikesComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ForumCommentsComponent);
+    fixture = TestBed.createComponent(ForumLikesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

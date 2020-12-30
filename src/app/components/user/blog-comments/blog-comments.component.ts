@@ -161,7 +161,7 @@ export class BlogCommentsComponent implements OnInit {
     firebase.database().ref('users/' + comment.uid + '/blog-comments/private/' + comment.id).remove()
     firebase.database().ref(ref).remove()
     this.confirmModal.hide()
-    window.location.href = '/login/blog-comments'
+    window.location.href = '/user/' + comment.uid + '/user-community-comments'
   }
 
   loadMore(type) {

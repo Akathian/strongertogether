@@ -24,17 +24,23 @@
       </div>
       <div class="col">
         <app-profile *ngIf="section === 'profile'"></app-profile>
-        <app-bookings *ngIf="section === 'bookings'"></app-bookings>
+        <!-- <app-bookings *ngIf="section === 'bookings'"></app-bookings> -->
         <app-blog-posts *ngIf="section === 'blog-posts'"></app-blog-posts>
         <app-blog-likes *ngIf="section === 'blog-likes'"></app-blog-likes>
         <app-blog-comments
           *ngIf="section === 'blog-comments'"
         ></app-blog-comments>
         <app-drafts *ngIf="section === 'drafts'"></app-drafts>
-        <app-forum-posts *ngIf="section === 'forum-posts'"></app-forum-posts>
-        <app-forum-comments
-          *ngIf="section === 'forum-comments'"
-        ></app-forum-comments>
+        <!-- <app-forum-posts *ngIf="section === 'comm-posts'"></app-forum-posts> -->
+        <app-user-forum-comments
+          *ngIf="section === 'user-community-comments'"
+        ></app-user-forum-comments>
+        <app-forum-drafts
+          *ngIf="section === 'community-drafts'"
+        ></app-forum-drafts>
+        <app-forum-likes
+          *ngIf="section === 'community-likes'"
+        ></app-forum-likes>
       </div>
     </div>
   </div>

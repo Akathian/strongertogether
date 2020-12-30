@@ -51,9 +51,17 @@
           *ngIf="type === 'drafts'"
           class="m-2 btn btn-primary rounded-0"
           id="pubBtn"
-          (click)="publishDraft()"
+          (click)="publishDraft('pub')"
         >
           <small> Publish </small>
+        </button>
+        <button
+          *ngIf="type === 'drafts'"
+          class="m-2 btn btn-outline-primary rounded-0"
+          id="pubBtn"
+          (click)="publishDraft('priv')"
+        >
+          <small> Publish Anonymously </small>
         </button>
       </div>
     </div>

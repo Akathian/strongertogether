@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="row mt-2">
+    <div class="col">
+      <h5>Community Likes</h5>
+      <hr />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col align-self-center text-center" *ngIf="showLoading">
+      <img src="../../../../assets/loading.gif" />
+    </div>
+    <div class="col likeList border" *ngIf="!showLoading && lenOfData">
+      <div class="row mb-3" *ngFor="let like of likesDataVals">
+        <div class="col">
+          <a [href]="likesData[like].href">
+            Liked <b>"{{ likesData[like].title }}"</b>
+          </a>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <button class="mx-auto btn btn-dark rounded-0" (click)="loadMore()">
+          Load More Likes
+        </button>
+      </div>
+    </div>
+    <div class="col text-center" *ngIf="!showLoading && !lenOfData">
+      No Likes Yet
+    </div>
+  </div>
+</div>

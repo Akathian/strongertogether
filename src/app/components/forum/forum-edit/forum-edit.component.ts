@@ -52,6 +52,7 @@ export class ForumEditComponent implements AfterViewInit {
   ref;
   category;
   catDirty = false;
+  vis;
   public postContent = '';
   constructor(private messenger: MessengerService, private route: ActivatedRoute, private router: Router) { }
 
@@ -179,11 +180,14 @@ export class ForumEditComponent implements AfterViewInit {
     firebase.auth().onAuthStateChanged(async function (user) {
       let draft = await firebase.database().ref('users/' + user.uid + '/community-drafts/' + self.id).once('value')
       if (draft.val()) {
-
-        await firebase.database().ref('community/' + self.id).set(draft.val())
+        let newPost = draft.val()
+        if (self.vis === 'priv') {
+          newPost.authorName = 'Anonymous'
+          newPost.authorImg = 'assets/anon.png'
+        }
+        await firebase.database().ref('community/' + self.id).set(newPost)
         await firebase.database().ref('users/' + user.uid + '/community-drafts/' + self.id).set(null)
         await firebase.database().ref('users/' + user.uid + '/community-posts/' + self.id).set('community/' + self.id)
-
         window.location.href = `/community/${self.id}`;
       }
     })
@@ -206,7 +210,8 @@ export class ForumEditComponent implements AfterViewInit {
     this.delModal.show()
   }
 
-  publishDraft() {
+  publishDraft(vis) {
+    this.vis = vis
     this.pubModal.show()
   }
 

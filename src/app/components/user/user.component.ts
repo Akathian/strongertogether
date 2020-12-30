@@ -17,12 +17,14 @@ export class UserComponent implements OnInit {
   sections = [
     { name: 'Profile', id: 'profile' },
     { name: 'Bookings', id: 'bookings' },
-    // { name: 'Blog Posts', id: 'blog-posts' },
+    { name: 'Blog Posts', id: 'blog-posts' },
     { name: 'Blog Comments', id: 'blog-comments' },
     { name: 'Blog Likes', id: 'blog-likes' },
     // { name: 'Drafts', id: 'drafts' },
-    { name: 'Forum Posts', id: 'forum-posts' },
-    { name: 'Forum Comments', id: 'user-user-forum-comments' },
+    { name: 'Community Drafts', id: 'community-drafts' },
+    // { name: 'Community Posts', id: 'community-posts' },
+    { name: 'Community Comments', id: 'user-community-comments' },
+    { name: 'Commmunity Likes', id: 'community-likes' },
   ]
   paramUid;
   username;
@@ -35,6 +37,8 @@ export class UserComponent implements OnInit {
 
       this.section = params.get('section');
       this.paramUid = params.get('uid')
+      // console.log(this.section)
+
       if (this.validateSection(this.section)) {
         for (let i = 0; i < document.getElementsByClassName('accNavElem').length; i++) {
           (<HTMLElement>document.getElementsByClassName('accNavElem')[i]).style.color = 'black'
@@ -57,13 +61,15 @@ export class UserComponent implements OnInit {
         if (await (await firebase.database().ref('admins/' + user.uid).once('value')).val()) { // i am admin
           self.sections = [
             { name: 'Profile', id: 'profile' },
-            { name: 'Bookings', id: 'bookings' },
+            // { name: 'Bookings', id: 'bookings' },
             { name: 'Blog Posts', id: 'blog-posts' },
             { name: 'Blog Comments', id: 'blog-comments' },
             { name: 'Blog Likes', id: 'blog-likes' },
-            { name: 'Drafts', id: 'drafts' },
-            { name: 'Forum Posts', id: 'forum-posts' },
-            { name: 'Forum Comments', id: 'user-forum-comments' },
+            { name: 'Blog Drafts', id: 'drafts' },
+            // { name: 'Forum Posts', id: 'forum-posts' },
+            { name: 'Community Drafts', id: 'community-drafts' },
+            { name: 'Commmunity Comments', id: 'user-community-comments' },
+            { name: 'Commmunity Likes', id: 'community-likes' },
           ]
         } else {
           self.sections = [
@@ -71,8 +77,9 @@ export class UserComponent implements OnInit {
             { name: 'Bookings', id: 'bookings' },
             { name: 'Blog Comments', id: 'blog-comments' },
             { name: 'Blog Likes', id: 'blog-likes' },
-            { name: 'Forum Posts', id: 'forum-posts' },
-            { name: 'Forum Comments', id: 'user-forum-comments' },
+            // { name: 'Forum Posts', id: 'forum-posts' },
+            { name: 'Commmunity Comments', id: 'user-community-comments' },
+            { name: 'Commmunity Likes', id: 'community-likes' },
           ]
         }
       }
@@ -85,16 +92,18 @@ export class UserComponent implements OnInit {
               { name: 'Blog Posts', id: 'blog-posts' },
               { name: 'Blog Comments', id: 'blog-comments' },
               { name: 'Blog Likes', id: 'blog-likes' },
-              { name: 'Forum Posts', id: 'forum-posts' },
-              { name: 'Forum Comments', id: 'user-forum-comments' },
+              // { name: 'Forum Posts', id: 'forum-posts' },
+              { name: 'Commmunity Comments', id: 'user-community-comments' },
+              { name: 'Commmunity Likes', id: 'community-likes' },
             ]
           } else {
             self.sections = [
               { name: 'Profile', id: 'profile' },
               { name: 'Blog Posts', id: 'blog-posts' },
               { name: 'Blog Comments', id: 'blog-comments' },
-              { name: 'Forum Posts', id: 'forum-posts' },
-              { name: 'Forum Comments', id: 'user-forum-comments' },
+              // { name: 'Forum Posts', id: 'forum-posts' },
+              { name: 'Commmunity Comments', id: 'user-community-comments' },
+              // { name: 'Commmunity Likes', id: 'community-likes' },
             ]
           }
         } else {
@@ -103,15 +112,17 @@ export class UserComponent implements OnInit {
               { name: 'Profile', id: 'profile' },
               { name: 'Blog Comments', id: 'blog-comments' },
               { name: 'Blog Likes', id: 'blog-likes' },
-              { name: 'Forum Posts', id: 'forum-posts' },
-              { name: 'Forum Comments', id: 'user-forum-comments' },
+              // { name: 'Forum Posts', id: 'forum-posts' },
+              { name: 'Commmunity Comments', id: 'user-community-comments' },
+              { name: 'Commmunity Likes', id: 'community-likes' },
             ]
           } else {
             self.sections = [
               { name: 'Profile', id: 'profile' },
               { name: 'Blog Comments', id: 'blog-comments' },
-              { name: 'Forum Posts', id: 'forum-posts' },
-              { name: 'Forum Comments', id: 'user-forum-comments' },
+              // { name: 'Forum Posts', id: 'forum-posts' },
+              { name: 'Commmunity Comments', id: 'user-community-comments' },
+              // { name: 'Commmunity Likes', id: 'community-likes' },
             ]
           }
         }

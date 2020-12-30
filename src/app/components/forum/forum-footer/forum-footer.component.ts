@@ -70,7 +70,7 @@ export class ForumFooterComponent implements OnInit {
     firebase.auth().onAuthStateChanged(function (user) {
       let updates = {}
       updates['community/' + key + '/likes/' + user.uid] = 1
-      updates['users/' + user.uid + '/community-likes/' + key] = "community" + key
+      updates['users/' + user.uid + '/community-likes/' + key] = "community/" + key
       firebase.database().ref().update(updates)
     })
   }

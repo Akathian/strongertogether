@@ -24,7 +24,7 @@ import { CommentsComponent } from './components/blog/post/comments/comments.comp
 import { RepliesComponent } from './components/blog/post/replies/replies.component';
 import { AccNavComponent } from './components/user/acc-nav/acc-nav.component';
 import { ProfileComponent } from './components/user/profile/profile.component';
-import { BookingsComponent } from './components/user/bookings/bookings.component';
+// import { BookingsComponent } from './components/user/bookings/bookings.component';
 import { BlogPostsComponent } from './components/user/blog-posts/blog-posts.component';
 import { BlogCommentsComponent } from './components/user/blog-comments/blog-comments.component';
 import { BlogLikesComponent } from './components/user/blog-likes/blog-likes.component';
@@ -54,6 +54,8 @@ import { ForumRepliesComponent } from './components/forum/forum-post/forum-repli
 
 import { UserForumCommentsComponent } from './components/user/user-forum-comments/user-forum-comments.component';
 import { ForumFooterComponent } from './components/forum/forum-footer/forum-footer.component';
+import { ForumDraftsComponent } from './components/user/forum-drafts/forum-drafts.component';
+import { ForumLikesComponent } from './components/user/forum-likes/forum-likes.component';
 
 
 @NgModule({
@@ -77,7 +79,7 @@ import { ForumFooterComponent } from './components/forum/forum-footer/forum-foot
     RepliesComponent,
     AccNavComponent,
     ProfileComponent,
-    BookingsComponent,
+    // BookingsComponent,
     BlogPostsComponent,
     BlogCommentsComponent,
     BlogLikesComponent,
@@ -99,7 +101,9 @@ import { ForumFooterComponent } from './components/forum/forum-footer/forum-foot
     ForumPostComponent,
     UserForumCommentsComponent,
     ForumRepliesComponent,
-    ForumFooterComponent
+    ForumFooterComponent,
+    ForumDraftsComponent,
+    ForumLikesComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

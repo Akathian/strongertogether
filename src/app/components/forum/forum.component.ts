@@ -23,19 +23,79 @@ export class ForumComponent implements OnInit {
   page = 1;
   lenOfData
   id = 'createBtn'
+  pinnedPosts = [];
+  isAdmin = false
+
   constructor(private router: Router, private route: ActivatedRoute,) { }
 
   ngOnInit() {
     let self = this
     this.getNumPosts()
     this.getPosts()
-    window.addEventListener("click", function (event) {
-      if (!(<HTMLElement>event.target).classList.contains('gearBtn')) {
-        document.getElementById('createBtn').classList.remove("show");
-      }
-    });
+    this.getPins();
+    this.checkAdmin()
+
   }
 
+  checkAdmin() {
+    let self = this
+    firebase.auth().onAuthStateChanged(async function (user) {
+      if (user) {
+        const admin = await (await firebase.database().ref('admins/' + user.uid).once('value')).val()
+        self.isAdmin = admin ? true : false
+      }
+    })
+  }
+
+
+  getPins() {
+    let self = this
+    firebase.database().ref('community-pinned').on('value', async function (pinData) {
+      if (pinData.val()) {
+        self.pinnedPosts = []
+        let pinnedRefs = []
+        pinnedRefs = Object.values(pinData.val()).reverse()
+        for (let ref of pinnedRefs) {
+          let pinnedPost = await (await firebase.database().ref(ref).once('value')).val()
+          if (pinnedPost) {
+            try {
+              pinnedPost.numComments = Object.keys(pinnedPost.comments).length
+            } catch (e) {
+              pinnedPost.numComments = 0
+            }
+            try {
+              pinnedPost.numLikes = Object.keys(pinnedPost.likes).length
+
+            } catch (e) {
+              pinnedPost.numLikes = 0
+            } try {
+              pinnedPost.numViews = Object.keys(pinnedPost.views).length
+
+            } catch (e) {
+              pinnedPost.numViews = 0
+            }
+            self.pinnedPosts.push(pinnedPost)
+          } else {
+            firebase.database().ref(ref).remove()
+          }
+        }
+      } else {
+        self.pinnedPosts = []
+      }
+    })
+  }
+
+  pin(postId) {
+    firebase.database().ref('community-pinned/' + postId).set('community/' + postId)
+    firebase.database().ref('community/' + postId + '/pinned').set('true')
+
+  }
+
+  unpin(postId) {
+    firebase.database().ref('community-pinned/' + postId).remove()
+    firebase.database().ref('community/' + postId + '/pinned').set(null)
+
+  }
   getNumPosts() {
     let self = this
     firebase.database().ref("/num-" + this.path).on('value', function (numData) {
@@ -68,6 +128,23 @@ export class ForumComponent implements OnInit {
         self.posts = toValues.reverse()
         for (let post of self.posts) {
           if (post) {
+            try {
+              post.numComments = Object.keys(post.comments).length
+            } catch (e) {
+              post.numComments = 0
+            }
+            try {
+              post.numLikes = Object.keys(post.likes).length
+
+            } catch (e) {
+              post.numLikes = 0
+            } try {
+              post.numViews = Object.keys(post.views).length
+
+            } catch (e) {
+              post.numViews = 0
+            }
+
             post.gearData = {
               id: post.id,
               dbLink: 'community/' + post.id,
@@ -81,6 +158,7 @@ export class ForumComponent implements OnInit {
       }
     })
   }
+
   myFunction() {
     document.getElementById('createBtn').classList.toggle("show");
   }
@@ -109,8 +187,8 @@ export class ForumComponent implements OnInit {
         })
       }
     })
-
   }
+
   goToPage(page) {
     if (page < 1) {
       page = 1

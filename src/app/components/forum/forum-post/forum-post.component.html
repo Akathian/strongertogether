@@ -19,11 +19,11 @@
           <div class="align-self-center">
             <a
               [href]="'/user/' + post.uid + '/profile'"
-              *ngIf="post.authorName !== 'Anonymous'"
+              *ngIf="post.authorName !== 'Anonymous' || isAdmin"
             >
               {{ post.authorName }}
             </a>
-            <a *ngIf="post.authorName === 'Anonymous'">
+            <a *ngIf="post.authorName === 'Anonymous' && !isAdmin">
               {{ post.authorName }}</a
             >
             &middot; {{ post.time | timeParse }}

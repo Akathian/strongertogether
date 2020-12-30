@@ -14,6 +14,8 @@ import { PrivacyComponent } from './components/legal/privacy/privacy.component';
 import { TermsComponent } from './components/legal/terms/terms.component';
 import { ForumEditComponent } from './components/forum/forum-edit/forum-edit.component';
 import { ForumPostComponent } from './components/forum/forum-post/forum-post.component';
+import { ForumPostsComponent } from './components/user/forum-posts/forum-posts.component';
+
 import * as firebase from 'firebase';
 import 'firebase/analytics'
 import "firebase/auth";
@@ -31,6 +33,7 @@ const routes: Routes = [
   { path: 'blog-podcasts', component: BlogComponent },
   { path: 'about', component: AboutComponent },
   { path: 'community', component: ForumComponent },
+  { path: 'my-community-posts', component: ForumPostsComponent },
   { path: 'community/:id', component: ForumPostComponent },
   { path: 'community/:type/:id/edit', component: ForumEditComponent },
   { path: 'services', component: ProgramsComponent },

@@ -1,8 +1,167 @@
 <div class="container">
   <div class="row mt-2">
     <div class="col">
-      <h5>Forum Comments</h5>
-      <hr />
+      <h5>Community Comments</h5>
+      <hr class="mb-3" />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col align-self-center text-center" *ngIf="showLoading">
+      <img src="../../../../assets/loading.gif" />
+    </div>
+    <div class="col" *ngIf="!showLoading">
+      <h6>Public Comments</h6>
+      <div *ngIf="lenOfPub" class="commentList border p-1">
+        <div class="row mb-3" *ngFor="let pubCom of pubDataVals">
+          <div class="col">
+            <div class="">
+              <span class="contentData">
+                {{ pubData[pubCom].title }}
+              </span>
+              <span class="contentData">
+                <button
+                  *ngIf="pubData[pubCom].showTrash"
+                  (click)="
+                    confirmDel(pubData[pubCom].gearData.dbLink, pubData[pubCom])
+                  "
+                  class="btn p-0 m-0"
+                >
+                  <i class="fa fa-trash-o"></i>
+                </button>
+                <a
+                  [href]="
+                    '/community/' +
+                    pubData[pubCom].postId +
+                    '#' +
+                    pubData[pubCom].id
+                  "
+                >
+                  <small class="text-muted mr-3 ml-1">
+                    <i>{{ pubData[pubCom].time | timeParse }} </i>
+                  </small>
+                  <b>"{{ pubData[pubCom].content }}"</b>
+                </a>
+              </span>
+            </div>
+
+            <hr class="mb-0" />
+          </div>
+        </div>
+        <div class="row mb-3">
+          <button
+            class="mx-auto btn btn-dark rounded-0"
+            (click)="loadMore('pub')"
+          >
+            Load More Comments
+          </button>
+        </div>
+      </div>
+      <span *ngIf="!lenOfPub"> No Public Comments Yet </span>
+    </div>
+
+    <!-- Split here -->
+    <!-- Split here -->
+    <!-- Split here -->
+    <!-- Split here -->
+    <!-- Split here -->
+    <!-- Split here -->
+
+    <div class="col" *ngIf="!showLoading">
+      <h6>Anonymous Comments</h6>
+      <div *ngIf="lenOfPriv" class="commentList border p-1">
+        <div class="row mb-3" *ngFor="let privCom of privDataVals">
+          <div class="col">
+            <div class="">
+              <span class="contentData">{{ privData[privCom].title }}</span>
+              <span class="contentData">
+                <button
+                  *ngIf="privData[privCom].showTrash"
+                  (click)="
+                    confirmDel(
+                      privData[privCom].gearData.dbLink,
+                      privData[privCom]
+                    )
+                  "
+                  class="btn p-0 m-0"
+                >
+                  <i class="fa fa-trash-o"></i>
+                </button>
+                <a
+                  [href]="
+                    '/blog/' +
+                    privData[privCom].postId +
+                    '#' +
+                    privData[privCom].id
+                  "
+                >
+                  <small class="text-muted mr-3"
+                    ><i>{{ privData[privCom].time | timeParse }}</i></small
+                  >
+                  <b> "{{ privData[privCom].content }}"</b>
+                </a>
+              </span>
+              <hr class="mb-0" />
+            </div>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <button
+            class="mx-auto btn btn-dark rounded-0"
+            (click)="loadMore('priv')"
+          >
+            Load More Comments
+          </button>
+        </div>
+      </div>
+      <span *ngIf="!lenOfPriv"> No Anonymous Comments Yet </span>
+    </div>
+  </div>
+</div>
+
+<div
+  mdbModal
+  #confirmModal="mdbModal"
+  class="modal fade"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myBasicModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button
+          type="button"
+          class="close pull-right"
+          aria-label="Close"
+          (click)="confirmModal.hide()"
+        >
+          <span (click)="confirmModal.hide()" aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title w-100" id="myModalLabel">
+          Confirm Comment Delete
+        </h4>
+      </div>
+      <div class="modal-body">
+        You will be deleting <b>"{{ currCom.content }}"</b> posted
+        {{ currCom.time }} under {{ currCom.title }}
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-md btn-dark"
+          (click)="del(currCom.ref, currCom)"
+        >
+          Yes
+        </button>
+        <button
+          type="button"
+          class="btn btn-md btn-info"
+          (click)="confirmModal.hide()"
+        >
+          No
+        </button>
+      </div>
     </div>
   </div>
 </div>

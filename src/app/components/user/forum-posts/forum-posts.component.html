@@ -1,8 +1,138 @@
-<div class="container">
-  <div class="row mt-2">
-    <div class="col">
-      <h5>Forum Posts</h5>
-      <hr />
+<div class="container-fluid">
+  <small>
+    <a href="/">Stronger Together </a> /
+    <a href="/community"> Community </a>
+  </small>
+  <hr class="m-0" />
+</div>
+<div class="container mt-5">
+  <div class="col">
+    <!-- <div class="row">Header</div> -->
+    <div class="row">
+      <div class="col">
+        <div class="row justify-content-center">
+          <span class="">
+            A safe space where you can journal about your day, your problems,
+            etc., in which people can reply providing emotional support, help,
+            and guidance. Together, we can promote healing, hope, strength,
+            resiliency, trust, and support.
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col">
+        <!-- <div class="row border border-bottom-0 p-3 justify-content-start">
+          <div class="mr-3">All Posts</div>
+          <div class="">My Posts</div>
+          <div class="dropdown gearBtn ml-auto">
+            <button (click)="newPost()" class="dropbtn gearBtn">
+              Create New Post
+            </button>
+            <div id="createBtn" class="dropdown-content gearBtn">
+              <a class="gearBtn" href="#">Start a Discussion</a>
+              <a class="gearBtn" href="#">Ask a Question</a>
+            </div>
+          </div>
+        </div>
+        <div class="row border">
+          <div class="col">
+            <div class="row" *ngFor="let forum of posts">
+              <a [href]="'/community/' + forum.id">{{ forum.title }}</a>
+            </div>
+          </div>
+        </div> -->
+        <div class="row border border-bottom-0 justify-content-end p-2">
+          <div class="col-6 mr-auto ml-3">
+            <div class="row justify-content-start">
+              <div class="mr-3">
+                <a href="/community"> All Posts </a>
+              </div>
+              <div class="mr-3">
+                <a href="/my-community-posts"> My Posts</a>
+              </div>
+              <button (click)="newPost()" class="dropbtn gearBtn">
+                Create New Post
+              </button>
+            </div>
+          </div>
+          <div class="col-1 text-center">
+            <i class="fas fa-comments"></i>
+          </div>
+          <div class="col-1 text-center">
+            <i class="far fa-heart"></i>
+          </div>
+          <div class="col-1 text-center">
+            <i class="fas fa-eye"></i>
+          </div>
+          <!-- <div class="col-3 text-center"><small>Recent Activity</small></div> -->
+        </div>
+        <div class="row border">
+          <div class="col">
+            <div *ngFor="let forum of postsData" class="row forum p-2">
+              <div class="col">
+                <div class="row">
+                  <div class="col-6 mr-auto">
+                    <div class="row">
+                      <div class="col">
+                        <a [href]="'/community/' + forum.id">
+                          {{ forum.title }}
+                        </a>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <small>
+                          <small>
+                            <a [href]="'/user/' + forum.uid + '/profile'">
+                              {{ forum.authorName }}
+                            </a>
+                          </small>
+                        </small>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-1 text-center my-auto">
+                    {{ forum.numComments }}
+                  </div>
+                  <div class="col-1 text-center my-auto">
+                    {{ forum.numLikes }}
+                  </div>
+                  <div class="col-1 text-center my-auto">
+                    {{ forum.numViews }}
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-12">
+                <hr class="m-0" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="d-flex justify-content-center mt-3" *ngIf="numPages === 0">
+    <i>No Posts Yet</i>
+  </div>
+  <div class="d-flex justify-content-center" *ngIf="numPages > 0">
+    <!-- <div class="col" *ngFor="let page of numPages">
+    {{ page + 1 }}
+  </div> -->
+    <div class="align-self-center">
+      <button class="btn" (click)="goToPage(1)"><<</button>
+    </div>
+    <div class="align-self-center">
+      <button class="btn" (click)="goToPage(page - 1)"><</button>
+    </div>
+
+    <div class="align-self-center">{{ page }} of {{ numPages }}</div>
+    <div class="align-self-center">
+      <button class="btn" (click)="goToPage(page + 1)">></button>
+    </div>
+    <div class="align-self-center">
+      <button class="btn" (click)="goToPage(numPages)">>></button>
     </div>
   </div>
 </div>
