@@ -69,7 +69,6 @@ export class ForumEditComponent implements AfterViewInit {
           self.create = params.get('create') === 'create'
           self.time = +params.get('time')
           firebase.database().ref(`/${self.ref}/` + self.id).once('value', (commData) => {
-            console.log(commData.val())
             if (commData.val()) {
               if ((user.uid !== commData.val().uid)) {
                 self.router.navigate([`/community`], { relativeTo: self.route })

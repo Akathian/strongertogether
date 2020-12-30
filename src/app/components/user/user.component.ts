@@ -38,7 +38,6 @@ export class UserComponent implements OnInit {
 
       this.section = params.get('section');
       this.paramUid = params.get('uid')
-      // console.log(this.section)
 
       if (this.validateSection(this.section)) {
         for (let i = 0; i < document.getElementsByClassName('accNavElem').length; i++) {

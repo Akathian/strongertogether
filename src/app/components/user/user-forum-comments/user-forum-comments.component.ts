@@ -135,8 +135,9 @@ export class UserForumCommentsComponent implements OnInit {
       } else {
         await firebase.database().ref(commentRef).remove()
         let comSplit = commentRef.split('/')
-        let comRef = comSplit[4]
-        let repRef = comSplit[6]
+        let comRef = comSplit[3]
+        let repRef = comSplit[5]
+
 
         if (comRef && !repRef) {
           await firebase.database().ref('users/' + user.uid + '/community-comments/public/' + comRef).remove()

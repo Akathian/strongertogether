@@ -27,8 +27,6 @@ export class AccNavComponent implements OnInit {
       firebase.auth().onAuthStateChanged(async function (user) {
         if (user) {
           self.isOwn = user.uid === self.paramUid
-          console.log(self.isOwn)
-
           const admin = await (await firebase.database().ref('admins/' + self.paramUid).once('value')).val()
           self.isAdmin = admin ? true : false
         } else {
