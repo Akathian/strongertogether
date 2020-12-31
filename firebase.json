@@ -7,6 +7,7 @@
   },
   "hosting": {
     "public": "dist/strongertogether",
+    "site": "strongertogether-blog",
     "ignore": [
       "firebase.json",
       "**/.*",
