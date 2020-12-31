@@ -1,4 +1,7 @@
-<div class="row justify-content-center my-3" style="background-color: #f4f4f4">
+<div
+  class="row justify-content-center my-3 text-white"
+  style="background-color: #003459"
+>
   <div
     class="col-sm-10 col-md-10 col-lg-5 p-4 align-self-center"
     data-aos="fade-right"
@@ -23,7 +26,7 @@
     data-aos-once="true"
     data-aos-offset="200"
   >
-    <div class="align-self-center">
+    <div class="align-self-center" *ngIf="!sent">
       <form
         [formGroup]="lifeCoachForm"
         (ngSubmit)="onSubmit(lifeCoachForm.value)"
@@ -98,7 +101,7 @@
           </div>
         </div>
         <button
-          class="btn dark-solid-button btn-block rounded-0"
+          class="btn primary-solid-button btn-block rounded-0"
           id="lifeSubmit"
           type="submit"
         >
@@ -112,6 +115,10 @@
           <span *ngIf="error && !showLoading">Error, try again</span>
         </button>
       </form>
+    </div>
+    <div class="align-self-center" *ngIf="sent">
+      Thank you for your submission. You will hear back from us shortly about
+      your life coaching sessions.
     </div>
   </div>
 </div>

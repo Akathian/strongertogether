@@ -8,6 +8,7 @@ import * as $ from 'jquery'
 })
 export class AppComponent implements OnInit {
   title = 'strongertogether';
+  released = new Date().getTime() >= new Date('Jan 01, 2021 00:00:00').getTime();
   config = {
     // // Global settings:
     // disable: false, // accepts following values: 'phone', 'tablet', 'mobile', boolean, expression or function
@@ -28,7 +29,7 @@ export class AppComponent implements OnInit {
     // anchorPlacement: 'top-bottom', // defines which position of the element regarding to window should trigger the animation
   }
   ngOnInit() {
-
+    this.released = true
     AOS.init(this.config);
     $(window).on('load', function () {
       AOS.refresh(this.config);
@@ -36,7 +37,6 @@ export class AppComponent implements OnInit {
     let scrollRef = 0;
     let self = this
     window.addEventListener('scroll', function () {
-
       scrollRef <= 10 ? scrollRef++ : AOS.refresh(self.config);
     });
 

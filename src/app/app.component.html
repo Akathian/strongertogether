@@ -1,7 +1,10 @@
-<div id='site'>
+<div id="site" *ngIf="released">
   <app-nav></app-nav>
   <router-outlet></router-outlet>
-  <div class='mt-auto'>
+  <div class="mt-auto">
     <app-footer></app-footer>
   </div>
 </div>
+<span *ngIf="!released">
+  <app-count> </app-count>
+</span>

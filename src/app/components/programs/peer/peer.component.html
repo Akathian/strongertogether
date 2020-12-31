@@ -1,4 +1,7 @@
-<div class="row justify-content-center my-3" style="background-color: #f4f4f4">
+<div
+  class="row justify-content-center my-3 text-white"
+  style="background-color: #003459"
+>
   <div
     data-aos="fade-right"
     data-aos-duration="1000"
@@ -8,12 +11,12 @@
   >
     <h3 class="text-uppercase">Peer Buddy support</h3>
     Want to make a friend? Need some encouragement or peer support to help you?
-    Remember, that signing up for this peer buddy support does not replace
-    therapy. If you require professional support, please call crisis lines, your
-    family physician, or other mental health resources (can be found in our
-    extensive resources list on our blog). Please fill out the submission form
-    so that we can pair you with you buddy! Thank you, and you will hear from us
-    about your peer buddy soon.
+    Please remember, that signing up for the peer buddy support program does not
+    replace therapy. If you require professional support, please call crisis
+    lines, your family physician, and/or other mental health resources, which
+    can be found in our extensive resource list on our blog. Please fill out the
+    submission form, so that we can get started with pairing you up with your
+    buddy!
   </div>
   <div
     class="d-flex col-sm-10 col-md-10 col-lg-5 px-5 p-2 text-center"
@@ -22,7 +25,7 @@
     data-aos-once="true"
     data-aos-offset="200"
   >
-    <div class="align-self-center">
+    <div class="align-self-center" *ngIf="!sent">
       <form
         [formGroup]="peerBuddyForm"
         (ngSubmit)="onSubmit(peerBuddyForm.value)"
@@ -131,7 +134,7 @@
           </div>
         </div>
         <button
-          class="btn dark-solid-button btn-block rounded-0"
+          class="btn primary-solid-button btn-block rounded-0"
           id="peerSubmit"
           type="submit"
         >
@@ -145,6 +148,10 @@
           <span *ngIf="error && !showLoading">Error, try again</span>
         </button>
       </form>
+    </div>
+    <div class="align-self-center" *ngIf="sent">
+      Thank you for your submission. You will hear back from us shortly about
+      your peer buddy.
     </div>
   </div>
 </div>

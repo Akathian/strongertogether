@@ -1,9 +1,8 @@
-a {
-    color: black;
-
+.homeLink {
+    text-decoration: underline;
 }
 
-mark {
-    background-color: white;
-    color: black;
-  }
+
+.homeLink:hover {
+    color: #799bb9
+}

@@ -24,8 +24,9 @@
   <h3 *ngIf="pinnedPosts.length">Pinned Posts</h3>
   <span *ngIf="pinnedPosts.length">
     <div
-      class="row border my-3 p-3"
+      class="row border my-3 p-3 text-white"
       *ngFor="let pinned of pinnedPosts"
+      style="background-color: #003459"
       data-aos="fade-right"
       data-aos-once="true"
       data-aos-duration="1000"
@@ -51,7 +52,7 @@
                       {{ pinned.authorName }}
                     </a>
                   </div>
-                  <div class="text-muted">
+                  <div class="">
                     <small>
                       {{ pinned.time | timeParse }} &middot;
                       {{ pinned.readTime | readParse }}
@@ -61,11 +62,11 @@
                 <div class="col-3 ml-auto" *ngIf="isAdmin">
                   <div class="row">
                     <button
-                      class="btn my-auto pin-post rounded ml-auto"
+                      class="btn my-auto rounded-0 ml-auto"
                       (click)="unpin(pinned.id)"
                     >
                       <img
-                        src="https://img.icons8.com/material-rounded/96/000000/pin.png"
+                        src="https://img.icons8.com/material-rounded/96/ffffff/pin.png"
                         width="16px"
                         class=""
                       />
@@ -79,7 +80,6 @@
           <a [href]="'/blog/' + pinned.id">
             <h5>{{ pinned.title }}</h5>
             <a class="blurb-link" [href]="'/blog/' + pinned.id">
-              <!-- <p class="text-muted blurb ck-content">{{ pinned.content }}</p> -->
               <div
                 class="blurb ck-content"
                 height="100px"
@@ -87,7 +87,7 @@
               ></div>
             </a>
           </a>
-          <app-blog-footer [post]="pinned"></app-blog-footer>
+          <app-pin-blog-footer [post]="pinned"></app-pin-blog-footer>
         </div>
       </div>
     </div>
@@ -139,7 +139,7 @@
                     {{ post.authorName }}
                   </a>
                 </div>
-                <div class="text-muted">
+                <div class="">
                   <small>
                     {{ post.time | timeParse }} &middot;
                     {{ post.readTime | readParse }}
@@ -180,7 +180,6 @@
         <a [href]="'/blog/' + post.id">
           <h5>{{ post.title }}</h5>
           <a class="blurb-link" [href]="'/blog/' + post.id">
-            <!-- <p class="text-muted blurb ck-content">{{ post.content }}</p> -->
             <div
               class="blurb ck-content"
               height="100px"
